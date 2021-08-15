@@ -141,6 +141,9 @@ namespace DinisProjecto4.ViewModels
                 {
                     
                     StopLoading();
+                    var users = new UsuariosViewModel();
+                    await users.LoadUsers();
+                    MainViewModel.GetInstance().usuarios = users;
                     Application.Current.MainPage = new MainPage();
                 }
 

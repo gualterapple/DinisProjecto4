@@ -24,7 +24,6 @@ namespace DinisProjecto4.Service
                 .OnceAsync<User>()).Where(u => u.Object.UserName == name).FirstOrDefault();
 
             return (user != null);
-
         }
 
         public async Task<List<User>> GetUsers()

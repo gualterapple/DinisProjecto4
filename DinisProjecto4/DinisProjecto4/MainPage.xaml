@@ -6,22 +6,22 @@
        BackgroundColor="#d3ffff">
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
-            <StackLayout VerticalOptions="CenterAndExpand"
+            <StackLayout
+                HeightRequest="250"
                 Margin="20">
                 <Image
-                    Margin="0,30"
+                    Margin="0,30,0,0"
                     WidthRequest="100"
                     Source="logoapp"></Image>
                 <Label
                     VerticalOptions="CenterAndExpand"
-                    HeightRequest="30"
                     Text="Marcação de Consultas"
                     HorizontalTextAlignment="Center"
                     FontAttributes="Bold">
                 </Label>
                 <Label
-                    HeightRequest="30"
-                    Margin="0,0,0,30"
+                    Margin="0,0,0,10"
+                    HeightRequest="50"
                     HorizontalTextAlignment="Center"
                     Text="Hospitais Municipais de Luanda"></Label>
             </StackLayout>
