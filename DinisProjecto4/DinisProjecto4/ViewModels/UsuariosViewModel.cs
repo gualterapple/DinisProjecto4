@@ -4,18 +4,23 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using DinisProjecto4.Models;
 using DinisProjecto4.Service;
+using DinisProjecto4.Views;
+using Xamarin.Forms;
 
 namespace DinisProjecto4.ViewModels
 {
-    public class UsuariosViewModel
+    public class UsuariosViewModel:BaseViewModel
     {
         public UserService userService { get; set; }
-
         public ObservableCollection<User> Users { get; set; }
+        public INavigation Navigation { get; set; }
+
 
         public UsuariosViewModel()
         {
             userService = new UserService();
+            AddUserCommand = new Command(async () => await AddUser());
+
         }
 
         public async Task<ObservableCollection<User>> LoadUsers()
@@ -24,6 +29,18 @@ namespace DinisProjecto4.ViewModels
             Console.WriteLine(Users);
 
             return Users;
+        }
+
+        public Command AddUserCommand
+        {
+            get;
+        }
+
+        private async Task AddUser()
+        {
+            Navigation = MainViewModel.GetInstance().Navigation;
+            await Navigation.PushModalAsync(new NewUserPage(), true);
+            //await userService.RegisterUser("hugo", "123456");
         }
 
         private ObservableCollection<User> toObservablee(List<User> users)

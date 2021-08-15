@@ -5,6 +5,9 @@
     x:Class="DinisProjecto4.Views.UsuariosPage">
     <ContentPage.Content>
         <StackLayout>
+            <Button
+                Text="Adicionar Usuário"
+                Command="{Binding AddUserCommand}"></Button>
             <ActivityIndicator 
                 IsVisible="{Binding IsVisible, Mode=TwoWay}"
                 IsRunning="{Binding IsRunning, Mode=TwoWay}" Color="#5d29b8"/>

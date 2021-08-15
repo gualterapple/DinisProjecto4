@@ -10,7 +10,9 @@ namespace DinisProjecto4.Views
         public UsuariosPage()
         {
             InitializeComponent();
+            Navigation.PushModalAsync(new LoginPage(), true);
             BindingContext = MainViewModel.GetInstance().usuarios;
+
         }
     }
 }

@@ -10,7 +10,7 @@ namespace DinisProjecto4
     {
         public App()
         {
-            this.Main = new MainViewModel();
+            Main = new MainViewModel();
             InitializeComponent();
             var page = new LoginPage();
             NavigationPage.SetHasNavigationBar(page, false);

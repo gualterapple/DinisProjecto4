@@ -10,6 +10,7 @@ namespace DinisProjecto4.Views
         public LoginPage()
         {
             InitializeComponent();
+            MainViewModel.GetInstance().Navigation = Navigation;
             BindingContext = MainViewModel.GetInstance().Login;
         }
     }

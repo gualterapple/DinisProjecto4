@@ -1,9 +1,12 @@
 ﻿using System;
+using Xamarin.Forms;
+
 namespace DinisProjecto4.ViewModels
 {
     public class MainViewModel
     {
         private static MainViewModel instance;
+        public INavigation Navigation { get; set; }
 
         public MainViewModel()
         {
