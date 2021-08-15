@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DinisProjecto4.Views.LoginPage"
+    Visual="Material"
+    BackgroundColor="#d3ffff">
+    <ContentPage.Content>
+        <ScrollView
+            VerticalOptions="CenterAndExpand">
+        <StackLayout
+            Margin="20,0">
+            <Image
+                Source="logoapp"
+                Margin="20"
+                HeightRequest="100">
+            </Image>
+            <Entry
+            Placeholder="Insira o seu usuario"
+            TextColor="Black"
+            Text="{Binding Email, Mode=TwoWay}">
+        </Entry>
+            <Entry
+            Placeholder="Insira a sua senha"
+            TextColor="Black"
+            IsPassword="True"
+            Text="{Binding Password, Mode=TwoWay}">
+        </Entry>
+            <Button
+                IsEnabled="{Binding IsEnabled}"
+                Text="Entrar"
+                Command="{Binding LoginCommand}">
+            </Button>
+            <Button
+                IsEnabled="{Binding IsEnabled}"
+                BackgroundColor="#55d7d7"
+                Text="Criar conta"
+                Command="{Binding CriarContaCommand}">
+            </Button>
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                Color="#55d7d7"
+                Margin="10">
+            </ActivityIndicator>
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

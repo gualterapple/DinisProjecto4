@@ -125,12 +125,18 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.Forms.Visual.Material">
+      <Version>5.0.0.2083</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\DinisProjecto4\DinisProjecto4.csproj">
-      <Project>{7C6B2F3D-D428-410F-97FA-9461E0693757}</Project>
+      <Project>{80DDA2E4-BE51-4D3E-85F5-9F9D3241BCB7}</Project>
       <Name>DinisProjecto4</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logoapp.png" />
   </ItemGroup>
 </Project>
