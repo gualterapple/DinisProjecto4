@@ -16,11 +16,13 @@
                 HeightRequest="100">
             </Image>
             <Entry
+            BackgroundColor="#d3ffff"
             Placeholder="Insira o seu usuario"
             TextColor="Black"
             Text="{Binding Email, Mode=TwoWay}">
         </Entry>
             <Entry
+            BackgroundColor="#d3ffff"
             Placeholder="Insira a sua senha"
             TextColor="Black"
             IsPassword="True"
