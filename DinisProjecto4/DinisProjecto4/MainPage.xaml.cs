@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace DinisProjecto4
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : Shell
     {
         public MainPage()
         {

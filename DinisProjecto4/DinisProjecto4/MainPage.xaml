@@ -1,24 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DinisProjecto4.MainPage">
-
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
-
-</ContentPage>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="DinisProjecto4.MainPage"
+       xmlns:pages="clr-namespace:DinisProjecto4.Views"
+       BackgroundColor="#d3ffff">
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <StackLayout VerticalOptions="CenterAndExpand"
+                Margin="20">
+                <Image
+                    Margin="0,30"
+                    WidthRequest="100"
+                    Source="logoapp"></Image>
+                <Label
+                    VerticalOptions="CenterAndExpand"
+                    HeightRequest="30"
+                    Text="Marcação de Consultas"
+                    HorizontalTextAlignment="Center"
+                    FontAttributes="Bold">
+                </Label>
+                <Label
+                    HeightRequest="30"
+                    Margin="0,0,0,30"
+                    HorizontalTextAlignment="Center"
+                    Text="Hospitais Municipais de Luanda"></Label>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+    <FlyoutItem Title="Usuários" Icon="logoapp">
+        <ShellContent ContentTemplate="{DataTemplate pages:UsuariosPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Consultas" Icon="logoapp">
+        <ShellContent ContentTemplate="{DataTemplate pages:ConsultasPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Disponibilidades" Icon="logoapp">
+        <ShellContent ContentTemplate="{DataTemplate pages:DisponibilidadesPage}"/>
+    </FlyoutItem>
+</Shell>

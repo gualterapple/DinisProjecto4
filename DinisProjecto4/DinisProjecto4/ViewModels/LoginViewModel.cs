@@ -9,6 +9,8 @@ namespace DinisProjecto4.ViewModels
     {
         public LoginViewModel()
         {
+            Email = "joao";
+            Password = "123456";
             LoginCommand = new Command(async () => await Login());
             CriarContaCommand = new Command(async () => await Register());
 
@@ -136,15 +138,10 @@ namespace DinisProjecto4.ViewModels
                 StartLoading();
                 var userService = new UserService();
                 if (await userService.LoginUser(Email, Password))
-
                 {
-                    await Application.Current.MainPage.DisplayAlert(
-                            "Info",
-                            "Login Feito com sucesso!",
-                            "Accept");
+                    
                     StopLoading();
-
-                    //Application.Current.MainPage = new MasterPage();
+                    Application.Current.MainPage = new MainPage();
                 }
 
                 else
