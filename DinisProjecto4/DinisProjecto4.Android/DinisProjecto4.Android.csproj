@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -88,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DinisProjecto4\DinisProjecto4.csproj">
-      <Project>{7C6B2F3D-D428-410F-97FA-9461E0693757}</Project>
+      <Project>{80DDA2E4-BE51-4D3E-85F5-9F9D3241BCB7}</Project>
       <Name>DinisProjecto4</Name>
     </ProjectReference>
   </ItemGroup>
