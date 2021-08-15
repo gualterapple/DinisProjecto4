@@ -27,5 +27,10 @@ namespace DinisProjecto4.ViewModels
             get;
             set;
         }
+        public UsuariosViewModel usuarios
+        {
+            get;
+            set;
+        }
     }
 }

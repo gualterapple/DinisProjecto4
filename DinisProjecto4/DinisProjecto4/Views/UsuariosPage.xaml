@@ -5,7 +5,31 @@
     x:Class="DinisProjecto4.Views.UsuariosPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Usuarios"></Label>
+            <ActivityIndicator 
+                IsVisible="{Binding IsVisible, Mode=TwoWay}"
+                IsRunning="{Binding IsRunning, Mode=TwoWay}" Color="#5d29b8"/>
+
+                <CollectionView
+                    Margin="10,0"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    ItemsSource="{Binding Usuarios, Mode=TwoWay}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="20" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame HasShadow="True">
+                                <StackLayout>
+                                    <ImageButton
+                                        Aspect="AspectFill"
+                                        BackgroundColor="Transparent"
+                                        Command="{Binding ChooseCommand}"
+                                        Source="{Binding ImageUrl}" />
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

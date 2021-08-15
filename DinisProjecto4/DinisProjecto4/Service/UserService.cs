@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using DinisProjecto4.Models;
@@ -23,6 +25,18 @@ namespace DinisProjecto4.Service
 
             return (user != null);
 
+        }
+
+        public async Task<List<User>> GetUsers()
+        {
+            var users = (await client.Child("Users")
+                .OnceAsync<User>()).Select(u=> new User
+                {
+                    UserName = u.Object.UserName,
+                    Password = u.Object.Password,
+                    Perfil = u.Object.Perfil
+                }).ToList();
+            return users;
         }
 
         public async Task<bool> RegisterUser(string name, string pass)
