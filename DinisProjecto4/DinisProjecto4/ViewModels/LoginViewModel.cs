@@ -93,7 +93,7 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var userService = new UserService();
-                if (await userService.RegisterUser(Email, Password))
+                if (await userService.RegisterUser(Email, Password, "Paciente"))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",
@@ -142,8 +142,13 @@ namespace DinisProjecto4.ViewModels
                     
                     StopLoading();
                     var users = new UsuariosViewModel();
+                    var consultas = new ConsultasViewModel();
+
                     await users.LoadUsers();
+                    await consultas.LoadConsultas();
                     MainViewModel.GetInstance().usuarios = users;
+                    MainViewModel.GetInstance().consultas = consultas;
+
                     Application.Current.MainPage = new MainPage();
                 }
 

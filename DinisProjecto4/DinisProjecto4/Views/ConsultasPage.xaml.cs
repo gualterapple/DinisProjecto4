@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using DinisProjecto4.ViewModels;
 using Xamarin.Forms;
 
 namespace DinisProjecto4.Views
@@ -10,6 +10,7 @@ namespace DinisProjecto4.Views
         public ConsultasPage()
         {
             InitializeComponent();
+            BindingContext = MainViewModel.GetInstance().consultas;
         }
     }
 }

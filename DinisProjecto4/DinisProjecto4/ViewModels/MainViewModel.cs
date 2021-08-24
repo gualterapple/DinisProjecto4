@@ -35,5 +35,23 @@ namespace DinisProjecto4.ViewModels
             get;
             set;
         }
+
+        public ConsultasViewModel consultas
+        {
+            get;
+            set;
+        }
+
+        public NewUserViewModel newUser
+        {
+            get;
+            set;
+        }
+
+        public NewConsultaViewModel newConsulta
+        {
+            get;
+            set;
+        }
     }
 }

@@ -2,7 +2,7 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="DinisProjecto4.Views.NewUserPage"
+    x:Class="DinisProjecto4.Views.NewConsultaPage"
     Visual="Material"
     BackgroundColor="#d3ffff">
     <ContentPage.Content>
@@ -15,19 +15,28 @@
                 Margin="20"
                 HeightRequest="100">
             </Image>
-            <Entry
-            Placeholder="Insira o seu usuario"
-            TextColor="Black"
-            Text="{Binding UserName, Mode=TwoWay}">
-        </Entry>
-            <Entry
-            Placeholder="Insira a sua senha"
-            TextColor="Black"
-            IsPassword="True"
-            Text="{Binding Password, Mode=TwoWay}">
-        </Entry>
         <Picker
-            Title="Informe o perfil"
+            Title="Informe o paciente"
+            FontSize="12"
+            HorizontalOptions="Start"
+            ItemDisplayBinding="{Binding Title}"
+            ItemsSource="{Binding Pacientes}"
+            SelectedItem="{Binding SelectedPaciente, Mode=TwoWay}"
+            TextColor="Gray"
+            TitleColor="Gray">
+        </Picker>
+        <Picker
+            Title="Informe o médico"
+            FontSize="12"
+            HorizontalOptions="Start"
+            ItemDisplayBinding="{Binding Title}"
+            ItemsSource="{Binding Pacientes}"
+            SelectedItem="{Binding SelectedPaciente, Mode=TwoWay}"
+            TextColor="Gray"
+            TitleColor="Gray">
+        </Picker>
+        <Picker
+            Title="Informe a especialidade"
             FontSize="12"
             HorizontalOptions="Start"
             ItemDisplayBinding="{Binding Title}"
@@ -36,6 +45,11 @@
             TextColor="Gray"
             TitleColor="Gray">
         </Picker>
+        <DatePicker
+            BackgroundColor="Transparent"
+            Date="{Binding Hora, Mode=TwoWay}"
+            FontSize="12"
+            VerticalOptions="CenterAndExpand" />
             <Button
                 IsEnabled="{Binding IsEnabled}"
                 Text="Guardar"

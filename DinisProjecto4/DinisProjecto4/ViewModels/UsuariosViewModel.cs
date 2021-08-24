@@ -38,9 +38,11 @@ namespace DinisProjecto4.ViewModels
 
         private async Task AddUser()
         {
+            MainViewModel.GetInstance().newUser = new NewUserViewModel(false);
             Navigation = MainViewModel.GetInstance().Navigation;
-            await Navigation.PushModalAsync(new NewUserPage(), true);
-            //await userService.RegisterUser("hugo", "123456");
+            //await Navigation.PushAsync(new NewUserPage(), true);
+            await Application.Current.MainPage.Navigation.PushAsync(new NewUserPage());
+
         }
 
         private ObservableCollection<User> toObservablee(List<User> users)

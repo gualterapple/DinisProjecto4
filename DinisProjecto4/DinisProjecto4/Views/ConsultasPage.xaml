@@ -5,7 +5,42 @@
     x:Class="DinisProjecto4.Views.ConsultasPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="ConsultasPage "></Label>
+            <Button
+                Text="Nova Consulta"
+                Command="{Binding AddConsultaCommand}"></Button>
+            <ActivityIndicator 
+                IsVisible="{Binding IsVisible, Mode=TwoWay}"
+                IsRunning="{Binding IsRunning, Mode=TwoWay}" Color="#5d29b8"/>
+                <ScrollView>
+                <CollectionView
+                    VerticalOptions="FillAndExpand"
+                    Margin="10,0"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    ItemsSource="{Binding Consultas, Mode=TwoWay}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame HasShadow="True"
+                                   BorderColor="#d3ffff"
+                                   Padding="10">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectUserCommand}" />
+                                </Frame.GestureRecognizers>
+                                <StackLayout>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="Large"
+                                        Text="{Binding UserName}"></Label>
+                                    <Label Text="{Binding Perfil}"></Label>
+
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

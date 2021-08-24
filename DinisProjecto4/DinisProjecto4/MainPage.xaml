@@ -27,7 +27,7 @@
             </StackLayout>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
-    <FlyoutItem Title="Usuários" Icon="logoapp">
+    <FlyoutItem Title="Usuários" Icon="user">
         <ShellContent ContentTemplate="{DataTemplate pages:UsuariosPage}"/>
     </FlyoutItem>
     <FlyoutItem Title="Consultas" Icon="logoapp">

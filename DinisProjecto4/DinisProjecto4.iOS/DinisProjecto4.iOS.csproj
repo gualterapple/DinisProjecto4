@@ -138,5 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\logoapp.png" />
+    <BundleResource Include="Resources\user.png" />
   </ItemGroup>
 </Project>
