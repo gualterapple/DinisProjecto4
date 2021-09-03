@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using DinisProjecto4.Models;
 using DinisProjecto4.Service;
 using DinisProjecto4.Views;
+using Firebase.Database;
 using Xamarin.Forms;
 
 namespace DinisProjecto4.ViewModels
@@ -20,6 +22,8 @@ namespace DinisProjecto4.ViewModels
         {
             consultasService = new ConsultasService();
             AddConsultaCommand = new Command(async () => await AddConsulta());
+            this.userService = new UserService();
+            client = new FirebaseClient("https://consultas-793b1-default-rtdb.firebaseio.com/");
             LoadConsultas();
 
         }
@@ -27,7 +31,30 @@ namespace DinisProjecto4.ViewModels
         public async Task<ObservableCollection<Consulta>> LoadConsultas()
         {
             Consultas = toObservablee(await this.consultasService.GetConsultas());
+
             return Consultas;
+        }
+
+        FirebaseClient client;
+
+        public async void LoadPacientesAndMedicos()
+        {
+            var users = (await client.Child("Users")
+                .OnceAsync<User>()).Select(u => new User
+                {
+                    UserName = u.Object.UserName,
+                    Password = u.Object.Password,
+                    Perfil = u.Object.Perfil
+                });
+
+            var p_ = users.Where(a => a.Perfil == "Paciente").ToList();
+            var m_ = users.Where(a => a.Perfil == "Médico").ToList();
+
+            MainViewModel.GetInstance().newConsulta.Pacientes = toObservableuser(p_);
+            MainViewModel.GetInstance().newConsulta.Medicos = toObservableuser(m_);
+
+            Navigation = MainViewModel.GetInstance().Navigation;
+            await Application.Current.MainPage.Navigation.PushAsync(new NewConsultaPage());
         }
 
         public Command AddConsultaCommand
@@ -37,12 +64,12 @@ namespace DinisProjecto4.ViewModels
 
         private async Task AddConsulta()
         {
-            MainViewModel.GetInstance().newConsulta = new NewConsultaViewModel(false);
-            Navigation = MainViewModel.GetInstance().Navigation;
-            await Application.Current.MainPage.Navigation.PushAsync(new NewConsultaPage());
+            var main = MainViewModel.GetInstance();
+            main.newConsulta = new NewConsultaViewModel(false);
+            LoadPacientesAndMedicos();
         }
 
-        private ObservableCollection<Consulta> toObservablee(List<Consulta> consultas)
+        public ObservableCollection<Consulta> toObservablee(List<Consulta> consultas)
         {
             var co = new ObservableCollection<Consulta>();
             foreach (var item in consultas)
@@ -54,10 +81,34 @@ namespace DinisProjecto4.ViewModels
                         Paciente = item.Paciente,
                         Especialidade = item.Especialidade,
                         Hora = item.Hora,
+                        Data = item.Data
 
                     });
             }
             return co;
         }
+
+        private ObservableCollection<User> toObservableuser(List<User> users)
+        {
+            var co = new ObservableCollection<User>();
+            foreach (var item in users)
+            {
+                co.Add(
+                    new User
+                    {
+                        UserName = item.UserName,
+                        Password = item.Password,
+                        Perfil = item.Perfil,
+
+                    });
+            }
+            return co;
+        }
+
+        public UserService userService { get; set; }
+
+
+
+
     }
 }

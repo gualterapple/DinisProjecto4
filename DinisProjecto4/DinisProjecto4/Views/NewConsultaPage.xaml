@@ -11,7 +11,7 @@
         <StackLayout
             Margin="20,0">
             <Image
-                Source="user"
+                Source="stethoscope"
                 Margin="20"
                 HeightRequest="100">
             </Image>
@@ -19,7 +19,7 @@
             Title="Informe o paciente"
             FontSize="12"
             HorizontalOptions="Start"
-            ItemDisplayBinding="{Binding Title}"
+            ItemDisplayBinding="{Binding UserName}"
             ItemsSource="{Binding Pacientes}"
             SelectedItem="{Binding SelectedPaciente, Mode=TwoWay}"
             TextColor="Gray"
@@ -29,9 +29,9 @@
             Title="Informe o médico"
             FontSize="12"
             HorizontalOptions="Start"
-            ItemDisplayBinding="{Binding Title}"
-            ItemsSource="{Binding Pacientes}"
-            SelectedItem="{Binding SelectedPaciente, Mode=TwoWay}"
+            ItemDisplayBinding="{Binding UserName}"
+            ItemsSource="{Binding Medicos}"
+            SelectedItem="{Binding SelectedMedico, Mode=TwoWay}"
             TextColor="Gray"
             TitleColor="Gray">
         </Picker>
@@ -40,17 +40,22 @@
             FontSize="12"
             HorizontalOptions="Start"
             ItemDisplayBinding="{Binding Title}"
-            ItemsSource="{Binding Perfis}"
-            SelectedItem="{Binding SelectedPerfil, Mode=TwoWay}"
+            ItemsSource="{Binding Especialidades}"
+            SelectedItem="{Binding SelectedEspecialidade, Mode=TwoWay}"
             TextColor="Gray"
             TitleColor="Gray">
         </Picker>
         <DatePicker
             BackgroundColor="Transparent"
-            Date="{Binding Hora, Mode=TwoWay}"
+            Date="{Binding Data, Mode=TwoWay}"
             FontSize="12"
-            VerticalOptions="CenterAndExpand" />
-            <Button
+            VerticalOptions="CenterAndExpand"/>
+        <TimePicker
+             BackgroundColor="Transparent"
+             Time="{Binding Hora, Mode=TwoWay}"
+             FontSize="12"
+             VerticalOptions="CenterAndExpand"/>
+                <Button
                 IsEnabled="{Binding IsEnabled}"
                 Text="Guardar"
                 Command="{Binding CriarContaCommand}">

@@ -2,19 +2,22 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="DinisProjecto4.Views.UsuariosPage">
+    x:Class="DinisProjecto4.Views.UsuariosPage"
+    Visual="Material"
+    BackgroundColor="#d3ffff">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout
+            Margin="10">
             <Button
+                BackgroundColor="#55d7d7"
+                TextColor="Black"
                 Text="Novo Usuário"
                 Command="{Binding AddUserCommand}"></Button>
             <ActivityIndicator 
                 IsVisible="{Binding IsVisible, Mode=TwoWay}"
                 IsRunning="{Binding IsRunning, Mode=TwoWay}" Color="#5d29b8"/>
-                <ScrollView>
                 <CollectionView
                     VerticalOptions="FillAndExpand"
-                    Margin="10,0"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                     ItemsSource="{Binding Users, Mode=TwoWay}">
                     <CollectionView.ItemsLayout>
@@ -22,9 +25,9 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame HasShadow="True"
-                                   BorderColor="#d3ffff"
-                                   Padding="10">
+                            <Frame
+                                HasShadow="False"
+                                Padding="10">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectUserCommand}" />
                                 </Frame.GestureRecognizers>
@@ -40,7 +43,6 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

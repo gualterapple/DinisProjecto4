@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using DinisProjecto4.Models;
 using DinisProjecto4.Service;
 using Xamarin.Forms;
 
@@ -14,12 +15,21 @@ namespace DinisProjecto4.ViewModels
         private string especialidade;
         private string descricao;
 
-        private DateTime hora;
+        private DateTime data;
+        private TimeSpan hora;
 
         private Especialidade selectedEspecialidade;
+        private User selectedPaciente;
+        private User selectedMedico;
 
+        public ObservableCollection<User> Pacientes { get; set; }
+        public ObservableCollection<User> Medicos { get; set; }
 
         public string LastDescricao { get; set; }
+        public string LastPaciente { get; set; }
+        public string LastMedico { get; set; }
+        public TimeSpan LastHora { get; set; }
+
 
         public bool IsEditing { get; set; }
 
@@ -53,7 +63,17 @@ namespace DinisProjecto4.ViewModels
             }
         }
 
-        public DateTime Hora
+        public DateTime Data
+        {
+            get { return this.data; }
+            set
+            {
+                this.data = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TimeSpan Hora
         {
             get { return this.hora; }
             set
@@ -85,6 +105,24 @@ namespace DinisProjecto4.ViewModels
             }
         }
 
+        public NewConsultaViewModel(bool editing)
+        {
+            CriarContaCommand = new Command(async () => await Register());
+            AtualizarContaCommand = new Command(async () => await Update());
+            DeleteContaCommand = new Command(async () => await Delete());
+
+            IsEditing = editing;
+
+            if(editing)
+            {
+                
+            }
+
+            LoadEspecialidade();
+        }
+
+
+
         public Especialidade SelectedEspecialidade
         {
             get { return selectedEspecialidade; }
@@ -95,6 +133,36 @@ namespace DinisProjecto4.ViewModels
                 {
                     selectedEspecialidade = value;
                     Especialidade = selectedEspecialidade.Title;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public User SelectedPaciente
+        {
+            get { return selectedPaciente; }
+            set
+            {
+
+                if (selectedPaciente != value)
+                {
+                    selectedPaciente = value;
+                    Paciente = selectedPaciente.UserName;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public User SelectedMedico
+        {
+            get { return selectedMedico; }
+            set
+            {
+
+                if (selectedMedico != value)
+                {
+                    selectedMedico = value;
+                    Medico = selectedMedico.UserName;
                     OnPropertyChanged();
                 }
             }
@@ -111,19 +179,6 @@ namespace DinisProjecto4.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public NewConsultaViewModel(bool editing)
-        {
-            CriarContaCommand = new Command(async () => await Register());
-            AtualizarContaCommand = new Command(async () => await Update());
-            DeleteContaCommand = new Command(async () => await Delete());
-
-
-            IsEditing = editing;
-
-            LoadEspecialidade();
-        }
-
 
         private ObservableCollection<Especialidade> especialidades;
 
@@ -177,17 +232,17 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var consultaService = new ConsultasService();
-                if (await consultaService.NovaConsulta(Medico, Paciente, Especialidade))
+                if (await consultaService.NovaConsulta(Paciente, Medico, Especialidade, Data, Hora))
                 {
+
+                    var mConsulta = MainViewModel.GetInstance().consultas;
+                    mConsulta.Consultas = mConsulta.toObservablee(await consultaService.GetConsultas());
+
                     await Application.Current.MainPage.DisplayAlert(
-                        "Informação",
-                        "Consulta registada com sucesso!",
-                        "Accept");
+                    "Informação",
+                    "Consulta registada com sucesso!",
+                    "Accept");
 
-
-                    var consultas = new ConsultasViewModel();
-                    await consultas.LoadConsultas();
-                    MainViewModel.GetInstance().consultas = consultas;
                     StopLoading();
                     Application.Current.MainPage = new MainPage();
                 }
@@ -228,7 +283,7 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var consultaService = new ConsultasService();
-                if (await consultaService.updateConsulta(LastDescricao, Descricao, Medico, Paciente, Especialidade, Hora))
+                if (await consultaService.updateConsulta(LastDescricao, Descricao, Paciente, Medico, Especialidade, Data, Hora, LastPaciente, LastMedico, LastHora))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",
@@ -237,7 +292,7 @@ namespace DinisProjecto4.ViewModels
 
 
                     var consultas = new ConsultasViewModel();
-                    await consultas.LoadConsultas();
+                    consultas.LoadConsultas();
                     MainViewModel.GetInstance().consultas = consultas;
                     StopLoading();
                     Application.Current.MainPage = new MainPage();
@@ -271,25 +326,19 @@ namespace DinisProjecto4.ViewModels
         {
             try
             {
-                StartLoading();
-                if (!await ValidarCampos())
-                {
-                    StopLoading();
-                    return;
-                }
+              
 
-                var userService = new UserService();
-                if (await userService.DeleteUser(LastDescricao))
+                var consultaService = new ConsultasService();
+                if (await consultaService.DeleteConsulta(Paciente, Medico, Hora))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",
                         "Consulta apagada com sucesso!",
                         "Accept");
 
-
-                    var users = new UsuariosViewModel();
-                    await users.LoadUsers();
-                    MainViewModel.GetInstance().usuarios = users;
+                    var consultas = new ConsultasViewModel();
+                    await consultas.LoadConsultas();
+                    MainViewModel.GetInstance().consultas = consultas;
                     StopLoading();
                     Application.Current.MainPage = new MainPage();
                 }
@@ -361,6 +410,24 @@ namespace DinisProjecto4.ViewModels
                     "Selecione a especialidade",
                     "OK");
                 this.Especialidade = string.Empty;
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(this.Data.ToString()))
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Data",
+                    "Defina a data da consulta",
+                    "OK");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(this.Hora.ToString()))
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Data",
+                    "Defina a hora da consulta",
+                    "OK");
                 return false;
             }
 

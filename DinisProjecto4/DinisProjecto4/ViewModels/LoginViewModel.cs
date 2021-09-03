@@ -7,6 +7,10 @@ namespace DinisProjecto4.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
+
+        UserService userService = new UserService();
+        ConsultasService consultasService = new ConsultasService();
+
         public LoginViewModel()
         {
             Email = "joao";
@@ -92,8 +96,7 @@ namespace DinisProjecto4.ViewModels
                     return;
                 }
 
-                var userService = new UserService();
-                if (await userService.RegisterUser(Email, Password, "Paciente"))
+                if (await this.userService.RegisterUser(Email, Password, "Paciente"))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",
@@ -136,18 +139,19 @@ namespace DinisProjecto4.ViewModels
                     return;
 
                 StartLoading();
-                var userService = new UserService();
-                if (await userService.LoginUser(Email, Password))
+
+                if (await this.userService.LoginUser(Email, Password))
                 {
                     
                     StopLoading();
-                    var users = new UsuariosViewModel();
-                    var consultas = new ConsultasViewModel();
 
-                    await users.LoadUsers();
-                    await consultas.LoadConsultas();
-                    MainViewModel.GetInstance().usuarios = users;
-                    MainViewModel.GetInstance().consultas = consultas;
+                    var main = MainViewModel.GetInstance();
+                    main.usuarios = new UsuariosViewModel();
+                    main.usuarios.Users = main.usuarios.toObservablee(await this.userService.GetUsers());
+                    
+
+                    main.consultas = new ConsultasViewModel();
+                    main.consultas.Consultas = main.consultas.toObservablee(await this.consultasService.GetConsultas());
 
                     Application.Current.MainPage = new MainPage();
                 }
@@ -168,7 +172,7 @@ namespace DinisProjecto4.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert(
                         "Erro",
-                        "E-mail ou senha Inválido(s), volte a tentar!",
+                        "Ocorreu um erro ao tentar acessar o banco de dados, volte a tentar!",
                         "Accept");
                 StopLoading();
                 return;

@@ -37,6 +37,20 @@ namespace DinisProjecto4.Service
             return users;
         }
 
+        public async Task<List<User>> GetPacientes()
+        {
+            var users = (await client.Child("Users")
+                .OnceAsync<User>()).Select(u => new User
+                {
+                    UserName = u.Object.UserName,
+                    Password = u.Object.Password,
+                    Perfil = u.Object.Perfil
+                }).Where(a => a.UserName == "Paciente").ToList();
+
+            return users;
+        }
+
+
         public async Task<bool> RegisterUser(string name, string pass, string perfil)
         {
             if (await IsUserExists(name) == false)

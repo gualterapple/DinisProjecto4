@@ -45,7 +45,7 @@ namespace DinisProjecto4.ViewModels
 
         }
 
-        private ObservableCollection<User> toObservablee(List<User> users)
+        public ObservableCollection<User> toObservablee(List<User> users)
         {
             var us = new ObservableCollection<User>();
             foreach (var item in users)

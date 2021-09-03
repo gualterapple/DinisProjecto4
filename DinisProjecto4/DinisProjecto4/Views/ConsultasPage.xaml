@@ -2,19 +2,22 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="DinisProjecto4.Views.ConsultasPage">
+    x:Class="DinisProjecto4.Views.ConsultasPage"
+    Visual="Material"
+    BackgroundColor="#d3ffff">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout
+            Margin="10">
             <Button
+                BackgroundColor="#55d7d7"
+                TextColor="Black"
                 Text="Nova Consulta"
                 Command="{Binding AddConsultaCommand}"></Button>
             <ActivityIndicator 
                 IsVisible="{Binding IsVisible, Mode=TwoWay}"
                 IsRunning="{Binding IsRunning, Mode=TwoWay}" Color="#5d29b8"/>
-                <ScrollView>
                 <CollectionView
                     VerticalOptions="FillAndExpand"
-                    Margin="10,0"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                     ItemsSource="{Binding Consultas, Mode=TwoWay}">
                     <CollectionView.ItemsLayout>
@@ -22,25 +25,69 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame HasShadow="True"
-                                   BorderColor="#d3ffff"
-                                   Padding="10">
+                            <Frame
+                                HasShadow="False"
+                                Padding="10">
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectUserCommand}" />
+                                    <TapGestureRecognizer Command="{Binding SelectConsultaCommand}" />
                                 </Frame.GestureRecognizers>
-                                <StackLayout>
+                                <Grid ColumnDefinitions="Auto">
                                     <Label
+                                        Grid.Row="0"
                                         FontAttributes="Bold"
                                         FontSize="Large"
-                                        Text="{Binding UserName}"></Label>
-                                    <Label Text="{Binding Perfil}"></Label>
-
-                                </StackLayout>
+                                        Text="Paciente: "></Label>
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        FontAttributes="Bold"
+                                        FontSize="Large"
+                                        Text="{Binding Paciente, Mode=TwoWay}">
+                                    </Label>
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Text="Médico: "></Label>
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="{Binding Medico, Mode=TwoWay}">
+                                    </Label>
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Text="Especialidade: ">
+                                    </Label>
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Text="{Binding Especialidade, Mode=TwoWay}">
+                                    </Label>
+                                    <Label
+                                        Grid.Column="0"
+                                        Grid.Row="3"
+                                        Text="Data: ">
+                                    </Label>
+                                    <Label
+                                        Grid.Column="1"
+                                        Grid.Row="3"
+                                        Text="{Binding Data, StringFormat='{0:dd/MM/yy}', Mode=TwoWay}">
+                                    </Label>
+                                    <Label
+                                        Grid.Column="0"
+                                        Grid.Row="4"
+                                        Text="Hora: ">
+                                    </Label>
+                                    <Label
+                                        Grid.Column="1"
+                                        Grid.Row="4"
+                                        Text="{Binding Hora, Mode=TwoWay}">
+                                    </Label>
+                                </Grid>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
