@@ -141,4 +141,7 @@
     <BundleResource Include="Resources\user.png" />
     <BundleResource Include="Resources\stethoscope.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\countdown.png" />
+  </ItemGroup>
 </Project>

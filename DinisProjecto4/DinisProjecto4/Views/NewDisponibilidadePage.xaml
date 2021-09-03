@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DinisProjecto4.Views.NewDisponibilidadePage"
+             Visual="Material"
+    BackgroundColor="#d3ffff">
+    <ContentPage.Content>
+        <ScrollView
+            VerticalOptions="CenterAndExpand">
+            <StackLayout
+                Margin="20,0">
+                <Image
+                    Source="countdown"
+                    Margin="20"
+                    HeightRequest="100">
+                </Image>
+                <Picker
+                    Title="Informe o médico"
+                    FontSize="12"
+                    ItemDisplayBinding="{Binding UserName}"
+                    ItemsSource="{Binding Medicos}"
+                    SelectedItem="{Binding SelectedMedico, Mode=TwoWay}"
+                    TextColor="Gray"
+                    TitleColor="Gray">  
+                </Picker>
+                <DatePicker
+            BackgroundColor="Transparent"
+            Date="{Binding Data, Mode=TwoWay}"
+            FontSize="12"
+            VerticalOptions="CenterAndExpand"/>
+                <TimePicker
+             BackgroundColor="Transparent"
+             Time="{Binding Hora, Mode=TwoWay}"
+             FontSize="12"
+             VerticalOptions="CenterAndExpand"/>
+                <Button
+                IsEnabled="{Binding IsEnabled}"
+                Text="Guardar"
+                Command="{Binding CriarDisponibilidadeCommand}">
+                </Button>
+                <Button
+                IsEnabled="{Binding IsEnabled}"
+                Text="Atualizar"
+                Command="{Binding AtualizarDisponibilidadeCommand}">
+                </Button>
+                <Button
+                BackgroundColor="red"
+                IsEnabled="{Binding IsEnabled}"
+                Text="Apagar"
+                Command="{Binding DeleteDisponibilidadeCommand}">
+                </Button>
+                <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                Color="#55d7d7"
+                Margin="10">
+                </ActivityIndicator>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -42,6 +42,12 @@ namespace DinisProjecto4.ViewModels
             set;
         }
 
+        public DisponibilidadesViewModel disponibilidades
+        {
+            get;
+            set;
+        }
+
         public NewUserViewModel newUser
         {
             get;
@@ -49,6 +55,12 @@ namespace DinisProjecto4.ViewModels
         }
 
         public NewConsultaViewModel newConsulta
+        {
+            get;
+            set;
+        }
+
+        public NewDisponibilidadeViewModel newDisponibilidade
         {
             get;
             set;

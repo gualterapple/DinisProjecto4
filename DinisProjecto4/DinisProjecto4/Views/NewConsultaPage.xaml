@@ -18,7 +18,6 @@
         <Picker
             Title="Informe o paciente"
             FontSize="12"
-            HorizontalOptions="Start"
             ItemDisplayBinding="{Binding UserName}"
             ItemsSource="{Binding Pacientes}"
             SelectedItem="{Binding SelectedPaciente, Mode=TwoWay}"
@@ -28,7 +27,6 @@
         <Picker
             Title="Informe o médico"
             FontSize="12"
-            HorizontalOptions="Start"
             ItemDisplayBinding="{Binding UserName}"
             ItemsSource="{Binding Medicos}"
             SelectedItem="{Binding SelectedMedico, Mode=TwoWay}"
@@ -38,7 +36,6 @@
         <Picker
             Title="Informe a especialidade"
             FontSize="12"
-            HorizontalOptions="Start"
             ItemDisplayBinding="{Binding Title}"
             ItemsSource="{Binding Especialidades}"
             SelectedItem="{Binding SelectedEspecialidade, Mode=TwoWay}"

@@ -10,6 +10,8 @@ namespace DinisProjecto4.ViewModels
 
         UserService userService = new UserService();
         ConsultasService consultasService = new ConsultasService();
+        DisponibilidadeService disponibilidadeService = new DisponibilidadeService();
+
 
         public LoginViewModel()
         {
@@ -149,9 +151,11 @@ namespace DinisProjecto4.ViewModels
                     main.usuarios = new UsuariosViewModel();
                     main.usuarios.Users = main.usuarios.toObservablee(await this.userService.GetUsers());
                     
-
                     main.consultas = new ConsultasViewModel();
                     main.consultas.Consultas = main.consultas.toObservablee(await this.consultasService.GetConsultas());
+
+                    main.disponibilidades = new DisponibilidadesViewModel();
+                    main.disponibilidades.Disponibilidades = main.disponibilidades.toObservablee(await this.disponibilidadeService.GetDisponibilidades());
 
                     Application.Current.MainPage = new MainPage();
                 }

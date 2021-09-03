@@ -2,8 +2,70 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="DinisProjecto4.Views.DisponibilidadesPage">
+    x:Class="DinisProjecto4.Views.DisponibilidadesPage"
+    Visual="Material"
+    BackgroundColor="#d3ffff">
     <ContentPage.Content>
-        <Label Text="Disponibilidades"></Label>
+        <StackLayout
+            Margin="10">
+            <Button
+                BackgroundColor="#55d7d7"
+                TextColor="Black"
+                Text="Nova Disponibilidade"
+                Command="{Binding AddDisponibilidadeCommand}"></Button>
+            <ActivityIndicator 
+                IsVisible="{Binding IsVisible, Mode=TwoWay}"
+                IsRunning="{Binding IsRunning, Mode=TwoWay}" Color="#5d29b8"/>
+            <CollectionView
+                    VerticalOptions="FillAndExpand"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    ItemsSource="{Binding Disponibilidades, Mode=TwoWay}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                                HasShadow="False"
+                                Padding="10">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectDisponibilidadeCommand}" />
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="Auto">
+                                <Label
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Text="Médico: "></Label>
+                                <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Text="{Binding Medico, Mode=TwoWay}">
+                                </Label>
+                                <Label
+                                        Grid.Column="0"
+                                        Grid.Row="1"
+                                        Text="Data: ">
+                                </Label>
+                                <Label
+                                        Grid.Column="1"
+                                        Grid.Row="1"
+                                        Text="{Binding Data, StringFormat='{0:dd/MM/yy}', Mode=TwoWay}">
+                                </Label>
+                                <Label
+                                        Grid.Column="0"
+                                        Grid.Row="2"
+                                        Text="Hora: ">
+                                </Label>
+                                <Label
+                                        Grid.Column="1"
+                                        Grid.Row="2"
+                                        Text="{Binding Hora, Mode=TwoWay}">
+                                </Label>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

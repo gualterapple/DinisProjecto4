@@ -33,7 +33,7 @@
     <FlyoutItem Title="Consultas" Icon="stethoscope">
         <ShellContent ContentTemplate="{DataTemplate pages:ConsultasPage}"/>
     </FlyoutItem>
-    <FlyoutItem Title="Disponibilidades" Icon="logoapp">
+    <FlyoutItem Title="Disponibilidades" Icon="countdown">
         <ShellContent ContentTemplate="{DataTemplate pages:DisponibilidadesPage}"/>
     </FlyoutItem>
 </Shell>
