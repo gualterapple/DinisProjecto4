@@ -59,29 +59,19 @@
                                         Text="Especialidade: ">
                                     </Label>
                                     <Label
-                                        Grid.Row="2"
-                                        Grid.Column="1"
-                                        Text="{Binding Especialidade, Mode=TwoWay}">
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Text="{Binding Especialidade, Mode=TwoWay}">
                                     </Label>
                                     <Label
                                         Grid.Column="0"
                                         Grid.Row="3"
-                                        Text="Data: ">
+                                        Text="Horario: ">
                                     </Label>
                                     <Label
                                         Grid.Column="1"
                                         Grid.Row="3"
-                                        Text="{Binding Data, StringFormat='{0:dd/MM/yy}', Mode=TwoWay}">
-                                    </Label>
-                                    <Label
-                                        Grid.Column="0"
-                                        Grid.Row="4"
-                                        Text="Hora: ">
-                                    </Label>
-                                    <Label
-                                        Grid.Column="1"
-                                        Grid.Row="4"
-                                        Text="{Binding Hora, Mode=TwoWay}">
+                                        Text="{Binding Horario, Mode=TwoWay}">
                                     </Label>
                                 </Grid>
                             </Frame>

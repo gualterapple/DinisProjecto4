@@ -12,8 +12,8 @@ namespace DinisProjecto4.ViewModels
     public class NewDisponibilidadeViewModel : BaseViewModel
     {
 
+        private string descricao;
         private string medico;
-
         private DateTime data;
         private TimeSpan hora;
 
@@ -36,7 +36,15 @@ namespace DinisProjecto4.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        public string Descricao
+        {
+            get { return this.descricao; }
+            set
+            {
+                this.descricao = value;
+                OnPropertyChanged();
+            }
+        }
         public DateTime Data
         {
             get { return this.data; }
@@ -138,7 +146,8 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var consultaService = new DisponibilidadeService();
-                if (await consultaService.NovaDisponibilidade( Medico, Data, Hora)) { 
+                Descricao = Data.ToString("dd/MMM/yyyy") + " - "+ Hora.ToString();
+                if (await consultaService.NovaDisponibilidade(Medico, Descricao, Data, Hora)) { 
                 
 
                     var mDisponibilidade = MainViewModel.GetInstance().disponibilidades;

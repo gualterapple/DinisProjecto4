@@ -29,11 +29,12 @@ namespace DinisProjecto4.Service
             return disponibilidades;
         }
 
-        public async Task<bool> NovaDisponibilidade(string medico, DateTime data, TimeSpan hora)
+        public async Task<bool> NovaDisponibilidade(string medico,string descricao, DateTime data, TimeSpan hora)
         {
             await client.Child("Disponibilidades").PostAsync(new Disponibilidade()
             {
                 Medico = medico,
+                Descricao = descricao,
                 Data = data,
                 Hora = hora
             });

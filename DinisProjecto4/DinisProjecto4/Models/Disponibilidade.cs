@@ -9,6 +9,7 @@ namespace DinisProjecto4.Models
 {
     public class Disponibilidade
     {
+        public string Descricao { get; set; }
         public string Medico { get; set; }
         public DateTime Data { get; set; }
         public TimeSpan Hora { get; set; }

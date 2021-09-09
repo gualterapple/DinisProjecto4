@@ -14,11 +14,14 @@ namespace DinisProjecto4.ViewModels
         private string medico;
         private string especialidade;
         private string descricao;
+        private string desponibilidade;
 
         private DateTime data;
-        private TimeSpan hora;
+        private string horario;
 
         private Especialidade selectedEspecialidade;
+        private Disponibilidade selectedDisponibilidade;
+        
         private User selectedPaciente;
         private User selectedMedico;
 
@@ -28,7 +31,7 @@ namespace DinisProjecto4.ViewModels
         public string LastDescricao { get; set; }
         public string LastPaciente { get; set; }
         public string LastMedico { get; set; }
-        public TimeSpan LastHora { get; set; }
+        public string LastHorario { get; set; }
 
 
         public bool IsEditing { get; set; }
@@ -73,12 +76,12 @@ namespace DinisProjecto4.ViewModels
             }
         }
 
-        public TimeSpan Hora
+        public string Horario
         {
-            get { return this.hora; }
+            get { return this.horario; }
             set
             {
-                this.hora = value;
+                this.horario = value;
                 OnPropertyChanged();
             }
         }
@@ -89,6 +92,16 @@ namespace DinisProjecto4.ViewModels
             set
             {
                 this.especialidade = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Disponibilidade
+        {
+            get { return this.desponibilidade; }
+            set
+            {
+                this.desponibilidade = value;
                 OnPropertyChanged();
             }
         }
@@ -111,6 +124,8 @@ namespace DinisProjecto4.ViewModels
             AtualizarContaCommand = new Command(async () => await Update());
             DeleteContaCommand = new Command(async () => await Delete());
 
+            Disponibilidades = new ObservableCollection<Disponibilidade>();
+
             IsEditing = editing;
 
             if(editing)
@@ -119,6 +134,7 @@ namespace DinisProjecto4.ViewModels
             }
 
             LoadEspecialidade();
+
         }
 
 
@@ -133,6 +149,22 @@ namespace DinisProjecto4.ViewModels
                 {
                     selectedEspecialidade = value;
                     Especialidade = selectedEspecialidade.Title;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Disponibilidade SelectedDisponibilidade
+        {
+            
+            get { return selectedDisponibilidade; }
+            set
+            {
+
+                if (selectedDisponibilidade != value)
+                {
+                    selectedDisponibilidade = value;
+                    Disponibilidade = selectedDisponibilidade.Descricao;
                     OnPropertyChanged();
                 }
             }
@@ -188,6 +220,13 @@ namespace DinisProjecto4.ViewModels
             set { SetValue(ref this.especialidades, value); }
         }
 
+        private ObservableCollection<Disponibilidade> disponibilidades;
+
+        public ObservableCollection<Disponibilidade> Disponibilidades
+        {
+            get { return this.disponibilidades; }
+            set { SetValue(ref this.disponibilidades, value); }
+        }
         public IEnumerable<Especialidade> LoadEspecialidade()
         {
 
@@ -232,7 +271,7 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var consultaService = new ConsultasService();
-                if (await consultaService.NovaConsulta(Paciente, Medico, Especialidade, Data, Hora))
+                if (await consultaService.NovaConsulta(Paciente, Medico, Especialidade, Disponibilidade))
                 {
 
                     var mConsulta = MainViewModel.GetInstance().consultas;
@@ -270,7 +309,6 @@ namespace DinisProjecto4.ViewModels
                 return;
             }
         }
-
         public async Task Update()
         {
             try
@@ -283,7 +321,7 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var consultaService = new ConsultasService();
-                if (await consultaService.updateConsulta(LastDescricao, Descricao, Paciente, Medico, Especialidade, Data, Hora, LastPaciente, LastMedico, LastHora))
+                if (await consultaService.updateConsulta(LastDescricao, Descricao, Paciente, Medico, Especialidade, Disponibilidade, LastPaciente, LastMedico, LastHorario))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",
@@ -321,7 +359,6 @@ namespace DinisProjecto4.ViewModels
                 return;
             }
         }
-
         public async Task Delete()
         {
             try
@@ -329,7 +366,7 @@ namespace DinisProjecto4.ViewModels
               
 
                 var consultaService = new ConsultasService();
-                if (await consultaService.DeleteConsulta(Paciente, Medico, Hora))
+                if (await consultaService.DeleteConsulta(Paciente, Medico, Disponibilidade))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",
@@ -366,8 +403,6 @@ namespace DinisProjecto4.ViewModels
                 return;
             }
         }
-
-
         public void StartLoading()
         {
             this.IsRunning = true;
@@ -413,20 +448,11 @@ namespace DinisProjecto4.ViewModels
                 return false;
             }
 
-            if (string.IsNullOrEmpty(this.Data.ToString()))
+            if (string.IsNullOrEmpty(this.Disponibilidade.ToString()))
             {
                 await Application.Current.MainPage.DisplayAlert(
                     "Data",
-                    "Defina a data da consulta",
-                    "OK");
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(this.Hora.ToString()))
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                    "Data",
-                    "Defina a hora da consulta",
+                    "Defina o horario da consulta",
                     "OK");
                 return false;
             }
@@ -435,8 +461,6 @@ namespace DinisProjecto4.ViewModels
         }
 
     }
-
-
 }
 
 public class Especialidade

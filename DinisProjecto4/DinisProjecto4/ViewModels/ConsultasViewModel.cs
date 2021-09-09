@@ -15,12 +15,16 @@ namespace DinisProjecto4.ViewModels
     {
         public ConsultasService consultasService { get; set; }
         public ObservableCollection<Consulta> Consultas { get; set; }
+        public DisponibilidadeService disponibilidadesService { get; set; }
+
+        public ObservableCollection<Disponibilidade> Disponibilidades { get; set; }
         public INavigation Navigation { get; set; }
 
 
         public ConsultasViewModel()
         {
             consultasService = new ConsultasService();
+            disponibilidadesService = new DisponibilidadeService();
             AddConsultaCommand = new Command(async () => await AddConsulta());
             this.userService = new UserService();
             client = new FirebaseClient("https://consultas-793b1-default-rtdb.firebaseio.com/");
@@ -35,6 +39,12 @@ namespace DinisProjecto4.ViewModels
             return Consultas;
         }
 
+        public async Task<ObservableCollection<Disponibilidade>> LoadDisponibilidades()
+        {
+            Disponibilidades = MainViewModel.GetInstance().disponibilidades.toObservablee(await this.disponibilidadesService.GetDisponibilidades());
+            return Disponibilidades;
+        }
+
         FirebaseClient client;
 
         public async void LoadPacientesAndMedicos()
@@ -47,11 +57,24 @@ namespace DinisProjecto4.ViewModels
                     Perfil = u.Object.Perfil
                 });
 
+            var disps = (await client.Child("Disponibilidades")
+               .OnceAsync<Disponibilidade>()).Select(u => new Disponibilidade
+               {
+                   Descricao = u.Object.Descricao,
+                   Medico = u.Object.Medico,
+                   Data = u.Object.Data,
+                   Hora = u.Object.Hora,
+               });
+
             var p_ = users.Where(a => a.Perfil == "Paciente").ToList();
             var m_ = users.Where(a => a.Perfil == "Médico").ToList();
+            var d_ = disps.Where(a => a.Descricao != "").ToList();
+
 
             MainViewModel.GetInstance().newConsulta.Pacientes = toObservableuser(p_);
             MainViewModel.GetInstance().newConsulta.Medicos = toObservableuser(m_);
+            MainViewModel.GetInstance().newConsulta.Disponibilidades = toObservableDispo(d_);
+
 
             Navigation = MainViewModel.GetInstance().Navigation;
             await Application.Current.MainPage.Navigation.PushAsync(new NewConsultaPage());
@@ -80,8 +103,7 @@ namespace DinisProjecto4.ViewModels
                         Medico = item.Medico,
                         Paciente = item.Paciente,
                         Especialidade = item.Especialidade,
-                        Hora = item.Hora,
-                        Data = item.Data
+                        Horario = item.Horario,
 
                     });
             }
@@ -103,6 +125,24 @@ namespace DinisProjecto4.ViewModels
                     });
             }
             return co;
+        }
+
+        private ObservableCollection<Disponibilidade> toObservableDispo(List<Disponibilidade> disps)
+        {
+            var di = new ObservableCollection<Disponibilidade>();
+            foreach (var item in disps)
+            {
+                di.Add(
+                    new Disponibilidade
+                    {
+                        Descricao = item.Descricao,
+                        Medico = item.Medico,
+                        Data = item.Data,
+                        Hora = item.Hora
+
+                    });
+            }
+            return di;
         }
 
         public UserService userService { get; set; }

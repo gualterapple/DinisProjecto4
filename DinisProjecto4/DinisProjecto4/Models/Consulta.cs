@@ -18,9 +18,7 @@ namespace DinisProjecto4.Models
         public string Paciente { get; set; }
         public string Medico { get; set; }
         public string Especialidade { get; set; }
-        public DateTime Data { get; set; }
-        public TimeSpan Hora { get; set; }
-
+        public string Horario { get; set; }
         public Command SelectConsultaCommand
         {
             get;
@@ -33,14 +31,13 @@ namespace DinisProjecto4.Models
 
             consulta.Paciente = this.Paciente;
             consulta.Medico = this.Medico;
-            consulta.Hora = this.Hora;
-            consulta.Data = this.Data;
+            consulta.Horario = this.Horario;
             consulta.Especialidade = this.Especialidade;
             consulta.Descricao = this.Descricao;
 
             consulta.LastPaciente = this.Paciente;
             consulta.LastMedico = this.Medico;
-            consulta.LastHora = this.Hora;
+            consulta.LastHorario = this.Horario;
 
             MainViewModel.GetInstance().consultas.LoadPacientesAndMedicos();
 

@@ -25,47 +25,45 @@ namespace DinisProjecto4.Service
                     Paciente = c.Object.Paciente,
                     Medico = c.Object.Medico,
                     Especialidade = c.Object.Especialidade,
-                    Data = c.Object.Data,
-                    Hora = c.Object.Hora
+                    Horario = c.Object.Horario
                 }).ToList();
             return consultas;
         }
 
-        public async Task<bool> NovaConsulta(string paciente, string medico, string especialidade, DateTime data, TimeSpan hora)
+        public async Task<bool> NovaConsulta(string paciente, string medico, string especialidade, string horario)
         {
                 await client.Child("Consultas").PostAsync(new Consulta()
                 {
                     Paciente = paciente,
                     Medico = medico,
                     Especialidade = especialidade,
-                    Data = data,
-                    Hora = hora
+                    Horario = horario
                 });
 
                 return true;
 
         }
 
-        public async Task<bool> IsConsultaExists(string paciente, string medico, TimeSpan hora)
+        public async Task<bool> IsConsultaExists(string paciente, string medico, string horario)
         {
             var consulta = (await client.Child("Consultas")
-                .OnceAsync<Consulta>()).Where(u => u.Object.Paciente == paciente && u.Object.Medico == medico && u.Object.Hora == hora).FirstOrDefault();
+                .OnceAsync<Consulta>()).Where(u => u.Object.Paciente == paciente && u.Object.Medico == medico && u.Object.Horario == horario).FirstOrDefault();
             return (consulta != null);
         }
 
         public async Task<bool> updateConsulta(string lastDescription,string descricao, string paciente, string medico, string especialidade
-            ,DateTime data, TimeSpan hora, string lastpaciente, string lastmedico, TimeSpan lasthora)
+            , string horario, string lastpaciente, string lastmedico, string lasthorario)
         {
-            if (await IsConsultaExists(lastpaciente, lastmedico, lasthora) == true)
+            if (await IsConsultaExists(lastpaciente, lastmedico, lasthorario) == true)
             {
                 var toUpdatePerson = (await client
                 .Child("Consultas")
-                .OnceAsync<Consulta>()).Where(a => a.Object.Paciente == lastpaciente && a.Object.Medico == lastmedico && a.Object.Hora == lasthora).FirstOrDefault();
+                .OnceAsync<Consulta>()).Where(a => a.Object.Paciente == lastpaciente && a.Object.Medico == lastmedico && a.Object.Horario == lasthorario).FirstOrDefault();
 
                 await client
                   .Child("Consultas")
                   .Child(toUpdatePerson.Key)
-                  .PutAsync(new Consulta() { Descricao = descricao, Medico = medico, Paciente = paciente, Data = data, Hora = hora });
+                  .PutAsync(new Consulta() { Descricao = descricao, Medico = medico, Paciente = paciente, Horario = horario, Especialidade = especialidade });
                 return true;
             }
             else
@@ -74,14 +72,14 @@ namespace DinisProjecto4.Service
 
         }
 
-        public async Task<bool> DeleteConsulta(string paciente, string medico, TimeSpan hora)
+        public async Task<bool> DeleteConsulta(string paciente, string medico, string horario)
         {
-            if (await IsConsultaExists(paciente, medico, hora) == true)
+            if (await IsConsultaExists(paciente, medico, horario) == true)
             {
                 var toDeletePerson = (await client
                .Child("Consultas")
                .OnceAsync<Consulta>()).Where(a => a.Object.Paciente == paciente &&
-               a.Object.Medico ==  medico && a.Object.Hora == hora).FirstOrDefault();
+               a.Object.Medico ==  medico && a.Object.Horario == horario).FirstOrDefault();
                 await client.Child("Consultas").Child(toDeletePerson.Key).DeleteAsync();
                 return true;
             }

@@ -15,43 +15,42 @@
                 Margin="20"
                 HeightRequest="100">
             </Image>
-        <Picker
-            Title="Informe o paciente"
-            FontSize="12"
-            ItemDisplayBinding="{Binding UserName}"
-            ItemsSource="{Binding Pacientes}"
-            SelectedItem="{Binding SelectedPaciente, Mode=TwoWay}"
-            TextColor="Gray"
-            TitleColor="Gray">
-        </Picker>
-        <Picker
-            Title="Informe o médico"
-            FontSize="12"
-            ItemDisplayBinding="{Binding UserName}"
-            ItemsSource="{Binding Medicos}"
-            SelectedItem="{Binding SelectedMedico, Mode=TwoWay}"
-            TextColor="Gray"
-            TitleColor="Gray">
-        </Picker>
-        <Picker
-            Title="Informe a especialidade"
-            FontSize="12"
-            ItemDisplayBinding="{Binding Title}"
-            ItemsSource="{Binding Especialidades}"
-            SelectedItem="{Binding SelectedEspecialidade, Mode=TwoWay}"
-            TextColor="Gray"
-            TitleColor="Gray">
-        </Picker>
-        <DatePicker
-            BackgroundColor="Transparent"
-            Date="{Binding Data, Mode=TwoWay}"
-            FontSize="12"
-            VerticalOptions="CenterAndExpand"/>
-        <TimePicker
-             BackgroundColor="Transparent"
-             Time="{Binding Hora, Mode=TwoWay}"
-             FontSize="12"
-             VerticalOptions="CenterAndExpand"/>
+            <Picker
+                Title="Informe o paciente"
+                FontSize="12"
+                ItemDisplayBinding="{Binding UserName}"
+                ItemsSource="{Binding Pacientes}"
+                SelectedItem="{Binding SelectedPaciente, Mode=TwoWay}"
+                TextColor="Gray"
+                TitleColor="Gray">
+            </Picker>
+            <Picker
+                Title="Informe o médico"
+                FontSize="12"
+                ItemDisplayBinding="{Binding UserName}"
+                ItemsSource="{Binding Medicos}"
+                SelectedItem="{Binding SelectedMedico, Mode=TwoWay}"
+                TextColor="Gray"
+                TitleColor="Gray">
+            </Picker>
+            <Picker
+                Title="Informe a especialidade"
+                FontSize="12"
+                ItemDisplayBinding="{Binding Title}"
+                ItemsSource="{Binding Especialidades}"
+                SelectedItem="{Binding SelectedEspecialidade, Mode=TwoWay}"
+                TextColor="Gray"
+                TitleColor="Gray">
+            </Picker>
+                <Picker
+                Title="Informe o horário"
+                FontSize="12"
+                ItemDisplayBinding="{Binding Descricao}"
+                ItemsSource="{Binding Disponibilidades}"
+                SelectedItem="{Binding SelectedDisponibilidade, Mode=TwoWay}"
+                TextColor="Gray"
+                TitleColor="Gray">
+                </Picker>
                 <Button
                 IsEnabled="{Binding IsEnabled}"
                 Text="Guardar"
@@ -68,12 +67,12 @@
                 Text="Apagar"
                 Command="{Binding DeleteContaCommand}">
             </Button>
-            <ActivityIndicator
+                <ActivityIndicator
                 IsRunning="{Binding IsRunning, Mode=TwoWay}"
                 Color="#55d7d7"
                 Margin="10">
-            </ActivityIndicator>
-        </StackLayout>
+                </ActivityIndicator>
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>
