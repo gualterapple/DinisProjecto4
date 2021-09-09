@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         x:Class="DinisProjecto4.MainPage"
        xmlns:pages="clr-namespace:DinisProjecto4.Views"
-       BackgroundColor="#d3ffff">
+       BackgroundColor="#d3ffff"
+       Visual="Material">
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <StackLayout
@@ -36,4 +37,15 @@
     <FlyoutItem Title="Disponibilidades" Icon="countdown">
         <ShellContent ContentTemplate="{DataTemplate pages:DisponibilidadesPage}"/>
     </FlyoutItem>
+    <Shell.FlyoutFooter>
+        <Button
+            Clicked="sair_Clicked"
+            x:Name="sair"
+            Text="Sair"
+            IsEnabled="{Binding IsEnabled}"
+            BackgroundColor="#55d7d7"
+            Command="{Binding CriarContaCommand}">
+        </Button>
+    </Shell.FlyoutFooter>
+
 </Shell>
