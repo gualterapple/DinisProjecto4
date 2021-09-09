@@ -88,7 +88,7 @@ namespace DinisProjecto4.ViewModels
         private async Task AddConsulta()
         {
             var main = MainViewModel.GetInstance();
-            main.newConsulta = new NewConsultaViewModel(false);
+            main.newConsulta = new NewConsultaViewModel(false, null);
             LoadPacientesAndMedicos();
         }
 
@@ -104,13 +104,14 @@ namespace DinisProjecto4.ViewModels
                         Paciente = item.Paciente,
                         Especialidade = item.Especialidade,
                         Horario = item.Horario,
+                        Descricao = item.Descricao
 
                     });
             }
             return co;
         }
 
-        private ObservableCollection<User> toObservableuser(List<User> users)
+        public ObservableCollection<User> toObservableuser(List<User> users)
         {
             var co = new ObservableCollection<User>();
             foreach (var item in users)

@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using DinisProjecto4.Models;
 using DinisProjecto4.Service;
+using Firebase.Database;
 using Xamarin.Forms;
 
 namespace DinisProjecto4.ViewModels
 {
     public class NewConsultaViewModel : BaseViewModel
     {
+        FirebaseClient client;
+
         private string paciente;
         private string medico;
         private string especialidade;
@@ -118,22 +122,35 @@ namespace DinisProjecto4.ViewModels
             }
         }
 
-        public NewConsultaViewModel(bool editing)
+        public NewConsultaViewModel(bool editing, Consulta consulta)
         {
             CriarContaCommand = new Command(async () => await Register());
             AtualizarContaCommand = new Command(async () => await Update());
             DeleteContaCommand = new Command(async () => await Delete());
-
             Disponibilidades = new ObservableCollection<Disponibilidade>();
-
             IsEditing = editing;
+            LoadEspecialidade();
+            LoadPacientesAndMedicos();
 
-            if(editing)
+            if (editing)
             {
-                
+                Especialidade = consulta.Especialidade;
+                foreach (var item in Especialidades)
+                {
+                    if(item.Title == this.Especialidade)
+                    selectedEspecialidade = item;
+                }
+
+                Medico = consulta.Medico;
+                foreach (var item in Medicos)
+                {
+                    if (item.UserName == this.Medico)
+                        selectedMedico = item;
+                }
+
+                OnPropertyChanged();
             }
 
-            LoadEspecialidade();
 
         }
 
@@ -244,6 +261,35 @@ namespace DinisProjecto4.ViewModels
             return Especialidades;
         }
 
+        public async void LoadPacientesAndMedicos()
+        {
+
+            var users = (await client.Child("Users")
+                .OnceAsync<User>()).Select(u => new User
+                {
+                    UserName = u.Object.UserName,
+                    Password = u.Object.Password,
+                    Perfil = u.Object.Perfil
+                });
+
+            var disps = (await client.Child("Disponibilidades")
+               .OnceAsync<Disponibilidade>()).Select(u => new Disponibilidade
+               {
+                   Descricao = u.Object.Descricao,
+                   Medico = u.Object.Medico,
+                   Data = u.Object.Data,
+                   Hora = u.Object.Hora,
+               });
+
+            var p_ = users.Where(a => a.Perfil == "Paciente").ToList();
+            var m_ = users.Where(a => a.Perfil == "Médico").ToList();
+
+
+            Pacientes = MainViewModel.GetInstance().consultas.toObservableuser(p_);
+            Medicos = MainViewModel.GetInstance().consultas.toObservableuser(m_);
+
+        }
+
         public Command CriarContaCommand
         {
             get;
@@ -271,7 +317,7 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var consultaService = new ConsultasService();
-                if (await consultaService.NovaConsulta(Paciente, Medico, Especialidade, Disponibilidade))
+                if (await consultaService.NovaConsulta(Paciente, Medico, Especialidade, Disponibilidade, Descricao))
                 {
 
                     var mConsulta = MainViewModel.GetInstance().consultas;
@@ -364,7 +410,6 @@ namespace DinisProjecto4.ViewModels
             try
             {
               
-
                 var consultaService = new ConsultasService();
                 if (await consultaService.DeleteConsulta(Paciente, Medico, Disponibilidade))
                 {
@@ -453,6 +498,14 @@ namespace DinisProjecto4.ViewModels
                 await Application.Current.MainPage.DisplayAlert(
                     "Data",
                     "Defina o horario da consulta",
+                    "OK");
+                return false;
+            }
+            if (string.IsNullOrEmpty(this.Descricao))
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Data",
+                    "Descreva o motivo da consulta",
                     "OK");
                 return false;
             }

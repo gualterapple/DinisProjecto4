@@ -50,7 +50,12 @@
                 SelectedItem="{Binding SelectedDisponibilidade, Mode=TwoWay}"
                 TextColor="Gray"
                 TitleColor="Gray">
-                </Picker>
+            </Picker>
+            <Entry
+                Placeholder="Motivo da consulta"
+                TextColor="Black"
+                Text="{Binding Descricao, Mode=TwoWay}">
+            </Entry>
                 <Button
                 IsEnabled="{Binding IsEnabled}"
                 Text="Guardar"

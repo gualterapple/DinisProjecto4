@@ -25,19 +25,21 @@ namespace DinisProjecto4.Service
                     Paciente = c.Object.Paciente,
                     Medico = c.Object.Medico,
                     Especialidade = c.Object.Especialidade,
-                    Horario = c.Object.Horario
+                    Horario = c.Object.Horario,
+                    Descricao = c.Object.Descricao
                 }).ToList();
             return consultas;
         }
 
-        public async Task<bool> NovaConsulta(string paciente, string medico, string especialidade, string horario)
+        public async Task<bool> NovaConsulta(string paciente, string medico, string especialidade, string horario, string descricao)
         {
                 await client.Child("Consultas").PostAsync(new Consulta()
                 {
                     Paciente = paciente,
                     Medico = medico,
                     Especialidade = especialidade,
-                    Horario = horario
+                    Horario = horario,
+                    Descricao = descricao
                 });
 
                 return true;
