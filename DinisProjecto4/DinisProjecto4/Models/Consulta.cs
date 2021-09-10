@@ -26,20 +26,7 @@ namespace DinisProjecto4.Models
 
         private async Task Select()
         {
-            var mainViewModel = MainViewModel.GetInstance();
-            var consulta = mainViewModel.newConsulta = new NewConsultaViewModel(true, this);
-
-            consulta.Paciente = this.Paciente;
-            consulta.Medico = this.Medico;
-            consulta.Horario = this.Horario;
-            consulta.Especialidade = this.Especialidade;
-            consulta.Descricao = this.Descricao;
-
-            consulta.LastPaciente = this.Paciente;
-            consulta.LastMedico = this.Medico;
-            consulta.LastHorario = this.Horario;
-
-            MainViewModel.GetInstance().consultas.LoadPacientesAndMedicos();
+            MainViewModel.GetInstance().newConsulta = new NewConsultaViewModel(true, this);           
 
         }
     }

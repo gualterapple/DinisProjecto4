@@ -29,7 +29,6 @@
         <Picker
             Title="Informe o perfil"
             FontSize="12"
-            HorizontalOptions="Start"
             ItemDisplayBinding="{Binding Title}"
             ItemsSource="{Binding Perfis}"
             SelectedItem="{Binding SelectedPerfil, Mode=TwoWay}"

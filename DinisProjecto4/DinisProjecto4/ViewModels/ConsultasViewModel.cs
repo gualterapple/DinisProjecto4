@@ -49,7 +49,11 @@ namespace DinisProjecto4.ViewModels
 
         public async void LoadPacientesAndMedicos()
         {
-            var users = (await client.Child("Users")
+            try
+            {
+                client = new FirebaseClient("https://consultas-793b1-default-rtdb.firebaseio.com/");
+
+                var users = (await client.Child("Users")
                 .OnceAsync<User>()).Select(u => new User
                 {
                     UserName = u.Object.UserName,
@@ -57,27 +61,36 @@ namespace DinisProjecto4.ViewModels
                     Perfil = u.Object.Perfil
                 });
 
-            var disps = (await client.Child("Disponibilidades")
-               .OnceAsync<Disponibilidade>()).Select(u => new Disponibilidade
-               {
-                   Descricao = u.Object.Descricao,
-                   Medico = u.Object.Medico,
-                   Data = u.Object.Data,
-                   Hora = u.Object.Hora,
-               });
+                var disps = (await client.Child("Disponibilidades")
+                   .OnceAsync<Disponibilidade>()).Select(u => new Disponibilidade
+                   {
+                       Descricao = u.Object.Descricao,
+                       Medico = u.Object.Medico,
+                       Data = u.Object.Data,
+                       Hora = u.Object.Hora,
+                   });
 
-            var p_ = users.Where(a => a.Perfil == "Paciente").ToList();
-            var m_ = users.Where(a => a.Perfil == "Médico").ToList();
-            var d_ = disps.Where(a => a.Descricao != "").ToList();
-
-
-            MainViewModel.GetInstance().newConsulta.Pacientes = toObservableuser(p_);
-            MainViewModel.GetInstance().newConsulta.Medicos = toObservableuser(m_);
-            MainViewModel.GetInstance().newConsulta.Disponibilidades = toObservableDispo(d_);
+                var p_ = users.Where(a => a.Perfil == "Paciente").ToList();
+                var m_ = users.Where(a => a.Perfil == "Médico").ToList();
+                var d_ = disps.Where(a => a.Descricao != "").ToList();
 
 
-            Navigation = MainViewModel.GetInstance().Navigation;
-            await Application.Current.MainPage.Navigation.PushAsync(new NewConsultaPage());
+                MainViewModel.GetInstance().newConsulta.Pacientes = toObservableuser(p_);
+                MainViewModel.GetInstance().newConsulta.Medicos = toObservableuser(m_);
+                MainViewModel.GetInstance().newConsulta.Disponibilidades = toObservableDispo(d_);
+
+
+                Navigation = MainViewModel.GetInstance().Navigation;
+                await Application.Current.MainPage.Navigation.PushAsync(new NewConsultaPage());
+            }
+            catch (Exception)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                                   "Erro",
+                                   "Ocorreu um erro ao carregar dos dados, por favor volte a tentar!",
+                                   "Ok");
+            }
+            
         }
 
         public Command AddConsultaCommand

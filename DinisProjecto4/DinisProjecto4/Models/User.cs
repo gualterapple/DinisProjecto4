@@ -26,7 +26,7 @@ namespace DinisProjecto4.Models
         private async Task Select()
         {
             var mainViewModel = MainViewModel.GetInstance();
-            mainViewModel.newUser = new NewUserViewModel(true);
+            mainViewModel.newUser = new NewUserViewModel(true, this);
 
             mainViewModel.newUser.LastName = this.UserName;
             mainViewModel.newUser.UserName = this.UserName;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DinisProjecto4.Models;
 using DinisProjecto4.Service;
+using DinisProjecto4.Views;
 using Firebase.Database;
 using Xamarin.Forms;
 
@@ -12,7 +13,8 @@ namespace DinisProjecto4.ViewModels
 {
     public class NewConsultaViewModel : BaseViewModel
     {
-        FirebaseClient client;
+        FirebaseClient client = new FirebaseClient("https://consultas-793b1-default-rtdb.firebaseio.com/");
+        public INavigation Navigation { get; set; }
 
         private string paciente;
         private string medico;
@@ -99,6 +101,7 @@ namespace DinisProjecto4.ViewModels
                 OnPropertyChanged();
             }
         }
+        public Consulta ConsultaRecebida { get; set; }
 
         public string Disponibilidade
         {
@@ -134,18 +137,13 @@ namespace DinisProjecto4.ViewModels
 
             if (editing)
             {
+                ConsultaRecebida = new Consulta();
+                ConsultaRecebida = consulta;
                 Especialidade = consulta.Especialidade;
                 foreach (var item in Especialidades)
                 {
                     if(item.Title == this.Especialidade)
                     selectedEspecialidade = item;
-                }
-
-                Medico = consulta.Medico;
-                foreach (var item in Medicos)
-                {
-                    if (item.UserName == this.Medico)
-                        selectedMedico = item;
                 }
 
                 OnPropertyChanged();
@@ -264,7 +262,7 @@ namespace DinisProjecto4.ViewModels
         public async void LoadPacientesAndMedicos()
         {
 
-            var users = (await client.Child("Users")
+            var users = (await this.client.Child("Users")
                 .OnceAsync<User>()).Select(u => new User
                 {
                     UserName = u.Object.UserName,
@@ -284,9 +282,24 @@ namespace DinisProjecto4.ViewModels
             var p_ = users.Where(a => a.Perfil == "Paciente").ToList();
             var m_ = users.Where(a => a.Perfil == "Médico").ToList();
 
-
             Pacientes = MainViewModel.GetInstance().consultas.toObservableuser(p_);
             Medicos = MainViewModel.GetInstance().consultas.toObservableuser(m_);
+
+            if (IsEditing)
+            {
+
+                Medico = ConsultaRecebida.Medico;
+                foreach (var item in Medicos)
+                {
+                    if (item.UserName == this.Medico)
+                        selectedMedico = item;
+                }
+
+                OnPropertyChanged();
+            }
+
+            Navigation = MainViewModel.GetInstance().Navigation;
+            await Application.Current.MainPage.Navigation.PushAsync(new NewConsultaPage());
 
         }
 

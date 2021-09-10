@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using DinisProjecto4.Models;
 using DinisProjecto4.Service;
 using Xamarin.Forms;
 
@@ -86,7 +87,7 @@ namespace DinisProjecto4.ViewModels
             }
         }
 
-        public NewUserViewModel(bool editing)
+        public NewUserViewModel(bool editing, User user)
         {
             CriarContaCommand = new Command(async () => await Register());
             AtualizarContaCommand = new Command(async () => await Update());
@@ -94,8 +95,17 @@ namespace DinisProjecto4.ViewModels
 
             
             IsEditing = editing;
-
             LoadPerfis();
+            if (IsEditing)
+            {
+                Perfil = user.Perfil;
+                foreach (var item in Perfis)
+                {
+                    if (item.Title == Perfil)
+                        selectedPerfil = item;
+                }
+                OnPropertyChanged();
+            }
         }
 
 

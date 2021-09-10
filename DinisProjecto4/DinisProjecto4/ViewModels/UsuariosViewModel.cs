@@ -38,7 +38,7 @@ namespace DinisProjecto4.ViewModels
 
         private async Task AddUser()
         {
-            MainViewModel.GetInstance().newUser = new NewUserViewModel(false);
+            MainViewModel.GetInstance().newUser = new NewUserViewModel(false, null);
             Navigation = MainViewModel.GetInstance().Navigation;
             //await Navigation.PushAsync(new NewUserPage(), true);
             await Application.Current.MainPage.Navigation.PushAsync(new NewUserPage());
