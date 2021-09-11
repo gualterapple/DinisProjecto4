@@ -15,6 +15,15 @@
                 Margin="20"
                 HeightRequest="100">
             </Image>
+             <Picker
+            Title="Informe a especialidade"
+            FontSize="12"
+            ItemDisplayBinding="{Binding Title}"
+            ItemsSource="{Binding Especialidades}"
+            SelectedItem="{Binding SelectedEspecialidade, Mode=TwoWay}"
+            TextColor="Gray"
+            TitleColor="Gray">
+        </Picker>
         <Picker
             Title="Informe o paciente"
             FontSize="12"
@@ -33,15 +42,7 @@
             TextColor="Gray"
             TitleColor="Gray">
         </Picker>
-        <Picker
-            Title="Informe a especialidade"
-            FontSize="12"
-            ItemDisplayBinding="{Binding Title}"
-            ItemsSource="{Binding Especialidades}"
-            SelectedItem="{Binding SelectedEspecialidade, Mode=TwoWay}"
-            TextColor="Gray"
-            TitleColor="Gray">
-        </Picker>
+       
         <DatePicker
             BackgroundColor="Transparent"
             Date="{Binding Data, Mode=TwoWay}"

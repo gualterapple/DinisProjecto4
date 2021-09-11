@@ -15952,7 +15952,7 @@ namespace DinisProjecto4.Droid
 			public const int tooltip_frame_light = 2131165334;
 			
 			// aapt resource value: 0x7F070097
-			public const int user = 2131165335;
+			//public const int user = 2131165335;
 			
 			static Drawable()
 			{

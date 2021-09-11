@@ -119,6 +119,10 @@ namespace DinisProjecto4.ViewModels
                 new Perfil
                 {
                     Title = "Médico",
+                },
+                new Perfil
+                {
+                    Title = "Paciente",
                 }
             };
             return Perfis;
