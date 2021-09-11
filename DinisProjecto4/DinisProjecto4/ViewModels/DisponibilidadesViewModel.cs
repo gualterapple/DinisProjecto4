@@ -32,7 +32,6 @@ namespace DinisProjecto4.ViewModels
         public async Task<ObservableCollection<Disponibilidade>> LoadDisponibilidades()
         {
             Disponibilidades = toObservablee(await this.disponibilidadesService.GetDisponibilidades());
-
             return Disponibilidades;
         }
 

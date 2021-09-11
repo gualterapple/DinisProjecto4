@@ -13,10 +13,37 @@ namespace DinisProjecto4.ViewModels
         private string userName;
         private string password;
         private string perfil;
+        private string especialidade;
+        private string hospital;
         private Perfil selectedPerfil;
+        private Especialidade selectedEspecialidade;
+        private Hospital selectedHospital;
+        private bool isMedico;
 
         public string LastName { get; set; }
         public bool IsEditing { get; set; }
+
+        public bool IsMedico
+        {
+            get { return this.isMedico; }
+            set { SetValue(ref this.isMedico, value); }
+        }
+
+        HospitaisService hService = new HospitaisService();
+
+        private ObservableCollection<Especialidade> especialidades;
+        public ObservableCollection<Especialidade> Especialidades
+        {
+            get { return this.especialidades; }
+            set { SetValue(ref this.especialidades, value); }
+        }
+        private ObservableCollection<Hospital> hospitais;
+
+        public ObservableCollection<Hospital> Hospitais
+        {
+            get { return this.hospitais; }
+            set { SetValue(ref this.hospitais, value); }
+        }
 
         public string UserName
         {
@@ -47,6 +74,24 @@ namespace DinisProjecto4.ViewModels
                 OnPropertyChanged();
             }
         }
+        public string Especialidade
+        {
+            get { return this.especialidade; }
+            set
+            {
+                this.especialidade = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Hospital
+        {
+            get { return this.hospital; }
+            set
+            {
+                this.hospital = value;
+                OnPropertyChanged();
+            }
+        }
 
         private bool isRunning;
 
@@ -70,6 +115,50 @@ namespace DinisProjecto4.ViewModels
                 {
                     selectedPerfil = value;
                     Perfil = selectedPerfil.Title;
+                    if(Perfil == "Médico")
+                    IsMedico = true;
+                    else
+                    IsMedico = false;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Especialidade SelectedEspecialidade
+        {
+            get { return selectedEspecialidade; }
+            set
+            {
+
+                if (selectedEspecialidade != value)
+                {
+                    selectedEspecialidade = value;
+                    Especialidade = selectedEspecialidade.Title;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Hospital SelectedHospital
+        {
+            get { return selectedHospital; }
+            set
+            {
+
+                if (selectedHospital != value)
+                {
+                    selectedHospital = value;
+                    Hospital = selectedHospital.Title;
+
+                    foreach (var item in Hospitais)
+                    {
+                        if (item.Title == Hospital)
+                        {
+                            selectedEspecialidade = null;
+                            Especialidades = item.Especialidades;
+                        }
+                    }
+
                     OnPropertyChanged();
                 }
             }
@@ -89,11 +178,15 @@ namespace DinisProjecto4.ViewModels
 
         public NewUserViewModel(bool editing, User user)
         {
+            IsMedico = false;
+
             CriarContaCommand = new Command(async () => await Register());
             AtualizarContaCommand = new Command(async () => await Update());
             DeleteContaCommand = new Command(async () => await Delete());
 
-            
+            Hospitais = hService.LoadHospitais();
+            Especialidades = new ObservableCollection<Especialidade>();
+
             IsEditing = editing;
             LoadPerfis();
             if (IsEditing)
@@ -129,6 +222,10 @@ namespace DinisProjecto4.ViewModels
                 new Perfil
                 {
                     Title = "Médico",
+                },
+                new Perfil
+                {
+                    Title = "Paciente",
                 }
             };
             return Perfis;
@@ -161,7 +258,7 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var userService = new UserService();
-                if (await userService.RegisterUser(UserName, Password, Perfil))
+                if (await userService.RegisterUser(UserName, Password, Perfil, Hospital, Especialidade))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",
@@ -347,6 +444,29 @@ namespace DinisProjecto4.ViewModels
                 this.Perfil = string.Empty;
                 return false;
             }
+
+            if (IsMedico) 
+            {
+                if (string.IsNullOrEmpty(this.Hospital))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Hospital não seleccionado",
+                        "Selecione o hospital",
+                        "OK");
+                    this.Perfil = string.Empty;
+                    return false;
+                }
+                if (string.IsNullOrEmpty(this.Especialidade))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Especialidade não seleccionada",
+                        "Selecione a especialidade",
+                        "OK");
+                    this.Perfil = string.Empty;
+                    return false;
+                }
+            }
+                
 
             return true;
         }

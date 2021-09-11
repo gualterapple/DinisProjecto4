@@ -16,20 +16,11 @@
                 HeightRequest="100">
             </Image>
             <Picker
-                Title="Informe o paciente"
+                Title="Informe o hospital"
                 FontSize="12"
-                ItemDisplayBinding="{Binding UserName}"
-                ItemsSource="{Binding Pacientes}"
-                SelectedItem="{Binding SelectedPaciente, Mode=TwoWay}"
-                TextColor="Gray"
-                TitleColor="Gray">
-            </Picker>
-            <Picker
-                Title="Informe o médico"
-                FontSize="12"
-                ItemDisplayBinding="{Binding UserName}"
-                ItemsSource="{Binding Medicos}"
-                SelectedItem="{Binding SelectedMedico, Mode=TwoWay}"
+                ItemDisplayBinding="{Binding Title}"
+                ItemsSource="{Binding Hospitais}"
+                SelectedItem="{Binding SelectedHospital, Mode=TwoWay}"
                 TextColor="Gray"
                 TitleColor="Gray">
             </Picker>
@@ -42,16 +33,34 @@
                 TextColor="Gray"
                 TitleColor="Gray">
             </Picker>
-                <Picker
+            <Picker
+                Title="Informe o médico"
+                FontSize="12"
+                ItemDisplayBinding="{Binding UserName}"
+                ItemsSource="{Binding Medicos, Mode=TwoWay}"
+                SelectedItem="{Binding SelectedMedico, Mode=TwoWay}"
+                TextColor="Gray"
+                TitleColor="Gray">
+            </Picker>
+            <Picker
                 Title="Informe o horário"
                 FontSize="12"
                 ItemDisplayBinding="{Binding Descricao}"
-                ItemsSource="{Binding Disponibilidades}"
+                ItemsSource="{Binding Disponibilidades, Mode=TwoWay}"
                 SelectedItem="{Binding SelectedDisponibilidade, Mode=TwoWay}"
                 TextColor="Gray"
                 TitleColor="Gray">
             </Picker>
-            <Entry
+                <Picker
+                Title="Informe o paciente"
+                FontSize="12"
+                ItemDisplayBinding="{Binding UserName}"
+                ItemsSource="{Binding Pacientes}"
+                SelectedItem="{Binding SelectedPaciente, Mode=TwoWay}"
+                TextColor="Gray"
+                TitleColor="Gray">
+                </Picker>
+                <Entry
                 Placeholder="Motivo da consulta"
                 TextColor="Black"
                 Text="{Binding Descricao, Mode=TwoWay}">

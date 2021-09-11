@@ -16,9 +16,13 @@ namespace DinisProjecto4.ViewModels
         FirebaseClient client = new FirebaseClient("https://consultas-793b1-default-rtdb.firebaseio.com/");
         public INavigation Navigation { get; set; }
 
+        UserService userService = new UserService();
+        DisponibilidadeService dispService = new DisponibilidadeService();
+
         private string paciente;
         private string medico;
         private string especialidade;
+        private string hospital;
         private string descricao;
         private string desponibilidade;
 
@@ -26,13 +30,23 @@ namespace DinisProjecto4.ViewModels
         private string horario;
 
         private Especialidade selectedEspecialidade;
+        private Hospital selectedHospital;
         private Disponibilidade selectedDisponibilidade;
         
         private User selectedPaciente;
         private User selectedMedico;
 
         public ObservableCollection<User> Pacientes { get; set; }
-        public ObservableCollection<User> Medicos { get; set; }
+        private ObservableCollection<User> medicos;
+
+        public ObservableCollection<User> Medicos
+        {
+            get { return this.medicos; }
+            set { SetValue(ref this.medicos, value); }
+        }
+
+        ObservableCollection<Especialidade> especialidades1 = new ObservableCollection<Especialidade>();
+        ObservableCollection<Especialidade> especialidades2 = new ObservableCollection<Especialidade>();
 
         public string LastDescricao { get; set; }
         public string LastPaciente { get; set; }
@@ -101,6 +115,16 @@ namespace DinisProjecto4.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public string Hospital
+        {
+            get { return this.hospital; }
+            set
+            {
+                this.hospital = value;
+                OnPropertyChanged();
+            }
+        }
         public Consulta ConsultaRecebida { get; set; }
 
         public string Disponibilidade
@@ -127,13 +151,17 @@ namespace DinisProjecto4.ViewModels
 
         public NewConsultaViewModel(bool editing, Consulta consulta)
         {
+            HospitaisService hService = new HospitaisService();
+
             CriarContaCommand = new Command(async () => await Register());
             AtualizarContaCommand = new Command(async () => await Update());
             DeleteContaCommand = new Command(async () => await Delete());
             Disponibilidades = new ObservableCollection<Disponibilidade>();
             IsEditing = editing;
-            LoadEspecialidade();
+            //LoadEspecialidade();
+            Especialidades = new ObservableCollection<Especialidade>();
             LoadPacientesAndMedicos();
+            Hospitais = hService.LoadHospitais();
 
             if (editing)
             {
@@ -152,8 +180,6 @@ namespace DinisProjecto4.ViewModels
 
         }
 
-
-
         public Especialidade SelectedEspecialidade
         {
             get { return selectedEspecialidade; }
@@ -164,6 +190,81 @@ namespace DinisProjecto4.ViewModels
                 {
                     selectedEspecialidade = value;
                     Especialidade = selectedEspecialidade.Title;
+                    LoadMedicos(Especialidade, selectedHospital.Title);
+                    OnPropertyChanged();
+
+                }
+            }
+        }
+
+        private async void LoadMedicos(string especialidade, string hospital)
+        {
+            selectedMedico = null;
+            Medicos = new ObservableCollection<User>();
+            Medicos = toObservablee(await userService.GetMedicoByEspecialidade(especialidade, hospital));
+        }
+
+        private async void LoadDisponibilidade(string medico)
+        {
+            selectedDisponibilidade = null;
+            Disponibilidades = new ObservableCollection<Disponibilidade>();
+            Disponibilidades = toObservableDisponibilidade(await dispService.GetDisponibilidadesByMedico(medico));
+        }
+
+        public ObservableCollection<User> toObservablee(List<User> users)
+        {
+            var us = new ObservableCollection<User>();
+            foreach (var item in users)
+            {
+                us.Add(
+                    new User
+                    {
+                        UserName = item.UserName,
+                        Password = item.Password,
+                        Perfil = item.Perfil,
+                        Hospital = item.Hospital
+                    });
+            }
+            return us;
+        }
+
+        public ObservableCollection<Disponibilidade> toObservableDisponibilidade(List<Disponibilidade> disponibilidades)
+        {
+            var us = new ObservableCollection<Disponibilidade>();
+            foreach (var item in disponibilidades)
+            {
+                us.Add(
+                    new Disponibilidade
+                    {
+                        Descricao = item.Descricao,
+                        Medico = item.Medico,
+                        Data = item.Data,
+                        Hora = item.Hora
+                    });
+            }
+            return us;
+        }
+
+        public Hospital SelectedHospital
+        {
+            get { return selectedHospital; }
+            set
+            {
+
+                if (selectedHospital != value)
+                {
+                    selectedHospital = value;
+                    Hospital = selectedHospital.Title;
+
+                    foreach (var item in Hospitais)
+                    {
+                        if(item.Title == Hospital)
+                        {
+                            selectedEspecialidade = null;
+                            Especialidades = item.Especialidades;
+                        }
+                    }
+
                     OnPropertyChanged();
                 }
             }
@@ -210,6 +311,7 @@ namespace DinisProjecto4.ViewModels
                 {
                     selectedMedico = value;
                     Medico = selectedMedico.UserName;
+                    LoadDisponibilidade(Medico);
                     OnPropertyChanged();
                 }
             }
@@ -235,6 +337,14 @@ namespace DinisProjecto4.ViewModels
             set { SetValue(ref this.especialidades, value); }
         }
 
+        private ObservableCollection<Hospital> hospitais;
+
+        public ObservableCollection<Hospital> Hospitais
+        {
+            get { return this.hospitais; }
+            set { SetValue(ref this.hospitais, value); }
+        }
+
         private ObservableCollection<Disponibilidade> disponibilidades;
 
         public ObservableCollection<Disponibilidade> Disponibilidades
@@ -242,7 +352,8 @@ namespace DinisProjecto4.ViewModels
             get { return this.disponibilidades; }
             set { SetValue(ref this.disponibilidades, value); }
         }
-        public IEnumerable<Especialidade> LoadEspecialidade()
+
+        /*public IEnumerable<Especialidade> LoadEspecialidade()
         {
 
             Especialidades = new ObservableCollection<Especialidade>
@@ -257,8 +368,33 @@ namespace DinisProjecto4.ViewModels
                 }
             };
             return Especialidades;
-        }
+        }*/
 
+        /*public IEnumerable<Hospital> LoadHospitais()
+        {
+            especialidades1 = new ObservableCollection<Especialidade>();
+            especialidades1.Add(new Especialidade { Title = "Gastro Interiologia" });
+            especialidades1.Add(new Especialidade { Title = "Neurologia" });
+
+            especialidades2 = new ObservableCollection<Especialidade>();
+            especialidades2.Add(new Especialidade { Title = "Psicologia" });
+            especialidades2.Add(new Especialidade { Title = "Fisioterapia" });
+
+            Hospitais = new ObservableCollection<Hospital>
+            {
+                new Hospital
+                {
+                    Title = "Cligest",
+                    Especialidades = especialidades1
+                },
+                new Hospital
+                {
+                    Title = "Multi Perfil",
+                    Especialidades = especialidades2
+                }
+            };
+            return Hospitais;
+        }*/
         public async void LoadPacientesAndMedicos()
         {
 
@@ -283,7 +419,7 @@ namespace DinisProjecto4.ViewModels
             var m_ = users.Where(a => a.Perfil == "Médico").ToList();
 
             Pacientes = MainViewModel.GetInstance().consultas.toObservableuser(p_);
-            Medicos = MainViewModel.GetInstance().consultas.toObservableuser(m_);
+            //Medicos = MainViewModel.GetInstance().consultas.toObservableuser(m_);
 
             if (IsEditing)
             {
@@ -528,8 +664,3 @@ namespace DinisProjecto4.ViewModels
 
     }
 }
-
-public class Especialidade
-{
-    public string Title { get; set; }
-};

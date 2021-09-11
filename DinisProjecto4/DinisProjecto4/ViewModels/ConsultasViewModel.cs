@@ -76,7 +76,7 @@ namespace DinisProjecto4.ViewModels
 
 
                 MainViewModel.GetInstance().newConsulta.Pacientes = toObservableuser(p_);
-                MainViewModel.GetInstance().newConsulta.Medicos = toObservableuser(m_);
+                //MainViewModel.GetInstance().newConsulta.Medicos = toObservableuser(m_);
                 MainViewModel.GetInstance().newConsulta.Disponibilidades = toObservableDispo(d_);
 
 

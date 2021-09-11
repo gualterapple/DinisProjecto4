@@ -35,27 +35,47 @@
             TextColor="Gray"
             TitleColor="Gray">
         </Picker>
-            <Button
-                IsEnabled="{Binding IsEnabled}"
-                Text="Guardar"
-                Command="{Binding CriarContaCommand}">
-            </Button>
-            <Button
-                IsEnabled="{Binding IsEnabled}"
-                Text="Atualizar"
-                Command="{Binding AtualizarContaCommand}">
-            </Button>
-            <Button
-                BackgroundColor="red"
-                IsEnabled="{Binding IsEnabled}"
-                Text="Apagar"
-                Command="{Binding DeleteContaCommand}">
-            </Button>
-            <ActivityIndicator
-                IsRunning="{Binding IsRunning, Mode=TwoWay}"
-                Color="#55d7d7"
-                Margin="10">
-            </ActivityIndicator>
+        <Picker
+            IsVisible="{Binding IsMedico, Mode=TwoWay}"
+            Title="Informe o hospital"
+            FontSize="12"
+            ItemDisplayBinding="{Binding Title}"
+            ItemsSource="{Binding Hospitais}"
+            SelectedItem="{Binding SelectedHospital, Mode=TwoWay}"
+            TextColor="Gray"
+            TitleColor="Gray">
+        </Picker>
+        <Picker
+            IsVisible="{Binding IsMedico, Mode=TwoWay}"
+            Title="Informe a especialidade"
+            FontSize="12"
+            ItemDisplayBinding="{Binding Title}"
+            ItemsSource="{Binding Especialidades}"
+            SelectedItem="{Binding SelectedEspecialidade, Mode=TwoWay}"
+            TextColor="Gray"
+            TitleColor="Gray">
+        </Picker>
+        <Button
+            IsEnabled="{Binding IsEnabled}"
+            Text="Guardar"
+            Command="{Binding CriarContaCommand}">
+        </Button>
+        <Button
+            IsEnabled="{Binding IsEnabled}"
+            Text="Atualizar"
+            Command="{Binding AtualizarContaCommand}">
+        </Button>
+        <Button
+            BackgroundColor="red"
+            IsEnabled="{Binding IsEnabled}"
+            Text="Apagar"
+            Command="{Binding DeleteContaCommand}">
+        </Button>
+        <ActivityIndicator
+            IsRunning="{Binding IsRunning, Mode=TwoWay}"
+            Color="#55d7d7"
+            Margin="10">
+        </ActivityIndicator>
         </StackLayout>
         </ScrollView>
     </ContentPage.Content>

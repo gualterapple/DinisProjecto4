@@ -98,7 +98,7 @@ namespace DinisProjecto4.ViewModels
                     return;
                 }
 
-                if (await this.userService.RegisterUser(Email, Password, "Paciente"))
+                if (await this.userService.RegisterUser(Email, Password, "Paciente", "", ""))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",

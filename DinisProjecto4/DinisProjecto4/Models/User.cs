@@ -11,6 +11,9 @@ namespace DinisProjecto4.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Perfil { get; set; }
+        public string Especialidade { get; set; }
+        public string Hospital { get; set; }
+        public string Disponibilidade { get; set; }
 
 
         public User()

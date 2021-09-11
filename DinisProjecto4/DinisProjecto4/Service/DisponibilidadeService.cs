@@ -29,6 +29,19 @@ namespace DinisProjecto4.Service
             return disponibilidades;
         }
 
+        public async Task<List<Disponibilidade>> GetDisponibilidadesByMedico(string medico)
+        {
+            var disponibilidades = (await client.Child("Disponibilidades")
+                .OnceAsync<Disponibilidade>()).Select(c => new Disponibilidade
+                {
+                    Medico = c.Object.Medico,
+                    Data = c.Object.Data,
+                    Hora = c.Object.Hora,
+                    Descricao = c.Object.Descricao
+                }).Where(a=> a.Medico  == medico).ToList();
+            return disponibilidades;
+        }
+
         public async Task<bool> NovaDisponibilidade(string medico,string descricao, DateTime data, TimeSpan hora)
         {
             await client.Child("Disponibilidades").PostAsync(new Disponibilidade()

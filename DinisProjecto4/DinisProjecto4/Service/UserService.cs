@@ -37,6 +37,20 @@ namespace DinisProjecto4.Service
             return users;
         }
 
+        public async Task<List<User>> GetMedicoByEspecialidade(string especialidade, string hospital)
+        {
+            var users = (await client.Child("Users")
+                .OnceAsync<User>()).Select(u => new User
+                {
+                    UserName = u.Object.UserName,
+                    Especialidade = u.Object.Especialidade,
+                    Perfil = u.Object.Perfil,
+                    Hospital = u.Object.Hospital
+                }).Where(a => a.Especialidade == especialidade && a.Hospital == hospital).ToList();
+
+            return users;
+        }
+
         public async Task<List<User>> GetPacientes()
         {
             var users = (await client.Child("Users")
@@ -51,7 +65,7 @@ namespace DinisProjecto4.Service
         }
 
 
-        public async Task<bool> RegisterUser(string name, string pass, string perfil)
+        public async Task<bool> RegisterUser(string name, string pass, string perfil, string hospital, string especialidade)
         {
             if (await IsUserExists(name) == false)
             {
@@ -59,7 +73,9 @@ namespace DinisProjecto4.Service
                 {
                     UserName = name,
                     Password = pass,
-                    Perfil = perfil
+                    Perfil = perfil,
+                    Especialidade = especialidade,
+                    Hospital = hospital
                 });
                 return true;
             }
