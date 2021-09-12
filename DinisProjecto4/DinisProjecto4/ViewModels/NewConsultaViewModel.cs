@@ -18,6 +18,8 @@ namespace DinisProjecto4.ViewModels
 
         UserService userService = new UserService();
         DisponibilidadeService dispService = new DisponibilidadeService();
+        HospitaisService hService = new HospitaisService();
+        ConsultasService consultasService = new ConsultasService();
 
         private string paciente;
         private string medico;
@@ -25,6 +27,7 @@ namespace DinisProjecto4.ViewModels
         private string hospital;
         private string descricao;
         private string desponibilidade;
+        private bool mostrarPaciente; 
 
         private DateTime data;
         private string horario;
@@ -45,6 +48,13 @@ namespace DinisProjecto4.ViewModels
             set { SetValue(ref this.medicos, value); }
         }
 
+        public bool MostrarPaciente
+        {
+            get { return this.mostrarPaciente; }
+            set { SetValue(ref this.mostrarPaciente, value); }
+        }
+        
+
         ObservableCollection<Especialidade> especialidades1 = new ObservableCollection<Especialidade>();
         ObservableCollection<Especialidade> especialidades2 = new ObservableCollection<Especialidade>();
 
@@ -52,10 +62,7 @@ namespace DinisProjecto4.ViewModels
         public string LastPaciente { get; set; }
         public string LastMedico { get; set; }
         public string LastHorario { get; set; }
-
-
         public bool IsEditing { get; set; }
-
         public string Descricao
         {
             get { return this.descricao; }
@@ -151,22 +158,31 @@ namespace DinisProjecto4.ViewModels
 
         public NewConsultaViewModel(bool editing, Consulta consulta)
         {
+            IsEditing = editing;
+
+            MostrarPaciente = false;
+
             HospitaisService hService = new HospitaisService();
+            Hospitais = hService.LoadHospitais();
 
             CriarContaCommand = new Command(async () => await Register());
             AtualizarContaCommand = new Command(async () => await Update());
             DeleteContaCommand = new Command(async () => await Delete());
-            Disponibilidades = new ObservableCollection<Disponibilidade>();
-            IsEditing = editing;
-            //LoadEspecialidade();
+
+            Disponibilidades = new ObservableCollection<Disponibilidade>();            
             Especialidades = new ObservableCollection<Especialidade>();
+
             LoadPacientesAndMedicos();
-            Hospitais = hService.LoadHospitais();
 
             if (editing)
             {
                 ConsultaRecebida = new Consulta();
                 ConsultaRecebida = consulta;
+
+                LastPaciente = ConsultaRecebida.Paciente;
+                LastMedico = ConsultaRecebida.Medico;
+                LastHorario = ConsultaRecebida.Horario;
+
                 Especialidade = consulta.Especialidade;
                 foreach (var item in Especialidades)
                 {
@@ -176,6 +192,9 @@ namespace DinisProjecto4.ViewModels
 
                 OnPropertyChanged();
             }
+
+            if (MainViewModel.GetInstance().Perfil != "Paciente")
+                MostrarPaciente = true;
 
 
         }
@@ -256,11 +275,14 @@ namespace DinisProjecto4.ViewModels
                     selectedHospital = value;
                     Hospital = selectedHospital.Title;
 
+                    selectedEspecialidade = null;
+                    selectedDisponibilidade = null;
+                    selectedMedico = null;
+
                     foreach (var item in Hospitais)
                     {
                         if(item.Title == Hospital)
                         {
-                            selectedEspecialidade = null;
                             Especialidades = item.Especialidades;
                         }
                     }
@@ -417,9 +439,12 @@ namespace DinisProjecto4.ViewModels
 
             var p_ = users.Where(a => a.Perfil == "Paciente").ToList();
             var m_ = users.Where(a => a.Perfil == "Médico").ToList();
+            var d_ = disps.ToList();
 
             Pacientes = MainViewModel.GetInstance().consultas.toObservableuser(p_);
-            //Medicos = MainViewModel.GetInstance().consultas.toObservableuser(m_);
+            Medicos = MainViewModel.GetInstance().consultas.toObservableuser(m_);
+            Disponibilidades = MainViewModel.GetInstance().disponibilidades.toObservablee(d_);
+            Hospitais = hService.LoadHospitais();
 
             if (IsEditing)
             {
@@ -430,6 +455,38 @@ namespace DinisProjecto4.ViewModels
                     if (item.UserName == this.Medico)
                         selectedMedico = item;
                 }
+
+                Paciente = ConsultaRecebida.Paciente;
+                foreach (var item in Pacientes)
+                {
+                    if (item.UserName == this.Paciente)
+                        selectedPaciente = item;
+                }
+
+                Disponibilidade = ConsultaRecebida.Horario;
+                foreach (var item in Disponibilidades)
+                {
+                    if (item.Descricao == this.Disponibilidade)
+                        selectedDisponibilidade = item;
+                }
+
+                Hospital = ConsultaRecebida.Hospital;
+                foreach (var item in Hospitais)
+                {
+                    if (item.Title == this.Hospital) {
+                        selectedHospital = item;
+                        Especialidades = item.Especialidades;
+                    }
+                }
+
+                Especialidade = ConsultaRecebida.Especialidade;
+                foreach (var item in Especialidades)
+                {
+                    if (item.Title == this.Especialidade)                    
+                        selectedEspecialidade = item;                    
+                }
+
+                Descricao = ConsultaRecebida.Descricao;
 
                 OnPropertyChanged();
             }
@@ -466,11 +523,11 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var consultaService = new ConsultasService();
-                if (await consultaService.NovaConsulta(Paciente, Medico, Especialidade, Disponibilidade, Descricao))
+                if (await consultaService.NovaConsulta(Paciente, Medico, Especialidade, Disponibilidade, Descricao, Hospital))
                 {
 
                     var mConsulta = MainViewModel.GetInstance().consultas;
-                    mConsulta.Consultas = mConsulta.toObservablee(await consultaService.GetConsultas());
+                    mConsulta.LoadConsultas();
 
                     await Application.Current.MainPage.DisplayAlert(
                     "Informação",
@@ -516,17 +573,20 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var consultaService = new ConsultasService();
-                if (await consultaService.updateConsulta(LastDescricao, Descricao, Paciente, Medico, Especialidade, Disponibilidade, LastPaciente, LastMedico, LastHorario))
+                if (await consultaService.updateConsulta(LastDescricao, Descricao, Paciente, Medico, Especialidade, Disponibilidade, Hospital, LastPaciente, LastMedico, LastHorario))
                 {
+                    
+                    if (MainViewModel.GetInstance().Perfil == "Paciente")
+                    {
+                        MainViewModel.GetInstance().consultas.Consultas = MainViewModel.GetInstance().consultas.toObservablee(await this.consultasService.GetConsultasByPaciente(
+                        MainViewModel.GetInstance().Login.Email));
+                    }
+
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",
                         "Consulta atualizada com sucesso!",
                         "Accept");
 
-
-                    var consultas = new ConsultasViewModel();
-                    consultas.LoadConsultas();
-                    MainViewModel.GetInstance().consultas = consultas;
                     StopLoading();
                     Application.Current.MainPage = new MainPage();
                 }
@@ -611,16 +671,20 @@ namespace DinisProjecto4.ViewModels
 
         private async Task<bool> ValidarCampos()
         {
-
-            if (string.IsNullOrEmpty(this.Paciente))
+            if (MostrarPaciente)
             {
-                await Application.Current.MainPage.DisplayAlert(
-                    "Campo Paciente está vázio",
-                    "Digite o seu nome do Paciente",
-                    "OK");
+                if (string.IsNullOrEmpty(this.Paciente))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Campo Paciente está vázio",
+                        "Digite o seu nome do Paciente",
+                        "OK");
 
-                return false;
+                    return false;
+                }
             }
+            else
+            Paciente = MainViewModel.GetInstance().Login.Email;
 
             if (string.IsNullOrEmpty(this.Medico))
             {
@@ -655,6 +719,15 @@ namespace DinisProjecto4.ViewModels
                 await Application.Current.MainPage.DisplayAlert(
                     "Data",
                     "Descreva o motivo da consulta",
+                    "OK");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(this.Hospital))
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Data",
+                    "Escolha o hospital",
                     "OK");
                 return false;
             }

@@ -28,13 +28,13 @@
             </StackLayout>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
-    <FlyoutItem Title="Usuários" Icon="user">
+    <FlyoutItem Title="Usuários" Icon="user" x:Name="Menu_usuario">
         <ShellContent ContentTemplate="{DataTemplate pages:UsuariosPage}"/>
     </FlyoutItem>
-    <FlyoutItem Title="Consultas" Icon="stethoscope">
+    <FlyoutItem Title="Consultas" Icon="stethoscope" x:Name="Menu_consultas">
         <ShellContent ContentTemplate="{DataTemplate pages:ConsultasPage}"/>
     </FlyoutItem>
-    <FlyoutItem Title="Disponibilidades" Icon="countdown">
+    <FlyoutItem Title="Disponibilidades" Icon="countdown" x:Name="Menu_dispon">
         <ShellContent ContentTemplate="{DataTemplate pages:DisponibilidadesPage}"/>
     </FlyoutItem>
     <Shell.FlyoutFooter>

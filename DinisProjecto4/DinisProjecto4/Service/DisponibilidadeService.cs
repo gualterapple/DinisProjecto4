@@ -24,7 +24,8 @@ namespace DinisProjecto4.Service
                 {                    
                     Medico = c.Object.Medico,
                     Data = c.Object.Data,
-                    Hora = c.Object.Hora
+                    Hora = c.Object.Hora,
+                    Descricao = c.Object.Descricao
                 }).ToList();
             return disponibilidades;
         }

@@ -150,9 +150,17 @@ namespace DinisProjecto4.ViewModels
                     var main = MainViewModel.GetInstance();
                     main.usuarios = new UsuariosViewModel();
                     main.usuarios.Users = main.usuarios.toObservablee(await this.userService.GetUsers());
+
+                    var users = main.usuarios.Users;
+
+                    foreach (var item in users)
+                    {
+                        if (item.UserName == Email)
+                        main.Perfil = item.Perfil;
+                    }
                     
                     main.consultas = new ConsultasViewModel();
-                    main.consultas.Consultas = main.consultas.toObservablee(await this.consultasService.GetConsultas());
+                    //main.consultas.Consultas = main.consultas.toObservablee(await this.consultasService.GetConsultas());
 
                     main.disponibilidades = new DisponibilidadesViewModel();
                     main.disponibilidades.Disponibilidades = main.disponibilidades.toObservablee(await this.disponibilidadeService.GetDisponibilidades());

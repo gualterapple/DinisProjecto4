@@ -52,6 +52,7 @@
                 TitleColor="Gray">
             </Picker>
                 <Picker
+                IsVisible="{Binding MostrarPaciente, Mode=TwoWay}"
                 Title="Informe o paciente"
                 FontSize="12"
                 ItemDisplayBinding="{Binding UserName}"

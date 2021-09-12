@@ -18,6 +18,8 @@ namespace DinisProjecto4.Models
         public string Paciente { get; set; }
         public string Medico { get; set; }
         public string Especialidade { get; set; }
+        public string Hospital { get; set; }
+
         public string Horario { get; set; }
         public Command SelectConsultaCommand
         {

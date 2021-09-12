@@ -47,30 +47,40 @@
                                     <Label
                                         Grid.Row="1"
                                         Grid.Column="0"
-                                        Text="Médico: "></Label>
+                                        Text="Hospital: ">
+                                    </Label>
                                     <Label
                                         Grid.Row="1"
                                         Grid.Column="1"
-                                        Text="{Binding Medico, Mode=TwoWay}">
+                                        Text="{Binding Hospital, Mode=TwoWay}">
                                     </Label>
                                     <Label
                                         Grid.Row="2"
                                         Grid.Column="0"
+                                        Text="Médico: "></Label>
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Text="{Binding Medico, Mode=TwoWay}">
+                                    </Label>
+                                    <Label
+                                        Grid.Row="3"
+                                        Grid.Column="0"
                                         Text="Especialidade: ">
                                     </Label>
                                     <Label
-                                            Grid.Row="2"
-                                            Grid.Column="1"
-                                            Text="{Binding Especialidade, Mode=TwoWay}">
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        Text="{Binding Especialidade, Mode=TwoWay}">
                                     </Label>
                                     <Label
                                         Grid.Column="0"
-                                        Grid.Row="3"
+                                        Grid.Row="4"
                                         Text="Horario: ">
                                     </Label>
                                     <Label
                                         Grid.Column="1"
-                                        Grid.Row="3"
+                                        Grid.Row="4"
                                         Text="{Binding Horario, Mode=TwoWay}">
                                     </Label>
                                 </Grid>

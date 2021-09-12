@@ -8,6 +8,8 @@ namespace DinisProjecto4.ViewModels
         private static MainViewModel instance;
         public INavigation Navigation { get; set; }
 
+        public string Perfil { get; set; }
+
         public MainViewModel()
         {
             instance = this;

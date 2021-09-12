@@ -26,12 +26,28 @@ namespace DinisProjecto4.Service
                     Medico = c.Object.Medico,
                     Especialidade = c.Object.Especialidade,
                     Horario = c.Object.Horario,
-                    Descricao = c.Object.Descricao
+                    Descricao = c.Object.Descricao,
+                    Hospital = c.Object.Hospital
                 }).ToList();
             return consultas;
         }
 
-        public async Task<bool> NovaConsulta(string paciente, string medico, string especialidade, string horario, string descricao)
+        public async Task<List<Consulta>> GetConsultasByPaciente(string paciente)
+        {
+            var consultas = (await client.Child("Consultas")
+                .OnceAsync<Consulta>()).Select(c => new Consulta
+                {
+                    Paciente = c.Object.Paciente,
+                    Medico = c.Object.Medico,
+                    Especialidade = c.Object.Especialidade,
+                    Horario = c.Object.Horario,
+                    Descricao = c.Object.Descricao,
+                    Hospital = c.Object.Hospital
+                }).Where(c => c.Paciente == paciente).ToList();
+            return consultas;
+        }
+
+        public async Task<bool> NovaConsulta(string paciente, string medico, string especialidade, string horario, string descricao, string hospital)
         {
                 await client.Child("Consultas").PostAsync(new Consulta()
                 {
@@ -39,7 +55,8 @@ namespace DinisProjecto4.Service
                     Medico = medico,
                     Especialidade = especialidade,
                     Horario = horario,
-                    Descricao = descricao
+                    Descricao = descricao,
+                    Hospital = hospital
                 });
 
                 return true;
@@ -54,7 +71,7 @@ namespace DinisProjecto4.Service
         }
 
         public async Task<bool> updateConsulta(string lastDescription,string descricao, string paciente, string medico, string especialidade
-            , string horario, string lastpaciente, string lastmedico, string lasthorario)
+            , string horario, string hospital, string lastpaciente, string lastmedico, string lasthorario)
         {
             if (await IsConsultaExists(lastpaciente, lastmedico, lasthorario) == true)
             {
@@ -65,7 +82,7 @@ namespace DinisProjecto4.Service
                 await client
                   .Child("Consultas")
                   .Child(toUpdatePerson.Key)
-                  .PutAsync(new Consulta() { Descricao = descricao, Medico = medico, Paciente = paciente, Horario = horario, Especialidade = especialidade });
+                  .PutAsync(new Consulta() { Descricao = descricao, Medico = medico, Paciente = paciente, Horario = horario, Especialidade = especialidade, Hospital = hospital });
                 return true;
             }
             else

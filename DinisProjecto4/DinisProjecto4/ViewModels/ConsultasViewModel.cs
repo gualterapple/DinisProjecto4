@@ -34,8 +34,23 @@ namespace DinisProjecto4.ViewModels
 
         public async Task<ObservableCollection<Consulta>> LoadConsultas()
         {
-            Consultas = toObservablee(await this.consultasService.GetConsultas());
+            if(MainViewModel.GetInstance().Perfil == "Paciente")
+            {
+                Consultas = toObservablee(await this.consultasService.GetConsultasByPaciente(
+                    MainViewModel.GetInstance().Login.Email));
+            }
+            if (MainViewModel.GetInstance().Perfil == "Médico")
+            {
 
+            }
+            if (MainViewModel.GetInstance().Perfil == "Secretária")
+            {
+
+            }
+            if (MainViewModel.GetInstance().Perfil == "Administrador")
+            {
+                Consultas = toObservablee(await this.consultasService.GetConsultas());
+            }
             return Consultas;
         }
 
@@ -100,9 +115,17 @@ namespace DinisProjecto4.ViewModels
 
         private async Task AddConsulta()
         {
-            var main = MainViewModel.GetInstance();
-            main.newConsulta = new NewConsultaViewModel(false, null);
-            LoadPacientesAndMedicos();
+            try
+            {
+                var main = MainViewModel.GetInstance();
+                main.newConsulta = new NewConsultaViewModel(false, null);
+                LoadPacientesAndMedicos();
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
         }
 
         public ObservableCollection<Consulta> toObservablee(List<Consulta> consultas)
@@ -117,7 +140,8 @@ namespace DinisProjecto4.ViewModels
                         Paciente = item.Paciente,
                         Especialidade = item.Especialidade,
                         Horario = item.Horario,
-                        Descricao = item.Descricao
+                        Descricao = item.Descricao,
+                        Hospital = item.Hospital
 
                     });
             }

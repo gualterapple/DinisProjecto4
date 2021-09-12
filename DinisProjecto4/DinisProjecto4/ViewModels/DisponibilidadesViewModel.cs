@@ -77,7 +77,8 @@ namespace DinisProjecto4.ViewModels
                     {
                         Medico = item.Medico,
                         Hora = item.Hora,
-                        Data = item.Data
+                        Data = item.Data,
+                        Descricao = item.Descricao,
 
                     });
             }
