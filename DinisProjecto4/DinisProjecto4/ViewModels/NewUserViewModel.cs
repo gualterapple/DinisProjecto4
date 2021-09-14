@@ -217,7 +217,7 @@ namespace DinisProjecto4.ViewModels
             {
                 new Perfil
                 {
-                    Title = "Admnistrador",
+                    Title = "Administrador",
                 },
                 new Perfil
                 {
