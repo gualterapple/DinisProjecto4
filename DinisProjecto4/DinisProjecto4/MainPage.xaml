@@ -24,7 +24,7 @@
                     Margin="0,0,0,10"
                     HeightRequest="50"
                     HorizontalTextAlignment="Center"
-                    Text="Hospitais Municipais de Luanda"></Label>
+                    Text="Hospitais Privados de Luanda"></Label>
             </StackLayout>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
