@@ -41,11 +41,12 @@ namespace DinisProjecto4.ViewModels
             }
             if (MainViewModel.GetInstance().Perfil == "Médico")
             {
-
+                Consultas = toObservablee(await this.consultasService.GetConsultasByMedico(
+                    MainViewModel.GetInstance().Login.Email));
             }
-            if (MainViewModel.GetInstance().Perfil == "Secretária")
+            if (MainViewModel.GetInstance().Perfil == "Antendente")
             {
-
+                Consultas = toObservablee(await this.consultasService.GetConsultas());
             }
             if (MainViewModel.GetInstance().Perfil == "Administrador")
             {

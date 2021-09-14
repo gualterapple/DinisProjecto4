@@ -17,6 +17,10 @@ namespace DinisProjecto4.Views
         {
             InitializeComponent();
             BindingContext = MainViewModel.GetInstance().newDisponibilidade;
+            if (MainViewModel.GetInstance().Perfil == "Médico")
+                medicoPicker.IsVisible = false;
+            else
+                medicoPicker.IsVisible = true;
 
         }
     }

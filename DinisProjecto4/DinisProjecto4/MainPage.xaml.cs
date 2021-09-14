@@ -35,10 +35,10 @@ namespace DinisProjecto4
                     Menu_consultas.IsVisible = true;
                     Menu_dispon.IsVisible = false;
                     break;
-                case "Secretária":
+                case "Antendente":
                     Menu_usuario.IsVisible = false;
                     Menu_consultas.IsVisible = true;
-                    Menu_dispon.IsVisible = false;
+                    Menu_dispon.IsVisible = true;
                     break;
                 default:
                     break;

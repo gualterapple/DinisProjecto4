@@ -47,6 +47,21 @@ namespace DinisProjecto4.Service
             return consultas;
         }
 
+        public async Task<List<Consulta>> GetConsultasByMedico(string medico)
+        {
+            var consultas = (await client.Child("Consultas")
+                .OnceAsync<Consulta>()).Select(c => new Consulta
+                {
+                    Paciente = c.Object.Paciente,
+                    Medico = c.Object.Medico,
+                    Especialidade = c.Object.Especialidade,
+                    Horario = c.Object.Horario,
+                    Descricao = c.Object.Descricao,
+                    Hospital = c.Object.Hospital
+                }).Where(c => c.Medico == medico).ToList();
+            return consultas;
+        }
+
         public async Task<bool> NovaConsulta(string paciente, string medico, string especialidade, string horario, string descricao, string hospital)
         {
                 await client.Child("Consultas").PostAsync(new Consulta()

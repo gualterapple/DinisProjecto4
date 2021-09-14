@@ -147,11 +147,21 @@ namespace DinisProjecto4.ViewModels
 
                 var consultaService = new DisponibilidadeService();
                 Descricao = Data.ToString("dd/MMM/yyyy") + " - "+ Hora.ToString();
-                if (await consultaService.NovaDisponibilidade(Medico, Descricao, Data, Hora)) { 
-                
+                if (await consultaService.NovaDisponibilidade(Medico, Descricao, Data, Hora)) {
 
-                    var mDisponibilidade = MainViewModel.GetInstance().disponibilidades;
-                    mDisponibilidade.Disponibilidades = mDisponibilidade.toObservablee(await consultaService.GetDisponibilidades());
+
+                    if (MainViewModel.GetInstance().Perfil == "Médico")
+                    {
+                        var mDisponibilidade = MainViewModel.GetInstance().disponibilidades;
+                        mDisponibilidade.Disponibilidades = mDisponibilidade.toObservablee(await consultaService.GetDisponibilidadesByMedico(
+                            MainViewModel.GetInstance().Login.Email));
+                    }
+
+                    else
+                    {
+                        var mDisponibilidade = MainViewModel.GetInstance().disponibilidades;
+                        mDisponibilidade.Disponibilidades = mDisponibilidade.toObservablee(await consultaService.GetDisponibilidades());
+                    }      
 
                     await Application.Current.MainPage.DisplayAlert(
                     "Informação",
@@ -298,16 +308,21 @@ namespace DinisProjecto4.ViewModels
         private async Task<bool> ValidarCampos()
         {
 
-            
-            if (string.IsNullOrEmpty(this.Medico))
+            if (MainViewModel.GetInstance().Perfil != "Médico") 
             {
-                await Application.Current.MainPage.DisplayAlert(
-                    "Campo Medico está vázio",
-                    "Digite o nome do médico",
-                    "OK");
-                this.Medico = string.Empty;
-                return false;
+                if (string.IsNullOrEmpty(this.Medico))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Campo Medico está vázio",
+                        "Digite o nome do médico",
+                        "OK");
+                    this.Medico = string.Empty;
+                    return false;
+                }
             }
+                
+            else
+                Medico = MainViewModel.GetInstance().Login.Email;
 
 
 

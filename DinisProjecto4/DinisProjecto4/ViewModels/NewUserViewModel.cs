@@ -229,7 +229,7 @@ namespace DinisProjecto4.ViewModels
                 },
                 new Perfil
                 {
-                    Title = "Secretária",
+                    Title = "Antendente",
                 }
             };
             return Perfis;

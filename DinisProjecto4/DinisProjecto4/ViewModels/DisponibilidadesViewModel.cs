@@ -31,8 +31,19 @@ namespace DinisProjecto4.ViewModels
 
         public async Task<ObservableCollection<Disponibilidade>> LoadDisponibilidades()
         {
-            Disponibilidades = toObservablee(await this.disponibilidadesService.GetDisponibilidades());
-            return Disponibilidades;
+            if (MainViewModel.GetInstance().Perfil == "Médico")
+            {
+                Disponibilidades = toObservablee(await this.disponibilidadesService.GetDisponibilidadesByMedico(
+                    MainViewModel.GetInstance().Login.Email));
+                return Disponibilidades;
+            }
+
+            else
+            {
+                Disponibilidades = toObservablee(await this.disponibilidadesService.GetDisponibilidades());
+                return Disponibilidades;
+            }
+            
         }
 
         FirebaseClient client;

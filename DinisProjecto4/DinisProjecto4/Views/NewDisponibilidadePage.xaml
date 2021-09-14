@@ -15,6 +15,7 @@
                     HeightRequest="100">
                 </Image>
                 <Picker
+                    x:Name="medicoPicker"
                     Title="Informe o médico"
                     FontSize="12"
                     ItemDisplayBinding="{Binding UserName}"
