@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using DinisProjecto4.Models;
 using DinisProjecto4.Service;
@@ -15,12 +16,14 @@ namespace DinisProjecto4.ViewModels
         public ObservableCollection<User> Users { get; set; }
         public INavigation Navigation { get; set; }
 
+        private ObservableCollection<User> usersRecebe;
 
         public UsuariosViewModel()
         {
             userService = new UserService();
             AddUserCommand = new Command(async () => await AddUser());
-
+            SearchCommand = new Command(Search);
+            UsersRecebe = MainViewModel.GetInstance().usuarios.Users;
         }
 
         public async Task<ObservableCollection<User>> LoadUsers()
@@ -28,7 +31,14 @@ namespace DinisProjecto4.ViewModels
             Users = toObservablee(await this.userService.GetUsers());
             Console.WriteLine(Users);
 
+            UsersRecebe = Users;
             return Users;
+        }
+
+        public ObservableCollection<User> UsersRecebe
+        {
+            get { return this.usersRecebe; }
+            set { SetValue(ref this.usersRecebe, value); }
         }
 
         public Command AddUserCommand
@@ -45,6 +55,51 @@ namespace DinisProjecto4.ViewModels
 
         }
 
+        public Command SearchCommand
+        {
+            get;
+        }
+
+        private string filter;
+
+        public string Filter
+        {
+            get { return this.filter; }
+            set
+            {
+                SetValue(ref this.filter, value);
+                this.Search();
+            }
+        }
+
+        private void Search()
+        {
+            if (string.IsNullOrEmpty(this.Filter))
+            {
+                this.LoadUsersToSearch();
+            }
+            else
+            {
+                this.Users = new ObservableCollection<User>(
+                    this.ToUser().Where(
+                        l => l.UserName.ToString().ToLower().Contains(this.Filter.ToLower())));
+            }
+        }
+
+        public void LoadUsersToSearch()
+        {
+            Users = UsersRecebe;
+        }
+
+        private IEnumerable<User> ToUser()
+        {
+            return this.usersRecebe.Select(o => new User
+            {
+                UserName = o.UserName,
+                Perfil = o.Perfil
+
+            });
+        }
         public ObservableCollection<User> toObservablee(List<User> users)
         {
             var us = new ObservableCollection<User>();
