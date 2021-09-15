@@ -8,7 +8,15 @@ namespace DinisProjecto4.Models
 {
     public class User:BaseViewModel
     {
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        public string Telefone { get; set; }
+        public string Address { get; set; }
+        public string Genero { get; set; }
+        public DateTime DataNascimento { get; set; }
+
         public string UserName { get; set; }
+
         public string Password { get; set; }
         public string Perfil { get; set; }
         public string Especialidade { get; set; }

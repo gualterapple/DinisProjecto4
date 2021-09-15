@@ -12,10 +12,11 @@ namespace DinisProjecto4.ViewModels
 {
     public class UsuariosViewModel:BaseViewModel
     {
+        
         public UserService userService { get; set; }
-        public ObservableCollection<User> Users { get; set; }
         public INavigation Navigation { get; set; }
 
+        private ObservableCollection<User> users;
         private ObservableCollection<User> usersRecebe;
 
         public UsuariosViewModel()
@@ -23,7 +24,9 @@ namespace DinisProjecto4.ViewModels
             userService = new UserService();
             AddUserCommand = new Command(async () => await AddUser());
             SearchCommand = new Command(Search);
-            UsersRecebe = MainViewModel.GetInstance().usuarios.Users;
+            UsersRecebe = new ObservableCollection<User>();
+            Users = new ObservableCollection<User>();
+
         }
 
         public async Task<ObservableCollection<User>> LoadUsers()
@@ -40,6 +43,12 @@ namespace DinisProjecto4.ViewModels
             get { return this.usersRecebe; }
             set { SetValue(ref this.usersRecebe, value); }
         }
+        public ObservableCollection<User> Users
+        {
+            get { return this.users; }
+            set { SetValue(ref this.users, value); }
+        }
+
 
         public Command AddUserCommand
         {
@@ -74,16 +83,24 @@ namespace DinisProjecto4.ViewModels
 
         private void Search()
         {
-            if (string.IsNullOrEmpty(this.Filter))
+            try
             {
-                this.LoadUsersToSearch();
+                if (string.IsNullOrEmpty(this.Filter))
+                {
+                    this.LoadUsersToSearch();
+                }
+                else
+                {
+                    Users = new ObservableCollection<User>(
+                        this.ToUser().Where(
+                            l => l.UserName.ToString().ToLower().Contains(this.Filter.ToLower()) || l.Perfil.ToString().ToLower().Contains(this.Filter.ToLower())));
+                }
             }
-            else
+            catch (Exception)
             {
-                this.Users = new ObservableCollection<User>(
-                    this.ToUser().Where(
-                        l => l.UserName.ToString().ToLower().Contains(this.Filter.ToLower())));
+                return;
             }
+            
         }
 
         public void LoadUsersToSearch()
@@ -96,7 +113,7 @@ namespace DinisProjecto4.ViewModels
             return this.usersRecebe.Select(o => new User
             {
                 UserName = o.UserName,
-                Perfil = o.Perfil
+                Perfil = o.Perfil,
 
             });
         }

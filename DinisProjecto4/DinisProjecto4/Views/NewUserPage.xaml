@@ -16,67 +16,120 @@
                 HeightRequest="100">
             </Image>
             <Entry
-            Placeholder="Insira o seu usuario"
-            TextColor="Black"
-            Text="{Binding UserName, Mode=TwoWay}">
-        </Entry>
+                x:Name="fullName"
+                Placeholder="Insira o seu nome completo"
+                TextColor="Black"
+                Text="{Binding FullName, Mode=TwoWay}">
+            </Entry>
             <Entry
-            Placeholder="Insira a sua senha"
-            TextColor="Black"
-            IsPassword="True"
-            Text="{Binding Password, Mode=TwoWay}">
-        </Entry>
-        <Picker
-            Title="Informe o perfil"
-            FontSize="12"
-            ItemDisplayBinding="{Binding Title}"
-            ItemsSource="{Binding Perfis}"
-            SelectedItem="{Binding SelectedPerfil, Mode=TwoWay}"
-            TextColor="Gray"
-            TitleColor="Gray">
-        </Picker>
-        <Picker
-            IsVisible="{Binding IsMedico, Mode=TwoWay}"
-            Title="Informe o hospital"
-            FontSize="12"
-            ItemDisplayBinding="{Binding Title}"
-            ItemsSource="{Binding Hospitais}"
-            SelectedItem="{Binding SelectedHospital, Mode=TwoWay}"
-            TextColor="Gray"
-            TitleColor="Gray">
-        </Picker>
-        <Picker
-            IsVisible="{Binding IsMedico, Mode=TwoWay}"
-            Title="Informe a especialidade"
-            FontSize="12"
-            ItemDisplayBinding="{Binding Title}"
-            ItemsSource="{Binding Especialidades}"
-            SelectedItem="{Binding SelectedEspecialidade, Mode=TwoWay}"
-            TextColor="Gray"
-            TitleColor="Gray">
-        </Picker>
-        <Button
-            IsEnabled="{Binding IsEnabled}"
-            Text="Guardar"
-            Command="{Binding CriarContaCommand}">
-        </Button>
-        <Button
-            IsEnabled="{Binding IsEnabled}"
-            Text="Atualizar"
-            Command="{Binding AtualizarContaCommand}">
-        </Button>
-        <Button
-            BackgroundColor="red"
-            IsEnabled="{Binding IsEnabled}"
-            Text="Apagar"
-            Command="{Binding DeleteContaCommand}">
-        </Button>
-        <ActivityIndicator
-            IsRunning="{Binding IsRunning, Mode=TwoWay}"
-            Color="#55d7d7"
-            Margin="10">
-        </ActivityIndicator>
-        </StackLayout>
+                Placeholder="Insira o seu usuario"
+                TextColor="Black"
+                Text="{Binding UserName, Mode=TwoWay}">
+            </Entry>
+            <Entry
+                Placeholder="Insira a sua senha"
+                TextColor="Black"
+                IsPassword="True"
+                Text="{Binding Password, Mode=TwoWay}">
+            </Entry>
+             <Label 
+                 x:Name="labelNascimento"
+                 Text="Data de nacimento:"></Label>
+            <DatePicker
+                x:Name="dataNascimento"
+                BackgroundColor="Transparent"
+                Date="{Binding DataNascimento, Mode=TwoWay}"
+                FontSize="12"
+                VerticalOptions="CenterAndExpand"/>
+                <Picker
+                    x:Name="generoPicker"
+                    Title="Informe o seu gênero"
+                    FontSize="12"
+                    ItemDisplayBinding="{Binding Title}"
+                    ItemsSource="{Binding Generos}"
+                    SelectedItem="{Binding SelectedGenero, Mode=TwoWay}"
+                    TextColor="Gray"
+                    TitleColor="Gray">
+                </Picker>
+                <Entry
+                    x:Name="email"
+                Placeholder="Insira o seu email"
+                TextColor="Black"
+                Text="{Binding Email, Mode=TwoWay}">
+            </Entry>
+            <Entry
+                x:Name="endereco"
+                Placeholder="Insira o seu endereço"
+                TextColor="Black"
+                Text="{Binding Address, Mode=TwoWay}">
+            </Entry>
+            <Entry
+                x:Name="telefone"
+                Placeholder="Insira o seu telefone"
+                TextColor="Black"
+                Text="{Binding Telefone, Mode=TwoWay}">
+            </Entry>
+                <Picker
+                x:Name="perfil"
+                Title="Informe o perfil"
+                FontSize="12"
+                ItemDisplayBinding="{Binding Title}"
+                ItemsSource="{Binding Perfis}"
+                SelectedItem="{Binding SelectedPerfil, Mode=TwoWay}"
+                TextColor="Gray"
+                TitleColor="Gray">
+            </Picker>
+            <Picker
+                x:Name="medico"
+                IsVisible="{Binding IsMedico, Mode=TwoWay}"
+                Title="Informe o hospital"
+                FontSize="12"
+                ItemDisplayBinding="{Binding Title}"
+                ItemsSource="{Binding Hospitais}"
+                SelectedItem="{Binding SelectedHospital, Mode=TwoWay}"
+                TextColor="Gray"
+                TitleColor="Gray">
+            </Picker>
+                <Picker
+                x:Name="especialidade"
+                IsVisible="{Binding IsMedico, Mode=TwoWay}"
+                Title="Informe a especialidade"
+                FontSize="12"
+                ItemDisplayBinding="{Binding Title}"
+                ItemsSource="{Binding Especialidades}"
+                SelectedItem="{Binding SelectedEspecialidade, Mode=TwoWay}"
+                TextColor="Gray"
+                TitleColor="Gray">
+            </Picker>
+            <Button
+                IsEnabled="{Binding IsEnabled}"
+                Text="Guardar"
+                Command="{Binding CriarContaCommand}">
+            </Button>
+            <Button
+                x:Name="btnVoltar"
+                Text="Voltar"
+                Command="{Binding VoltarContaCommand}">
+            </Button>
+            <Button
+                x:Name="btnAtualizar"
+                IsEnabled="{Binding IsEnabled}"
+                Text="Atualizar"
+                Command="{Binding AtualizarContaCommand}">
+            </Button>
+            <Button
+                x:Name="btnApagar" 
+                BackgroundColor="red"
+                IsEnabled="{Binding IsEnabled}"
+                Text="Apagar"
+                Command="{Binding DeleteContaCommand}">
+            </Button>
+            <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                Color="#55d7d7"
+                Margin="10">
+            </ActivityIndicator>
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

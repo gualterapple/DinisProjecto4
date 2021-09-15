@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using DinisProjecto4.Models;
 using DinisProjecto4.Service;
+using DinisProjecto4.Views;
 using Xamarin.Forms;
 
 namespace DinisProjecto4.ViewModels
@@ -16,9 +17,19 @@ namespace DinisProjecto4.ViewModels
         private string especialidade;
         private string hospital;
         private Perfil selectedPerfil;
-        private Especialidade selectedEspecialidade;
+        private Especialidade selectedEspecialidade; 
+        private Genero selectedGenero; 
         private Hospital selectedHospital;
         private bool isMedico;
+        private bool isNewRegister;
+
+        private string fullName;
+        private string email;
+        private string telefone;
+        private string address;
+        private string genero;
+        private DateTime dataNascimento;
+
 
         public string LastName { get; set; }
         public bool IsEditing { get; set; }
@@ -27,6 +38,42 @@ namespace DinisProjecto4.ViewModels
         {
             get { return this.isMedico; }
             set { SetValue(ref this.isMedico, value); }
+        }
+        public bool IsNewRegister
+        {
+            get { return this.isNewRegister; }
+            set { SetValue(ref this.isNewRegister, value); }
+        }
+
+        public string FullName
+        {
+            get { return this.fullName; }
+            set { SetValue(ref this.fullName, value); }
+        }
+        public string Email
+        {
+            get { return this.email; }
+            set { SetValue(ref this.email, value); }
+        }
+        public string Telefone
+        {
+            get { return this.telefone; }
+            set { SetValue(ref this.telefone, value); }
+        }
+        public string Address
+        {
+            get { return this.address; }
+            set { SetValue(ref this.address, value); }
+        }
+        public string Genero
+        {
+            get { return this.genero; }
+            set { SetValue(ref this.genero, value); }
+        }
+        public DateTime DataNascimento
+        {
+            get { return this.dataNascimento; }
+            set { SetValue(ref this.dataNascimento, value); }
         }
 
         HospitaisService hService = new HospitaisService();
@@ -123,6 +170,22 @@ namespace DinisProjecto4.ViewModels
                 }
             }
         }
+        public Genero SelectedGenero
+        {
+            get { return selectedGenero; }
+            set
+            {
+
+                if (selectedGenero != value)
+                {
+                    selectedGenero = value;
+                    Genero = selectedGenero.Title;
+                    
+                    OnPropertyChanged();
+                }
+            }
+        }
+        
 
         public Especialidade SelectedEspecialidade
         {
@@ -183,12 +246,16 @@ namespace DinisProjecto4.ViewModels
             CriarContaCommand = new Command(async () => await Register());
             AtualizarContaCommand = new Command(async () => await Update());
             DeleteContaCommand = new Command(async () => await Delete());
+            VoltarContaCommand = new Command(async () => await GoBack());
 
+            
             Hospitais = hService.LoadHospitais();
             Especialidades = new ObservableCollection<Especialidade>();
 
             IsEditing = editing;
             LoadPerfis();
+            LoadGeneros();
+
             if (IsEditing)
             {
                 Perfil = user.Perfil;
@@ -203,12 +270,21 @@ namespace DinisProjecto4.ViewModels
 
 
         private ObservableCollection<Perfil> perfis;
+        private ObservableCollection<Genero> generos;
+
 
         public ObservableCollection<Perfil> Perfis
         {
             get { return this.perfis; }
             set { SetValue(ref this.perfis, value); }
         }
+
+        public ObservableCollection<Genero> Generos
+        {
+            get { return this.generos; }
+            set { SetValue(ref this.generos, value); }
+        }
+        
 
         public IEnumerable<Perfil> LoadPerfis()
         {
@@ -235,6 +311,23 @@ namespace DinisProjecto4.ViewModels
             return Perfis;
         }
 
+        public IEnumerable<Genero> LoadGeneros()
+        {
+
+            Generos = new ObservableCollection<Genero>
+            {
+                new Genero
+                {
+                    Title = "Masculino",
+                },
+                new Genero
+                {
+                    Title = "Femenino",
+                }
+            };
+            return Generos;
+        }
+
         public Command CriarContaCommand
         {
             get;
@@ -250,10 +343,17 @@ namespace DinisProjecto4.ViewModels
             get;
         }
 
+        public Command VoltarContaCommand
+        {
+            get;
+        }
+        
+
         public async Task Register()
         {
             try
             {
+                
                 StartLoading();
                 if (!await ValidarCampos())
                 {
@@ -262,6 +362,25 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var userService = new UserService();
+
+                if(MainViewModel.GetInstance().newUser.IsNewRegister)
+                if (await userService.RegisterPaciente(FullName, Password, UserName, Genero, Telefone, 
+                    Email, Address, DataNascimento))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Informação",
+                        "Usuário registado com sucesso!",
+                        "Accept");
+
+
+                    var users = new UsuariosViewModel();
+                    await users.LoadUsers();
+                    MainViewModel.GetInstance().usuarios = users;
+                    StopLoading();
+                    Application.Current.MainPage = new LoginPage();
+                    return;
+                }
+
                 if (await userService.RegisterUser(UserName, Password, Perfil, Hospital, Especialidade))
                 {
                     await Application.Current.MainPage.DisplayAlert(
@@ -352,6 +471,12 @@ namespace DinisProjecto4.ViewModels
             }
         }
 
+        
+            public async Task GoBack()
+            {
+                 Application.Current.MainPage = new LoginPage();
+            }
+
         public async Task Delete()
         {
             try
@@ -419,6 +544,64 @@ namespace DinisProjecto4.ViewModels
         private async Task<bool> ValidarCampos()
         {
 
+            if (MainViewModel.GetInstance().newUser.IsNewRegister) 
+            {
+
+                if (string.IsNullOrEmpty(this.FullName))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Campo nome completo está vázio",
+                        "Digite o seu nome completo",
+                        "OK");
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(this.Genero))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Campo gênero completo está vázio",
+                        "Digite o seu gênero",
+                        "OK");
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(this.DataNascimento.ToString()))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Campo data de nascimento está vázio",
+                        "Digite a sua nascimento",
+                        "OK");
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(this.Email.ToString()))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Campo email está vázio",
+                        "Digite o seu email",
+                        "OK");
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(this.Telefone.ToString()))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Campo telefone está vázio",
+                        "Digite o seu telefone",
+                        "OK");
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(this.Address.ToString()))
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        "Campo endereço está vázio",
+                        "Digite o seu endereço",
+                        "OK");
+                    return false;
+                }
+            }
+
             if (string.IsNullOrEmpty(this.UserName))
             {
                 await Application.Current.MainPage.DisplayAlert(
@@ -439,7 +622,8 @@ namespace DinisProjecto4.ViewModels
                 return false;
             }
 
-            if (string.IsNullOrEmpty(this.Perfil))
+            if (!MainViewModel.GetInstance().newUser.IsNewRegister)
+                if (string.IsNullOrEmpty(this.Perfil))
             {
                 await Application.Current.MainPage.DisplayAlert(
                     "Perfil não seleccionado",
@@ -449,7 +633,8 @@ namespace DinisProjecto4.ViewModels
                 return false;
             }
 
-            if (IsMedico) 
+            if (!MainViewModel.GetInstance().newUser.IsNewRegister)
+                if (IsMedico) 
             {
                 if (string.IsNullOrEmpty(this.Hospital))
                 {
@@ -481,6 +666,11 @@ namespace DinisProjecto4.ViewModels
 }
 
 public class Perfil
+{
+    public string Title { get; set; }
+};
+
+public class Genero
 {
     public string Title { get; set; }
 };

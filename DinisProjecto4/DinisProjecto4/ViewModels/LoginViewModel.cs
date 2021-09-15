@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DinisProjecto4.Service;
+using DinisProjecto4.Views;
 using Xamarin.Forms;
 
 namespace DinisProjecto4.ViewModels
@@ -15,8 +16,8 @@ namespace DinisProjecto4.ViewModels
 
         public LoginViewModel()
         {
-            Email = "joao";
-            Password = "123456";
+            Email = "dinis";
+            Password = "123";
             LoginCommand = new Command(async () => await Login());
             CriarContaCommand = new Command(async () => await Register());
 
@@ -91,7 +92,10 @@ namespace DinisProjecto4.ViewModels
         {
             try
             {
-                StartLoading();
+                MainViewModel.GetInstance().newUser = new NewUserViewModel(false,null);
+                MainViewModel.GetInstance().newUser.IsNewRegister = true;
+                Application.Current.MainPage = new NewUserPage();
+                /*StartLoading();
                 if (!await ValidarCampos())
                 {
                     StopLoading();
@@ -118,7 +122,7 @@ namespace DinisProjecto4.ViewModels
 
                     StopLoading();
                     return;
-                }
+                }*/
 
             }
             catch (Exception ex)
@@ -150,6 +154,7 @@ namespace DinisProjecto4.ViewModels
                     var main = MainViewModel.GetInstance();
                     main.usuarios = new UsuariosViewModel();
                     main.usuarios.Users = main.usuarios.toObservablee(await this.userService.GetUsers());
+                    main.usuarios.UsersRecebe = MainViewModel.GetInstance().usuarios.Users;
 
                     var users = main.usuarios.Users;
 

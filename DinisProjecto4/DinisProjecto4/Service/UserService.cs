@@ -84,6 +84,29 @@ namespace DinisProjecto4.Service
 
         }
 
+        public async Task<bool> RegisterPaciente(string fullname, string pass, string user, string genero, string telefone, string email, string endereco, DateTime dataNascimento)
+        {
+            if (await IsUserExists(user) == false)
+            {
+                await client.Child("Users").PostAsync(new User()
+                {
+                    UserName = user,
+                    Password = pass,
+                    Perfil = "Paciente",
+                    FullName = fullname,
+                    Genero = genero,
+                    Telefone = telefone,
+                    Email = email,
+                    Address = endereco,
+                    DataNascimento = dataNascimento
+                });
+                return true;
+            }
+            else
+                return false;
+
+        }
+
         public async Task<bool> UpdateUser(string lastName, string name, string pass, string perfil)
         {
             if (await IsUserExists(lastName) == true)
