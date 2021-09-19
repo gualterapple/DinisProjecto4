@@ -80,7 +80,7 @@
                 TitleColor="Gray">
             </Picker>
             <Picker
-                x:Name="medico"
+                x:Name="hospital"
                 IsVisible="{Binding IsMedico, Mode=TwoWay}"
                 Title="Informe o hospital"
                 FontSize="12"

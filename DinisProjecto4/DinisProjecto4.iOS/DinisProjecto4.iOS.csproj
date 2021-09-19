@@ -140,6 +140,7 @@
     <BundleResource Include="Resources\logoapp.png" />
     <BundleResource Include="Resources\user.png" />
     <BundleResource Include="Resources\stethoscope.png" />
+    <BundleResource Include="Resources\list.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\countdown.png" />

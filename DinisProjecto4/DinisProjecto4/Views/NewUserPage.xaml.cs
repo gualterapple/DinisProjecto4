@@ -13,36 +13,29 @@ namespace DinisProjecto4.Views
             BindingContext = MainViewModel.GetInstance().newUser;
             if (MainViewModel.GetInstance().newUser.IsNewRegister) 
             {
-                fullName.IsVisible = true;
-                labelNascimento.IsVisible = true;
-                dataNascimento.IsVisible = true;
-                generoPicker.IsVisible = true;
-                email.IsVisible = true;
-                endereco.IsVisible = true;
                 btnVoltar.IsVisible = true;
-                telefone.IsVisible = true;
-
-                perfil.IsVisible = false;
-                medico.IsVisible = false;
-                especialidade.IsVisible = false;
                 btnApagar.IsVisible = false;
                 btnAtualizar.IsVisible = false;
+                perfil.IsVisible = false;
             }
             else {
-                fullName.IsVisible = false;
-                labelNascimento.IsVisible = false;
-                dataNascimento.IsVisible = false;
-                generoPicker.IsVisible = false;
-                email.IsVisible = false;
-                endereco.IsVisible = false;
-                btnVoltar.IsVisible = false;
-                telefone.IsVisible = false;
 
-                perfil.IsVisible = true;
-                medico.IsVisible = true;
-                especialidade.IsVisible = true;
+                btnVoltar.IsVisible = false;
                 btnApagar.IsVisible = true;
                 btnAtualizar.IsVisible = true;
+                perfil.IsVisible = true;
+
+            }
+
+            if (MainViewModel.GetInstance().newUser.IsMedico)
+            {
+                hospital.IsVisible = true;
+                especialidade.IsVisible = true;
+            }
+            else
+            {
+                hospital.IsVisible = false;
+                especialidade.IsVisible = false;
             }
         }
     }

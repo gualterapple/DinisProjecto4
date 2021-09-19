@@ -30,9 +30,17 @@ namespace DinisProjecto4.Service
             var users = (await client.Child("Users")
                 .OnceAsync<User>()).Select(u=> new User
                 {
+                    FullName = u.Object.FullName,
                     UserName = u.Object.UserName,
                     Password = u.Object.Password,
-                    Perfil = u.Object.Perfil
+                    Perfil = u.Object.Perfil,
+                    Address = u.Object.Address,
+                    Email = u.Object.Email,
+                    Telefone = u.Object.Telefone,
+                    Genero = u.Object.Genero,
+                    Especialidade = u.Object.Especialidade,
+                    Hospital = u.Object.Hospital,
+                    DataNascimento = u.Object.DataNascimento
                 }).ToList();
             return users;
         }
@@ -42,10 +50,18 @@ namespace DinisProjecto4.Service
             var users = (await client.Child("Users")
                 .OnceAsync<User>()).Select(u => new User
                 {
+                    FullName = u.Object.FullName,
                     UserName = u.Object.UserName,
-                    Especialidade = u.Object.Especialidade,
+                    Password = u.Object.Password,
                     Perfil = u.Object.Perfil,
-                    Hospital = u.Object.Hospital
+                    Address = u.Object.Address,
+                    Email = u.Object.Email,
+                    Telefone = u.Object.Telefone,
+                    Genero = u.Object.Genero,
+                    Especialidade = u.Object.Especialidade,
+                    Hospital = u.Object.Hospital,
+                    DataNascimento = u.Object.DataNascimento
+
                 }).Where(a => a.Especialidade == especialidade && a.Hospital == hospital).ToList();
 
             return users;
@@ -56,9 +72,16 @@ namespace DinisProjecto4.Service
             var users = (await client.Child("Users")
                 .OnceAsync<User>()).Select(u => new User
                 {
+                    FullName = u.Object.FullName,
                     UserName = u.Object.UserName,
                     Password = u.Object.Password,
-                    Perfil = u.Object.Perfil
+                    Perfil = u.Object.Perfil,
+                    Address = u.Object.Address,
+                    Email = u.Object.Email,
+                    Telefone = u.Object.Telefone,
+                    Genero = u.Object.Genero,
+                    DataNascimento = u.Object.DataNascimento
+
                 }).Where(a => a.UserName == "Paciente").ToList();
 
             return users;
@@ -107,18 +130,29 @@ namespace DinisProjecto4.Service
 
         }
 
-        public async Task<bool> UpdateUser(string lastName, string name, string pass, string perfil)
+        public async Task<bool> UpdateUser(string userName, string pass, string perfil,
+            string fullName, DateTime dataNascimento, string genero, string email, string telefone, string hospital, string address)
         {
-            if (await IsUserExists(lastName) == true)
+            if (await IsUserExists(userName) == true)
             {
                 var toUpdatePerson = (await client
                 .Child("Users")
-                .OnceAsync<User>()).Where(a => a.Object.UserName == lastName).FirstOrDefault();
+                .OnceAsync<User>()).Where(a => a.Object.UserName == userName).FirstOrDefault();
 
                 await client
                   .Child("Users")
                   .Child(toUpdatePerson.Key)
-                  .PutAsync(new User() { UserName = name, Password = pass, Perfil = perfil });
+                  .PutAsync(new User() {
+                      UserName = userName,
+                      Password = pass,
+                      Perfil = perfil,
+                      FullName = fullName,
+                      DataNascimento = dataNascimento,
+                      Genero = genero,
+                      Email = email,
+                      Telefone = telefone,
+                      Hospital = hospital,
+                      Address = address});
                 return true;
             }
             else

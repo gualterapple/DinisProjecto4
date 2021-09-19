@@ -16,7 +16,7 @@ namespace DinisProjecto4.ViewModels
 
         public LoginViewModel()
         {
-            Email = "dinis";
+            Email = "Dinis";
             Password = "123";
             LoginCommand = new Command(async () => await Login());
             CriarContaCommand = new Command(async () => await Register());

@@ -247,7 +247,6 @@ namespace DinisProjecto4.ViewModels
             AtualizarContaCommand = new Command(async () => await Update());
             DeleteContaCommand = new Command(async () => await Delete());
             VoltarContaCommand = new Command(async () => await GoBack());
-
             
             Hospitais = hService.LoadHospitais();
             Especialidades = new ObservableCollection<Especialidade>();
@@ -263,6 +262,14 @@ namespace DinisProjecto4.ViewModels
                 {
                     if (item.Title == Perfil)
                         selectedPerfil = item;
+                }
+                OnPropertyChanged();
+
+                Genero = user.Genero;
+                foreach (var item in Generos)
+                {
+                    if (item.Title == Genero)
+                        selectedGenero = item;
                 }
                 OnPropertyChanged();
             }
@@ -432,7 +439,8 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var userService = new UserService();
-                if (await userService.UpdateUser(LastName, UserName, Password, Perfil))
+                if (await userService.UpdateUser(UserName, Password, Perfil,
+                    FullName, DataNascimento, Genero, Email, Telefone, Hospital, Address ))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",

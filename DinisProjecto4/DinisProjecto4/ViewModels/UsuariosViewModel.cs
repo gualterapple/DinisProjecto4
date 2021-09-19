@@ -112,8 +112,16 @@ namespace DinisProjecto4.ViewModels
         {
             return this.usersRecebe.Select(o => new User
             {
+                FullName = o.FullName,
                 UserName = o.UserName,
+                Password = o.Password,
                 Perfil = o.Perfil,
+                Address = o.Address,
+                Email = o.Email,
+                Telefone = o.Telefone,
+                Genero = o.Genero,
+                Especialidade = o.Especialidade,
+                Hospital = o.Hospital
 
             });
         }
@@ -122,13 +130,42 @@ namespace DinisProjecto4.ViewModels
             var us = new ObservableCollection<User>();
             foreach (var item in users)
             {
-                us.Add(
-                    new User {
+                
+
+                if (item.Perfil == "Médico")
+                {
+                    us.Add(
+                    new User
+                    {
+                        FullName = item.FullName,
                         UserName = item.UserName,
                         Password = item.Password,
-                        Perfil = item.Perfil
+                        Perfil = item.Perfil,
+                        Address = item.Address,
+                        Email = item.Email,
+                        Telefone = item.Telefone,
+                        Genero = item.Genero,
+                        Especialidade = item.Especialidade,
+                        Hospital = item.Hospital
                     });
+                }
+                else
+                {
+                    us.Add(
+                    new User
+                    {
+                        FullName = item.FullName,
+                        UserName = item.UserName,
+                        Password = item.Password,
+                        Perfil = item.Perfil,
+                        Address = item.Address,
+                        Email = item.Email,
+                        Telefone = item.Telefone,
+                        Genero = item.Genero
+                    });
+                }
             }
+
             return us;
         }
     }
