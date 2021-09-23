@@ -44,6 +44,7 @@
                 IsVisible="{Binding IsRunning, Mode=TwoWay}"
                 IsRunning="{Binding IsRunning, Mode=TwoWay}" Color="#5d29b8"/>
                 <CollectionView
+                    Margin="0,20"
                     
                     VerticalOptions="FillAndExpand"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
@@ -55,18 +56,28 @@
                         <DataTemplate>
                             <Frame
                                 HasShadow="False"
-                                Padding="10">
+                                Padding="10"
+                                CornerRadius="10">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectUserCommand}" />
                                 </Frame.GestureRecognizers>
-                                <StackLayout>
+                                <Grid ColumnDefinitions="Auto, Auto, Auto">
+                                    <Image Source="Femenino"
+                                           WidthRequest="50"/>
+                                    <StackLayout
+                                        Grid.Column="1">
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="Large"
-                                        Text="{Binding UserName}"></Label>
-                                    <Label Text="{Binding Perfil}"></Label>
-
+                                        Text="{Binding UserName}"
+                                        TextColor="#3BBAC0"/>
+                                    <Label 
+                                        Text="{Binding Perfil}"
+                                        FontSize="Medium"/>
                                 </StackLayout>
+                                
+
+                                </Grid>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
