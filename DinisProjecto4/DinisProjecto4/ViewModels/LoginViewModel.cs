@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DinisProjecto4.Models;
 using DinisProjecto4.Service;
 using DinisProjecto4.Views;
 using Xamarin.Forms;
@@ -160,8 +161,27 @@ namespace DinisProjecto4.ViewModels
 
                     foreach (var item in users)
                     {
-                        if (item.UserName == Email)
-                        main.Perfil = item.Perfil;
+                        if (item.UserName == Email) 
+                        {
+
+                            MainViewModel.GetInstance().currentUser = new User();
+                            MainViewModel.GetInstance().currentUser = item;
+                            main.Perfil = item.Perfil;
+
+                            /*MainViewModel.GetInstance().newUser = new NewUserViewModel(false, null);
+                            MainViewModel.GetInstance().newUser.FullName = item.FullName;
+                            MainViewModel.GetInstance().newUser.UserName = item.UserName;
+                            MainViewModel.GetInstance().newUser.Email = item.Email;
+                            MainViewModel.GetInstance().newUser.Telefone = item.Telefone;
+                            MainViewModel.GetInstance().newUser.Genero = item.Genero;
+                            MainViewModel.GetInstance().newUser.Especialidade = item.Especialidade;
+                            MainViewModel.GetInstance().newUser.Address = item.Address;
+                            MainViewModel.GetInstance().newUser.Password = item.Password;
+                            MainViewModel.GetInstance().newUser.Perfil = item.Perfil;
+                            MainViewModel.GetInstance().newUser.DataNascimento = item.DataNascimento;
+                            MainViewModel.GetInstance().newUser.Hospital = item.Hospital;*/
+                        }
+                        
                     }
                     
                     main.consultas = new ConsultasViewModel();

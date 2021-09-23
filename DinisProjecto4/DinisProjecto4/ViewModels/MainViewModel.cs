@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DinisProjecto4.Models;
+using System;
 using Xamarin.Forms;
 
 namespace DinisProjecto4.ViewModels
@@ -55,7 +56,11 @@ namespace DinisProjecto4.ViewModels
             get;
             set;
         }
-
+        public User currentUser
+        {
+            get;
+            set;
+        }
         public NewConsultaViewModel newConsulta
         {
             get;

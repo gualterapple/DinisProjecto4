@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DinisProjecto4.Views.UserDetailsPage"
+    Visual="Material"
+    BackgroundColor="#d3ffff">
+    <ContentPage.Content>
+        <ScrollView
+            VerticalOptions="CenterAndExpand">
+            <StackLayout
+            Margin="20,20">
+                <Label
+                    Text="Meus Dados"
+                    TextColor="Black"
+                    FontSize="Medium"
+                    HorizontalTextAlignment="Center"/>
+                <Label
+                    Text="Nome completo"
+                    FontSize="Medium"
+                    TextColor="Black">
+                </Label>
+                <Label
+                x:Name="fullName"
+                FontSize="Medium"
+                Text="{Binding FullName, Mode=TwoWay}">
+                </Label>
+                <Label
+                    TextColor="Black"
+                    FontSize="Medium"
+                    Text="Utilizador"/>
+                <Label
+                    Text="{Binding UserName, Mode=TwoWay}"
+                    FontSize="Medium"/>
+                <Label 
+                     x:Name="labelNascimento"
+                     Text="Data de nacimento:"
+                     TextColor="Black"
+                     FontSize="Medium"/>
+                <Label
+                x:Name="dataNascimento"
+                Text="{Binding DataNascimento, Mode=TwoWay}"
+                FontSize="Medium"
+                VerticalOptions="CenterAndExpand"/>
+                <Label
+                    Text="Genero"
+                    TextColor="Black"
+                    FontSize="Medium"/>
+                <Label
+                    x:Name="generoPicker"
+                    Text="{Binding Genero}"
+                    FontSize="Medium"/>
+                <Label
+                    Text="Email"
+                    TextColor="Black"
+                    FontSize="Medium"/>
+                <Label
+                    x:Name="email"
+                    Text="{Binding Email, Mode=TwoWay}"
+                    FontSize="Medium"/>
+                <Label
+                    Text="Endereço"
+                    TextColor="Black"
+                    FontSize="Medium"/>
+                <Label
+                x:Name="endereco"
+                Text="{Binding Address, Mode=TwoWay}"
+                FontSize="Medium">
+                </Label>
+                <Label
+                    Text="Telefone"
+                    TextColor="Black"
+                    FontSize="Medium"/>
+                <Label
+                x:Name="telefone"
+                Text="{Binding Telefone, Mode=TwoWay}"
+                FontSize="Medium"/>
+                <Label
+                    Text="Perfil"
+                    TextColor="Black"
+                    FontSize="Medium"/>
+                <Label
+                x:Name="perfil"
+                Text="{Binding Perfil}"
+                FontSize="Medium"/>
+                <Label
+                    Text="Hospital"
+                    TextColor="Black"
+                    FontSize="Medium"/>
+                <Label
+                x:Name="hospital"
+                IsVisible="{Binding IsMedico, Mode=TwoWay}"
+                Text="{Binding Hospital}"
+                FontSize="Medium">
+                </Label>
+                <Label
+                    Text="Especialidade"
+                    TextColor="Black"
+                    FontSize="Medium"/>
+                <Label
+                x:Name="especialidade"
+                IsVisible="{Binding IsMedico, Mode=TwoWay}"
+                FontSize="Medium"
+                Text="{Binding Especialidade}"/>
+                <Button
+                x:Name="btnAtualizar"
+                IsEnabled="{Binding IsEnabled}"
+                Text="Atualizar"
+                Command="{Binding SelectUserCommand}">
+                </Button>
+                <ActivityIndicator
+                IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                Color="#55d7d7"
+                Margin="10">
+                </ActivityIndicator>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

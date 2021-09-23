@@ -37,6 +37,9 @@
     <FlyoutItem Title="Disponibilidades" Icon="countdown" x:Name="Menu_dispon">
         <ShellContent ContentTemplate="{DataTemplate pages:DisponibilidadesPage}"/>
     </FlyoutItem>
+    <FlyoutItem Title="Meus dados" Icon="user" x:Name="Menu_user_datails">
+        <ShellContent ContentTemplate="{DataTemplate pages:UserDetailsPage}"/>
+    </FlyoutItem>
     <Shell.FlyoutFooter>
         <Button
             Clicked="sair_Clicked"
