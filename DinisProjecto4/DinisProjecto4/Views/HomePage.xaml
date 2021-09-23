@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DinisProjecto4.Views.HomePage"
+             Visual="Material"
+             BackgroundColor="#d3ffff">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Image Source="medicos2"/>
+                <Frame
+                    CornerRadius="40"
+                    Margin="10,-20,10,0">
+                    <StackLayout>
+                        <Grid ColumnDefinitions="Auto,Auto">
+                            <Label
+                            TextColor="#3BBAC0"
+                            Text="Olá Gualter"
+                            FontAttributes="Bold"
+                            FontSize="Large"/>
+                            <Image 
+                                Grid.Column="1"
+                                Source="emojiola"
+                                WidthRequest="30"/>
+                        </Grid>
+                        <Label
+                            Margin="0,5"
+                            Text="Bem-vindo ao minha consulta!"
+                            TextColor="#666666"
+                            FontSize="Large"/>
+                        <Label
+                            Text="Pronto para marcar"
+                            TextColor="#3BBAC0"
+                            FontSize="Large"/>
+                        <Label
+                            Margin="0,-5"
+                            Text="a sua consulta?"
+                            TextColor="#3BBAC0"
+                            FontSize="Large"/>
+   
+                    </StackLayout>
+                </Frame>
+                <Grid 
+                    ColumnDefinitions="Auto,Auto"
+                    Margin="30,30,30,0">
+                    <Label
+                        Grid.Column="1"
+                        TextColor="#666666"
+                        Text="Estatística Covid-19"
+                        FontSize="Large"/>
+                    <Image 
+                        Source="covid2"
+                        WidthRequest="30"/>
+                </Grid>
+                <Grid 
+                    ColumnDefinitions="*,*"
+                    Margin="30,0,0,20">
+                    <Label
+                        TextColor="#666666"
+                        Text="Casos: 53387"
+                        FontSize="Medium"/>
+                    <Label
+                        Grid.Column="1"
+                        TextColor="#F64F4D"
+                        Text="Óbitos: 1434"
+                        FontSize="Medium"/>
+                </Grid>
+            </StackLayout>
+        </ScrollView>        
+    </ContentPage.Content>
+</ContentPage>
