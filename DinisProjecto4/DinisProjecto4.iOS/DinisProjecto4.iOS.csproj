@@ -141,6 +141,9 @@
     <BundleResource Include="Resources\user.png" />
     <BundleResource Include="Resources\stethoscope.png" />
     <BundleResource Include="Resources\list.png" />
+    <BundleResource Include="covid2.png" />
+    <BundleResource Include="emojiola.png" />
+    <BundleResource Include="medicos2.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\countdown.png" />
