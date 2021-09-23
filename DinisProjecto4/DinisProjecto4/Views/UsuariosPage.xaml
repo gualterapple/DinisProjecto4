@@ -62,7 +62,7 @@
                                     <TapGestureRecognizer Command="{Binding SelectUserCommand}" />
                                 </Frame.GestureRecognizers>
                                 <Grid ColumnDefinitions="Auto, Auto, Auto">
-                                    <Image Source="Femenino"
+                                <Image Source="{Binding Genero}"
                                            WidthRequest="50"/>
                                     <StackLayout
                                         Grid.Column="1">
