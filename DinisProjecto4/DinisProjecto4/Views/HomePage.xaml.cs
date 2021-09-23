@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DinisProjecto4.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace DinisProjecto4.Views
         public HomePage()
         {
             InitializeComponent();
+            name.Text = MainViewModel.GetInstance().Login.Email;
         }
     }
 }

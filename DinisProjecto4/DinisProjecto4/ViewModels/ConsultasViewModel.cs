@@ -13,6 +13,29 @@ namespace DinisProjecto4.ViewModels
 {
     public class ConsultasViewModel : BaseViewModel
     {
+        private bool isRunning;
+
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+            set
+            {
+                this.isRunning = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isEnabled;
+
+        public bool IsEnabled
+        {
+            get { return this.isEnabled; }
+            set
+            {
+                this.isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
         public ConsultasService consultasService { get; set; }
         public ObservableCollection<Consulta> Consultas { get; set; }
         public DisponibilidadeService disponibilidadesService { get; set; }
@@ -28,6 +51,8 @@ namespace DinisProjecto4.ViewModels
             AddConsultaCommand = new Command(async () => await AddConsulta());
             this.userService = new UserService();
             client = new FirebaseClient("https://consultas-793b1-default-rtdb.firebaseio.com/");
+            IsRunning = false;
+            IsEnabled = true;
             LoadConsultas();
 
         }

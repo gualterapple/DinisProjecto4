@@ -14,7 +14,7 @@
                 Text="Nova Consulta"
                 Command="{Binding AddConsultaCommand}"></Button>
             <ActivityIndicator 
-                IsVisible="{Binding IsVisible, Mode=TwoWay}"
+                IsVisible="{Binding IsRunning, Mode=TwoWay}"
                 IsRunning="{Binding IsRunning, Mode=TwoWay}" Color="#5d29b8"/>
                 <CollectionView
                     VerticalOptions="FillAndExpand"

@@ -12,14 +12,20 @@
                     CornerRadius="40"
                     Margin="20,-20,20,0">
                     <StackLayout>
-                        <Grid ColumnDefinitions="Auto,Auto">
+                        <Grid ColumnDefinitions="Auto,Auto,Auto">
                             <Label
                             TextColor="#3BBAC0"
-                            Text="Olá Gualter"
+                            Text="Olá"
                             FontAttributes="Bold"
                             FontSize="Large"/>
-                            <Image 
+                            <Label
+                                x:Name="name"
                                 Grid.Column="1"
+                                TextColor="#3BBAC0"
+                                FontAttributes="Bold"
+                                FontSize="Large"/>
+                            <Image 
+                                Grid.Column="2"
                                 Source="emojiola"
                                 WidthRequest="30"/>
                         </Grid>

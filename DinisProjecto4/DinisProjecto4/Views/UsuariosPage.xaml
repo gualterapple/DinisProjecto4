@@ -7,22 +7,44 @@
     BackgroundColor="#d3ffff">
     <ContentPage.Content>
         <StackLayout
-            Margin="10">
+            Margin="20">
+            <Label
+                Margin="20,0"
+                Text="Administração de"
+                FontSize="Large"
+                FontAttributes="Bold"
+                TextColor="#3BBAC0"/>
+            <Label
+                Margin="20,0,0,20"
+                Text="Usuários"
+                FontSize="Large"
+                FontAttributes="Bold"
+                TextColor="#3BBAC0"/>
             <Button
+                FontSize="20"
+                Padding="8"
+                CornerRadius="10"
                 BackgroundColor="#55d7d7"
                 TextColor="Black"
                 Text="Novo Usuário"
                 Command="{Binding AddUserCommand}"></Button>
-            <SearchBar 
-                Placeholder="Pesquisar..."
+            <Frame
+                Margin="0"
+                Padding="5">
+                <SearchBar 
+                BackgroundColor="White"
+                Placeholder="Pesquisar por nome ou perfil..."
                 SearchCommand="{Binding SearchCommand, Mode=TwoWay}"
                 Text="{Binding Filter, Mode=TwoWay}"
                 HorizontalTextAlignment="Center"
                FontSize="Medium" />
+            </Frame>
+           
             <ActivityIndicator 
-                IsVisible="{Binding IsVisible, Mode=TwoWay}"
+                IsVisible="{Binding IsRunning, Mode=TwoWay}"
                 IsRunning="{Binding IsRunning, Mode=TwoWay}" Color="#5d29b8"/>
                 <CollectionView
+                    
                     VerticalOptions="FillAndExpand"
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                     ItemsSource="{Binding Users, Mode=TwoWay}">

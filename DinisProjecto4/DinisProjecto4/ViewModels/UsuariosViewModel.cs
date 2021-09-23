@@ -12,7 +12,29 @@ namespace DinisProjecto4.ViewModels
 {
     public class UsuariosViewModel:BaseViewModel
     {
-        
+        private bool isRunning;
+
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+            set
+            {
+                this.isRunning = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isEnabled;
+
+        public bool IsEnabled
+        {
+            get { return this.isEnabled; }
+            set
+            {
+                this.isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
         public UserService userService { get; set; }
         public INavigation Navigation { get; set; }
 
@@ -26,6 +48,8 @@ namespace DinisProjecto4.ViewModels
             SearchCommand = new Command(Search);
             UsersRecebe = new ObservableCollection<User>();
             Users = new ObservableCollection<User>();
+            IsRunning = false;
+            IsEnabled = true;
 
         }
 
