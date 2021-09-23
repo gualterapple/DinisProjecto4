@@ -8,18 +8,28 @@
     <ContentPage.Content>
         <StackLayout
             Margin="20">
-            <Label
-                Margin="20,0"
-                Text="Administração de"
-                FontSize="Large"
-                FontAttributes="Bold"
-                TextColor="#3BBAC0"/>
-            <Label
-                Margin="20,0,0,20"
-                Text="Usuários"
-                FontSize="Large"
-                FontAttributes="Bold"
-                TextColor="#3BBAC0"/>
+            <Grid ColumnDefinitions="*, 3*">
+                <Image 
+                    Source="Masculino"
+                    WidthRequest="200"/>
+                <StackLayout
+                    VerticalOptions="Center"
+                    Grid.Column="1">
+                    <Label
+                        Margin="10,0"
+                        Text="Administração de"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        TextColor="#3BBAC0"/>
+                    <Label
+                        Margin="10,0,0,20"
+                        Text="Usuários"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        TextColor="#3BBAC0"/>
+                </StackLayout>
+
+            </Grid>
             <Button
                 FontSize="20"
                 Padding="8"
