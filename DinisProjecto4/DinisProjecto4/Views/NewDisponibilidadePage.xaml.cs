@@ -22,6 +22,20 @@ namespace DinisProjecto4.Views
             else
                 medicoPicker.IsVisible = true;
 
+
+            if (!MainViewModel.GetInstance().newDisponibilidade.IsEditing)
+            {
+                btnGuardar.IsVisible = true;
+                btnApagar.IsVisible = false;
+                btnAtualizar.IsVisible = false;
+            }
+            else
+            {
+                btnGuardar.IsVisible = false;
+                btnApagar.IsVisible = true;
+                btnAtualizar.IsVisible = true;
+            }
+
         }
     }
 }

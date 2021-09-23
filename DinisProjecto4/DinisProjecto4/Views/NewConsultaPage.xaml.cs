@@ -11,6 +11,18 @@ namespace DinisProjecto4.Views
         {
             InitializeComponent();
             BindingContext = MainViewModel.GetInstance().newConsulta;
+            if (!MainViewModel.GetInstance().newConsulta.IsEditing)
+            {
+                btnGuardar.IsVisible = true;
+                btnApagar.IsVisible = false;
+                btnAtualizar.IsVisible = false;
+            }
+            else
+            {
+                btnGuardar.IsVisible = false;
+                btnApagar.IsVisible = true;
+                btnAtualizar.IsVisible = true;
+            }
         }
     }
 }

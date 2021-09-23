@@ -102,6 +102,7 @@
                 TitleColor="Gray">
             </Picker>
             <Button
+                x:Name="btnGuardar"
                 IsEnabled="{Binding IsEnabled}"
                 Text="Guardar"
                 Command="{Binding CriarContaCommand}">

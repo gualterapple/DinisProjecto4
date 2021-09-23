@@ -37,6 +37,19 @@ namespace DinisProjecto4.Views
                 hospital.IsVisible = false;
                 especialidade.IsVisible = false;
             }
+            if (!MainViewModel.GetInstance().newUser.IsEditing)
+            {
+                btnGuardar.IsVisible = true;
+                btnApagar.IsVisible = false;
+                btnAtualizar.IsVisible = false;
+            }
+            else
+            {
+                btnGuardar.IsVisible = false;
+                btnApagar.IsVisible = true;
+                btnAtualizar.IsVisible = true;
+            }
+
         }
     }
 }

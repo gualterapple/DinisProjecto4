@@ -370,7 +370,7 @@ namespace DinisProjecto4.ViewModels
 
                 var userService = new UserService();
 
-                if(MainViewModel.GetInstance().newUser.IsNewRegister)
+                //if(MainViewModel.GetInstance().newUser.IsNewRegister)
                 if (await userService.RegisterPaciente(FullName, Password, UserName, Genero, Telefone, 
                     Email, Address, DataNascimento))
                 {
@@ -384,11 +384,11 @@ namespace DinisProjecto4.ViewModels
                     await users.LoadUsers();
                     MainViewModel.GetInstance().usuarios = users;
                     StopLoading();
-                    Application.Current.MainPage = new LoginPage();
+                    Application.Current.MainPage = new MainPage();
                     return;
                 }
 
-                if (await userService.RegisterUser(UserName, Password, Perfil, Hospital, Especialidade))
+                /*if (await userService.RegisterUser(UserName, Password, Perfil, Hospital, Especialidade))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",
@@ -401,7 +401,7 @@ namespace DinisProjecto4.ViewModels
                     MainViewModel.GetInstance().usuarios = users;
                     StopLoading();
                     Application.Current.MainPage = new MainPage();
-                }
+                }*/
 
                 else
                 {

@@ -66,17 +66,20 @@
                 TextColor="Black"
                 Text="{Binding Descricao, Mode=TwoWay}">
             </Entry>
-                <Button
+            <Button
+                x:Name="btnGuardar"
                 IsEnabled="{Binding IsEnabled}"
                 Text="Guardar"
                 Command="{Binding CriarContaCommand}">
             </Button>
             <Button
+                x:Name="btnAtualizar"
                 IsEnabled="{Binding IsEnabled}"
                 Text="Atualizar"
                 Command="{Binding AtualizarContaCommand}">
             </Button>
             <Button
+                x:Name="btnApagar"
                 BackgroundColor="red"
                 IsEnabled="{Binding IsEnabled}"
                 Text="Apagar"

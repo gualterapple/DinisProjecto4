@@ -35,16 +35,19 @@
              FontSize="12"
              VerticalOptions="CenterAndExpand"/>
                 <Button
+                x:Name="btnGuardar"
                 IsEnabled="{Binding IsEnabled}"
                 Text="Guardar"
                 Command="{Binding CriarDisponibilidadeCommand}">
                 </Button>
                 <Button
+                x:Name="btnAtualizar"
                 IsEnabled="{Binding IsEnabled}"
                 Text="Atualizar"
                 Command="{Binding AtualizarDisponibilidadeCommand}">
                 </Button>
                 <Button
+                x:Name="btnApagar"
                 BackgroundColor="red"
                 IsEnabled="{Binding IsEnabled}"
                 Text="Apagar"

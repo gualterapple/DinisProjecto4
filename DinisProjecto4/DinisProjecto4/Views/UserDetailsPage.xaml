@@ -83,6 +83,7 @@
                 Text="{Binding Perfil}"
                 FontSize="Medium"/>
                 <Label
+                    x:Name="hospital_label"
                     Text="Hospital"
                     TextColor="Black"
                     FontSize="Medium"/>
@@ -93,6 +94,7 @@
                 FontSize="Medium">
                 </Label>
                 <Label
+                    x:Name="especialidade_label"
                     Text="Especialidade"
                     TextColor="Black"
                     FontSize="Medium"/>
