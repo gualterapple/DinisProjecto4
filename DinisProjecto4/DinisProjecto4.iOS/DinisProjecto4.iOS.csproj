@@ -144,6 +144,8 @@
     <BundleResource Include="covid2.png" />
     <BundleResource Include="emojiola.png" />
     <BundleResource Include="medicos2.png" />
+    <BundleResource Include="Resources\Femenino.png" />
+    <BundleResource Include="Resources\Masculino.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\countdown.png" />
