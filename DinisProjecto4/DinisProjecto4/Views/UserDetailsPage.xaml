@@ -20,6 +20,7 @@
                     TextColor="Black">
                 </Label>
                 <Label
+                TextColor="Black"
                 x:Name="fullName"
                 FontSize="Medium"
                 Text="{Binding FullName, Mode=TwoWay}">
@@ -29,6 +30,7 @@
                     FontSize="Medium"
                     Text="Utilizador"/>
                 <Label
+                    TextColor="Black"
                     Text="{Binding UserName, Mode=TwoWay}"
                     FontSize="Medium"/>
                 <Label 
@@ -37,6 +39,7 @@
                      TextColor="Black"
                      FontSize="Medium"/>
                 <Label
+                    TextColor="Black"
                 x:Name="dataNascimento"
                 Text="{Binding DataNascimento, Mode=TwoWay}"
                 FontSize="Medium"
@@ -46,6 +49,7 @@
                     TextColor="Black"
                     FontSize="Medium"/>
                 <Label
+                    TextColor="Black"
                     x:Name="generoPicker"
                     Text="{Binding Genero}"
                     FontSize="Medium"/>
@@ -54,6 +58,7 @@
                     TextColor="Black"
                     FontSize="Medium"/>
                 <Label
+                    TextColor="Black"
                     x:Name="email"
                     Text="{Binding Email, Mode=TwoWay}"
                     FontSize="Medium"/>
@@ -62,6 +67,7 @@
                     TextColor="Black"
                     FontSize="Medium"/>
                 <Label
+                    TextColor="Black"
                 x:Name="endereco"
                 Text="{Binding Address, Mode=TwoWay}"
                 FontSize="Medium">
@@ -71,6 +77,7 @@
                     TextColor="Black"
                     FontSize="Medium"/>
                 <Label
+                    TextColor="Black"
                 x:Name="telefone"
                 Text="{Binding Telefone, Mode=TwoWay}"
                 FontSize="Medium"/>
@@ -79,6 +86,7 @@
                     TextColor="Black"
                     FontSize="Medium"/>
                 <Label
+                    TextColor="Black"
                 x:Name="perfil"
                 Text="{Binding Perfil}"
                 FontSize="Medium"/>
@@ -88,6 +96,7 @@
                     TextColor="Black"
                     FontSize="Medium"/>
                 <Label
+                    TextColor="Black"
                 x:Name="hospital"
                 IsVisible="{Binding IsMedico, Mode=TwoWay}"
                 Text="{Binding Hospital}"
@@ -99,6 +108,7 @@
                     TextColor="Black"
                     FontSize="Medium"/>
                 <Label
+                    TextColor="Black"
                 x:Name="especialidade"
                 IsVisible="{Binding IsMedico, Mode=TwoWay}"
                 FontSize="Medium"

@@ -117,10 +117,10 @@ namespace DinisProjecto4.ViewModels
                 {
                     Users = new ObservableCollection<User>(
                         this.ToUser().Where(
-                            l => l.UserName.ToString().ToLower().Contains(this.Filter.ToLower()) || l.Perfil.ToString().ToLower().Contains(this.Filter.ToLower())));
+                            l => l.UserName.ToString().ToLower().Contains( this.Filter.ToLower()) || l.Perfil.ToString().ToLower().Contains(this.Filter.ToLower())));
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return;
             }

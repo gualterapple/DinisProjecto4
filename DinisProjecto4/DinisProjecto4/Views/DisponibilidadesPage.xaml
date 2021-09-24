@@ -8,11 +8,48 @@
     <ContentPage.Content>
         <StackLayout
             Margin="10">
+            <Grid ColumnDefinitions="*, 3*">
+                <Image 
+                    Source="countdown"
+                    WidthRequest="100"/>
+                <StackLayout
+                    VerticalOptions="Center"
+                    Grid.Column="1">
+                    <Label
+                        Margin="10,0"
+                        Text="Administração de"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        TextColor="#3BBAC0"/>
+                    <Label
+                        Margin="10,0,0,0"
+                        Text="Disponibilidades"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        TextColor="#3BBAC0"/>
+                </StackLayout>
+
+            </Grid>
             <Button
+                FontSize="20"
+                Padding="8"
+                CornerRadius="10"
                 BackgroundColor="#55d7d7"
                 TextColor="Black"
                 Text="Nova Disponibilidade"
-                Command="{Binding AddDisponibilidadeCommand}"></Button>
+                Command="{Binding AddDisponibilidadeCommand}">
+            </Button>
+            <Frame
+                Margin="0"
+                Padding="5">
+                <SearchBar 
+                BackgroundColor="White"
+                Placeholder="Pesquisar por paciente, médico ou hospital..."
+                SearchCommand="{Binding SearchCommand, Mode=TwoWay}"
+                Text="{Binding Filter, Mode=TwoWay}"
+                HorizontalTextAlignment="Center"
+               FontSize="Medium" />
+            </Frame>
             <ActivityIndicator 
                 IsVisible="{Binding IsVisible, Mode=TwoWay}"
                 IsRunning="{Binding IsRunning, Mode=TwoWay}" Color="#5d29b8"/>

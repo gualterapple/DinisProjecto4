@@ -14,10 +14,34 @@ namespace DinisProjecto4.ViewModels
 {
     public class DisponibilidadesViewModel : BaseViewModel
     {
+
+        private bool isRunning;
+
+        public bool IsRunning
+        {
+            get { return this.isRunning; }
+            set
+            {
+                this.isRunning = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isEnabled;
+
+        public bool IsEnabled
+        {
+            get { return this.isEnabled; }
+            set
+            {
+                this.isEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DisponibilidadeService disponibilidadesService { get; set; }
         public ObservableCollection<Disponibilidade> Disponibilidades { get; set; }
         public INavigation Navigation { get; set; }
-
 
         public DisponibilidadesViewModel()
         {
@@ -27,6 +51,9 @@ namespace DinisProjecto4.ViewModels
             client = new FirebaseClient("https://consultas-793b1-default-rtdb.firebaseio.com/");
             LoadDisponibilidades();
 
+            IsEnabled = true;
+            IsRunning = false;
+                 
         }
 
         public async Task<ObservableCollection<Disponibilidade>> LoadDisponibilidades()

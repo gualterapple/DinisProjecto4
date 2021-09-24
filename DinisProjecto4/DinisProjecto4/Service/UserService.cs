@@ -107,7 +107,9 @@ namespace DinisProjecto4.Service
 
         }
 
-        public async Task<bool> RegisterPaciente(string fullname, string pass, string user, string genero, string telefone, string email, string endereco, DateTime dataNascimento)
+        public async Task<bool> RegisterUser(string fullname, string pass,
+            string user, string genero, string telefone, string email,
+            string endereco, DateTime dataNascimento, string perfil, string especialidade, string hospital)
         {
             if (await IsUserExists(user) == false)
             {
@@ -115,13 +117,16 @@ namespace DinisProjecto4.Service
                 {
                     UserName = user,
                     Password = pass,
-                    Perfil = "Paciente",
+                    Perfil = perfil,
                     FullName = fullname,
                     Genero = genero,
                     Telefone = telefone,
                     Email = email,
                     Address = endereco,
-                    DataNascimento = dataNascimento
+                    DataNascimento = dataNascimento,
+                    Especialidade = especialidade,
+                    Hospital = hospital
+
                 });
                 return true;
             }

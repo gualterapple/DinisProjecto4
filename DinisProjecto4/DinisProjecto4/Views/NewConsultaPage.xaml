@@ -16,6 +16,7 @@
                 HeightRequest="100">
             </Image>
             <Picker
+                x:Name="hospital"
                 Title="Informe o hospital"
                 FontSize="12"
                 ItemDisplayBinding="{Binding Title}"
@@ -25,6 +26,7 @@
                 TitleColor="Gray">
             </Picker>
             <Picker
+                x:Name="especialidade"
                 Title="Informe a especialidade"
                 FontSize="12"
                 ItemDisplayBinding="{Binding Title}"
@@ -34,6 +36,7 @@
                 TitleColor="Gray">
             </Picker>
             <Picker
+                x:Name="medico"
                 Title="Informe o médico"
                 FontSize="12"
                 ItemDisplayBinding="{Binding UserName}"

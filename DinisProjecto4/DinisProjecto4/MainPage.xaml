@@ -28,7 +28,7 @@
             </StackLayout>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
-    <FlyoutItem Title="Inicio" Icon="user" x:Name="Menu_home">
+    <FlyoutItem Title="Inicio" Icon="home" x:Name="Menu_home">
         <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"/>
     </FlyoutItem>
     <FlyoutItem Title="Usuários" Icon="user" x:Name="Menu_usuario">

@@ -23,6 +23,18 @@ namespace DinisProjecto4.Views
                 btnApagar.IsVisible = true;
                 btnAtualizar.IsVisible = true;
             }
+            if(MainViewModel.GetInstance().Perfil == "Médico")
+            {
+                hospital.IsVisible = false;
+                especialidade.IsVisible = false;
+                medico.IsVisible = false;
+            }
+            else
+            {
+                hospital.IsVisible = true;
+                especialidade.IsVisible = true;
+                medico.IsVisible = true;
+            }
         }
     }
 }

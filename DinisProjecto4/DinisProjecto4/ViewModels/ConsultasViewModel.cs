@@ -121,8 +121,8 @@ namespace DinisProjecto4.ViewModels
                 MainViewModel.GetInstance().newConsulta.Disponibilidades = toObservableDispo(d_);
 
 
-                Navigation = MainViewModel.GetInstance().Navigation;
-                await Application.Current.MainPage.Navigation.PushAsync(new NewConsultaPage());
+                /*Navigation = MainViewModel.GetInstance().Navigation;
+                await Application.Current.MainPage.Navigation.PushAsync(new NewConsultaPage());*/
             }
             catch (Exception)
             {
@@ -185,6 +185,8 @@ namespace DinisProjecto4.ViewModels
                         UserName = item.UserName,
                         Password = item.Password,
                         Perfil = item.Perfil,
+                        Especialidade = item.Especialidade,
+                        Hospital = item.Hospital
 
                     });
             }

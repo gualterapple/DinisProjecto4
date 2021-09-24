@@ -65,6 +65,7 @@
             </Entry>
             <Entry
                 x:Name="telefone"
+                Keyboard="Numeric"
                 Placeholder="Insira o seu telefone"
                 TextColor="Black"
                 Text="{Binding Telefone, Mode=TwoWay}">

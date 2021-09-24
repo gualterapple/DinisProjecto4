@@ -271,6 +271,7 @@ namespace DinisProjecto4.ViewModels
                     if (item.Title == Genero)
                         selectedGenero = item;
                 }
+
                 OnPropertyChanged();
             }
         }
@@ -370,22 +371,30 @@ namespace DinisProjecto4.ViewModels
 
                 var userService = new UserService();
 
-                //if(MainViewModel.GetInstance().newUser.IsNewRegister)
-                if (await userService.RegisterPaciente(FullName, Password, UserName, Genero, Telefone, 
-                    Email, Address, DataNascimento))
+                if (MainViewModel.GetInstance().newUser.IsNewRegister)
+                    Perfil = "Paciente";
+
+                if (await userService.RegisterUser(FullName, Password, UserName, Genero, Telefone, 
+                    Email, Address, DataNascimento, Perfil, Especialidade, Hospital))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",
                         "Usuário registado com sucesso!",
                         "Accept");
 
+                    MainViewModel.GetInstance().Login = new LoginViewModel();
+                    MainViewModel.GetInstance().Login.Email = UserName;
+                    MainViewModel.GetInstance().Login.Password = Password;
+                    MainViewModel.GetInstance().Perfil = Perfil;
 
-                    var users = new UsuariosViewModel();
+
+                    MainViewModel.GetInstance().Login.Login();
+                    /*var users = new UsuariosViewModel();
                     await users.LoadUsers();
                     MainViewModel.GetInstance().usuarios = users;
                     StopLoading();
                     Application.Current.MainPage = new MainPage();
-                    return;
+                    return;*/
                 }
 
                 /*if (await userService.RegisterUser(UserName, Password, Perfil, Hospital, Especialidade))
@@ -447,12 +456,30 @@ namespace DinisProjecto4.ViewModels
                         "Usuário atualizado com sucesso!",
                         "Accept");
 
+                    if(MainViewModel.GetInstance().currentUser.UserName == UserName)
+                    {
+                        var cu = MainViewModel.GetInstance().currentUser;
+                        cu.FullName = FullName;
+                        cu.Email = Email;
+                        cu.Address = Address;
+                        cu.DataNascimento = DataNascimento;
+                        cu.Especialidade = Especialidade;
+                        cu.Genero = Genero;
+                        cu.Hospital = Hospital;
+                        cu.Perfil = Perfil;
+                        cu.UserName = userName;
+                        cu.Telefone = Telefone;
+
+                    }
 
                     var users = new UsuariosViewModel();
                     await users.LoadUsers();
                     MainViewModel.GetInstance().usuarios = users;
                     StopLoading();
                     Application.Current.MainPage = new MainPage();
+                    
+
+
                 }
 
                 else
@@ -497,7 +524,7 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var userService = new UserService();
-                if (await userService.DeleteUser(LastName))
+                if (await userService.DeleteUser(UserName))
                 {
                     await Application.Current.MainPage.DisplayAlert(
                         "Informação",

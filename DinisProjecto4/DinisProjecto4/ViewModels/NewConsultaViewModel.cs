@@ -196,6 +196,21 @@ namespace DinisProjecto4.ViewModels
             if (MainViewModel.GetInstance().Perfil != "Paciente")
                 MostrarPaciente = true;
 
+        }
+
+        private void CarregarDadosDoMedico()
+        {
+            foreach (var item in Medicos)
+            {
+                if(item.UserName == MainViewModel.GetInstance().Login.Email)
+                {
+                    Medico = item.UserName;
+                    Especialidade = item.Especialidade;
+                    Hospital = item.Hospital;
+                }
+                    
+            }
+            LoadDisponibilidade(Medico);
 
         }
 
@@ -425,7 +440,9 @@ namespace DinisProjecto4.ViewModels
                 {
                     UserName = u.Object.UserName,
                     Password = u.Object.Password,
-                    Perfil = u.Object.Perfil
+                    Perfil = u.Object.Perfil,
+                    Especialidade = u.Object.Especialidade,
+                    Hospital = u.Object.Hospital
                 });
 
             var disps = (await client.Child("Disponibilidades")
@@ -445,6 +462,11 @@ namespace DinisProjecto4.ViewModels
             Medicos = MainViewModel.GetInstance().consultas.toObservableuser(m_);
             Disponibilidades = MainViewModel.GetInstance().disponibilidades.toObservablee(d_);
             Hospitais = hService.LoadHospitais();
+
+            if (MainViewModel.GetInstance().Perfil == "Médico")
+            {
+                CarregarDadosDoMedico();
+            }
 
             if (IsEditing)
             {

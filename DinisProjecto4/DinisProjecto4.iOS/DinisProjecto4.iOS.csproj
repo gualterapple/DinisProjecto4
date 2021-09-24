@@ -146,6 +146,7 @@
     <BundleResource Include="medicos2.png" />
     <BundleResource Include="Resources\Femenino.png" />
     <BundleResource Include="Resources\Masculino.png" />
+    <BundleResource Include="Resources\home.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\countdown.png" />
