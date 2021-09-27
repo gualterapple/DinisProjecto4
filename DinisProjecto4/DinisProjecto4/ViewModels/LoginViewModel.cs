@@ -19,6 +19,7 @@ namespace DinisProjecto4.ViewModels
         {
             Email = "Dinis";
             Password = "123";
+            MainViewModel.GetInstance().IsLogged = false;
             LoginCommand = new Command(async () => await Login());
             CriarContaCommand = new Command(async () => await Register());
 
@@ -167,28 +168,16 @@ namespace DinisProjecto4.ViewModels
                             MainViewModel.GetInstance().currentUser = new User();
                             MainViewModel.GetInstance().currentUser = item;
                             main.Perfil = item.Perfil;
-
-                            /*MainViewModel.GetInstance().newUser = new NewUserViewModel(false, null);
-                            MainViewModel.GetInstance().newUser.FullName = item.FullName;
-                            MainViewModel.GetInstance().newUser.UserName = item.UserName;
-                            MainViewModel.GetInstance().newUser.Email = item.Email;
-                            MainViewModel.GetInstance().newUser.Telefone = item.Telefone;
-                            MainViewModel.GetInstance().newUser.Genero = item.Genero;
-                            MainViewModel.GetInstance().newUser.Especialidade = item.Especialidade;
-                            MainViewModel.GetInstance().newUser.Address = item.Address;
-                            MainViewModel.GetInstance().newUser.Password = item.Password;
-                            MainViewModel.GetInstance().newUser.Perfil = item.Perfil;
-                            MainViewModel.GetInstance().newUser.DataNascimento = item.DataNascimento;
-                            MainViewModel.GetInstance().newUser.Hospital = item.Hospital;*/
                         }
                         
                     }
                     
                     main.consultas = new ConsultasViewModel();
-                    //main.consultas.Consultas = main.consultas.toObservablee(await this.consultasService.GetConsultas());
 
                     main.disponibilidades = new DisponibilidadesViewModel();
                     main.disponibilidades.Disponibilidades = main.disponibilidades.toObservablee(await this.disponibilidadeService.GetDisponibilidades());
+
+                    MainViewModel.GetInstance().IsLogged = true;
 
                     Application.Current.MainPage = new MainPage();
                 }

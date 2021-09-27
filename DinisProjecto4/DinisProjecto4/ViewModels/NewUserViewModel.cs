@@ -263,13 +263,30 @@ namespace DinisProjecto4.ViewModels
                     if (item.Title == Perfil)
                         selectedPerfil = item;
                 }
-                OnPropertyChanged();
 
                 Genero = user.Genero;
                 foreach (var item in Generos)
                 {
                     if (item.Title == Genero)
                         selectedGenero = item;
+                }
+
+                if(IsMedico)
+                {
+
+                    Hospital = user.Hospital;
+                    foreach (var item in Hospitais)
+                    {
+                        if (item.Title == Hospital)
+                            selectedHospital = item;
+                    }
+
+                    Especialidade = user.Especialidade;
+                    foreach (var item in Especialidades)
+                    {
+                        if (item.Title == Especialidade)
+                            selectedEspecialidade = item;
+                    }
                 }
 
                 OnPropertyChanged();
@@ -382,19 +399,24 @@ namespace DinisProjecto4.ViewModels
                         "Usuário registado com sucesso!",
                         "Accept");
 
-                    MainViewModel.GetInstance().Login = new LoginViewModel();
-                    MainViewModel.GetInstance().Login.Email = UserName;
-                    MainViewModel.GetInstance().Login.Password = Password;
-                    MainViewModel.GetInstance().Perfil = Perfil;
 
+                    if (!MainViewModel.GetInstance().IsLogged)
+                    {
+                        MainViewModel.GetInstance().Login = new LoginViewModel();
+                        MainViewModel.GetInstance().Login.Email = UserName;
+                        MainViewModel.GetInstance().Login.Password = Password;
+                        MainViewModel.GetInstance().Perfil = Perfil;
+                        MainViewModel.GetInstance().Login.Login();
 
-                    MainViewModel.GetInstance().Login.Login();
-                    /*var users = new UsuariosViewModel();
-                    await users.LoadUsers();
-                    MainViewModel.GetInstance().usuarios = users;
-                    StopLoading();
-                    Application.Current.MainPage = new MainPage();
-                    return;*/
+                    }
+                    else
+                    {
+                        var users = new UsuariosViewModel();
+                        await users.LoadUsers();
+                        MainViewModel.GetInstance().usuarios = users;
+                        StopLoading();
+                        Application.Current.MainPage = new MainPage();
+                    }
                 }
 
                 /*if (await userService.RegisterUser(UserName, Password, Perfil, Hospital, Especialidade))

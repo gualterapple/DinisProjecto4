@@ -28,6 +28,12 @@ namespace DinisProjecto4.ViewModels
             return instance;
         }
 
+        public bool IsLogged
+        {
+            get;
+            set;
+        }
+
         public LoginViewModel Login
         {
             get;

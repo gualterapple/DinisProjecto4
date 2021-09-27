@@ -48,7 +48,9 @@ namespace DinisProjecto4
 
         void sair_Clicked(System.Object sender, System.EventArgs e)
         {
+            MainViewModel.GetInstance().IsLogged = false;
             Application.Current.MainPage = new LoginPage();
+
         }
     }
 }
