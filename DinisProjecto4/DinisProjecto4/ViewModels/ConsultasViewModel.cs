@@ -37,8 +37,23 @@ namespace DinisProjecto4.ViewModels
             }
         }
         public ConsultasService consultasService { get; set; }
-        public ObservableCollection<Consulta> Consultas { get; set; }
+
+        private ObservableCollection<Consulta> consultas;
+
+        public ObservableCollection<Consulta> Consultas
+        {
+            get { return this.consultas; }
+            set { SetValue(ref this.consultas, value); }
+        }
         public DisponibilidadeService disponibilidadesService { get; set; }
+
+        private ObservableCollection<Consulta> consultasRecebe;
+
+        public ObservableCollection<Consulta> ConsultasRecebe
+        {
+            get { return this.consultasRecebe; }
+            set { SetValue(ref this.consultasRecebe, value); }
+        }
 
         public ObservableCollection<Disponibilidade> Disponibilidades { get; set; }
         public INavigation Navigation { get; set; }
@@ -49,12 +64,20 @@ namespace DinisProjecto4.ViewModels
             consultasService = new ConsultasService();
             disponibilidadesService = new DisponibilidadeService();
             AddConsultaCommand = new Command(async () => await AddConsulta());
+            SearchCommand = new Command(Search);
+
             this.userService = new UserService();
+            ConsultasRecebe = new ObservableCollection<Consulta>();
             client = new FirebaseClient("https://consultas-793b1-default-rtdb.firebaseio.com/");
             IsRunning = false;
             IsEnabled = true;
             LoadConsultas();
 
+        }
+
+        public Command SearchCommand
+        {
+            get;
         }
 
         public async Task<ObservableCollection<Consulta>> LoadConsultas()
@@ -77,6 +100,9 @@ namespace DinisProjecto4.ViewModels
             {
                 Consultas = toObservablee(await this.consultasService.GetConsultas());
             }
+
+            ConsultasRecebe = Consultas;
+
             return Consultas;
         }
 
@@ -191,6 +217,61 @@ namespace DinisProjecto4.ViewModels
                     });
             }
             return co;
+        }
+
+        private string filter;
+
+        public string Filter
+        {
+            get { return this.filter; }
+            set
+            {
+                SetValue(ref this.filter, value);
+                this.Search();
+            }
+        }
+
+        private void Search()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(this.Filter))
+                {
+                    this.LoadConsultasToSearch();
+                }
+                else
+                {
+                    Consultas = new ObservableCollection<Consulta>(
+                        this.ToConsulta().Where(
+                            l => l.Hospital.ToString().ToLower().Contains(this.Filter.ToLower())
+                            || l.Paciente.ToString().ToLower().Contains(this.Filter.ToLower())
+                            || l.Medico.ToString().ToLower().Contains(this.Filter.ToLower())
+                            || l.Especialidade.ToString().ToLower().Contains(this.Filter.ToLower())));
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+
+        }
+
+        private IEnumerable<Consulta> ToConsulta()
+        {
+            return this.consultasRecebe.Select(o => new Consulta
+            {
+                Medico = o.Medico,
+                Paciente = o.Paciente,
+                Descricao = o.Descricao,
+                Especialidade = o.Especialidade,
+                Hospital = o.Hospital
+
+            });
+        }
+
+        public void LoadConsultasToSearch()
+        {
+            Consultas = ConsultasRecebe;
         }
 
         private ObservableCollection<Disponibilidade> toObservableDispo(List<Disponibilidade> disps)

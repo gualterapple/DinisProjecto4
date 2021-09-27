@@ -42,9 +42,10 @@
             <Frame
                 Margin="0"
                 Padding="5">
-                <SearchBar 
+                <SearchBar
+                PlaceholderColor="White"
                 BackgroundColor="White"
-                Placeholder="Pesquisar por paciente, médico ou hospital..."
+                Placeholder="Pesquisar por paciente, médico, hospital e especialidade"
                 SearchCommand="{Binding SearchCommand, Mode=TwoWay}"
                 Text="{Binding Filter, Mode=TwoWay}"
                 HorizontalTextAlignment="Center"
