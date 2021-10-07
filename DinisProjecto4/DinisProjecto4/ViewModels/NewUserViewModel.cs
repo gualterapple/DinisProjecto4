@@ -271,7 +271,7 @@ namespace DinisProjecto4.ViewModels
                         selectedGenero = item;
                 }
 
-                if(IsMedico)
+                if(user.Perfil == "Médico")
                 {
 
                     Hospital = user.Hospital;
@@ -281,6 +281,8 @@ namespace DinisProjecto4.ViewModels
                             selectedHospital = item;
                     }
 
+                    LoadEspecialidades();
+
                     Especialidade = user.Especialidade;
                     foreach (var item in Especialidades)
                     {
@@ -289,7 +291,20 @@ namespace DinisProjecto4.ViewModels
                     }
                 }
 
+                
+
                 OnPropertyChanged();
+            }
+        }
+
+        public void LoadEspecialidades()
+        {
+            foreach (var item in Hospitais)
+            {
+                if(item.Title == SelectedHospital.Title) 
+                {
+                    Especialidades = item.Especialidades;
+                }
             }
         }
 

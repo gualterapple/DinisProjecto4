@@ -87,6 +87,7 @@ namespace DinisProjecto4.ViewModels
             var users = (await client.Child("Users")
                 .OnceAsync<User>()).Select(u => new User
                 {
+                    FullName = u.Object.FullName,
                     UserName = u.Object.UserName,
                     Password = u.Object.Password,
                     Perfil = u.Object.Perfil
@@ -131,6 +132,7 @@ namespace DinisProjecto4.ViewModels
                 co.Add(
                     new User
                     {
+                        FullName = item.FullName,
                         UserName = item.UserName,
                         Password = item.Password,
                         Perfil = item.Perfil,

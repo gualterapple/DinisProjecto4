@@ -79,7 +79,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="Large"
-                                        Text="{Binding UserName}"
+                                        Text="{Binding FullName}"
                                         TextColor="#3BBAC0"/>
                                     <Label 
                                         Text="{Binding Perfil}"

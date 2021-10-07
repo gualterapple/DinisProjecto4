@@ -204,7 +204,7 @@ namespace DinisProjecto4.ViewModels
             {
                 if(item.UserName == MainViewModel.GetInstance().Login.Email)
                 {
-                    Medico = item.UserName;
+                    Medico = item.FullName;
                     Especialidade = item.Especialidade;
                     Hospital = item.Hospital;
                 }
@@ -347,7 +347,7 @@ namespace DinisProjecto4.ViewModels
                 if (selectedMedico != value)
                 {
                     selectedMedico = value;
-                    Medico = selectedMedico.UserName;
+                    Medico = selectedMedico.FullName;
                     LoadDisponibilidade(Medico);
                     OnPropertyChanged();
                 }
@@ -438,6 +438,7 @@ namespace DinisProjecto4.ViewModels
             var users = (await this.client.Child("Users")
                 .OnceAsync<User>()).Select(u => new User
                 {
+                    FullName = u.Object.FullName,
                     UserName = u.Object.UserName,
                     Password = u.Object.Password,
                     Perfil = u.Object.Perfil,
