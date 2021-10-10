@@ -50,6 +50,11 @@ namespace DinisProjecto4.Views
                 btnAtualizar.IsVisible = true;
             }
 
+            if (MainViewModel.GetInstance().Perfil == "Administrador")
+                perfil.IsVisible = true;
+            else
+                perfil.IsVisible = false;
+
         }
     }
 }

@@ -347,7 +347,7 @@ namespace DinisProjecto4.ViewModels
                 if (selectedMedico != value)
                 {
                     selectedMedico = value;
-                    Medico = selectedMedico.FullName;
+                    Medico = selectedMedico.UserName;
                     LoadDisponibilidade(Medico);
                     OnPropertyChanged();
                 }
