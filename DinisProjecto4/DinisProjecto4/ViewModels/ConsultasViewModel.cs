@@ -186,6 +186,19 @@ namespace DinisProjecto4.ViewModels
             var co = new ObservableCollection<Consulta>();
             foreach (var item in consultas)
             {
+                var cor = "";
+                var d1 = Convert.ToDateTime(item.Horario);
+                var d2 = Convert.ToDateTime(DateTime.Now);
+
+                int result = DateTime.Compare(d1.Date, d2.Date);
+
+                if (result < 0)
+                    cor = "#61FF76";
+                else if (result == 0)
+                    cor = "#61FF76";
+                else
+                    cor = "#FF5B3F";
+
                 co.Add(
                     new Consulta
                     {
@@ -194,7 +207,8 @@ namespace DinisProjecto4.ViewModels
                         Especialidade = item.Especialidade,
                         Horario = item.Horario,
                         Descricao = item.Descricao,
-                        Hospital = item.Hospital
+                        Hospital = item.Hospital,
+                        Color = cor
 
                     });
             }

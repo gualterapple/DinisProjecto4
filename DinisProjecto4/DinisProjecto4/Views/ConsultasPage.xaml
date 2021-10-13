@@ -64,7 +64,8 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame
-                                HasShadow="False"
+                                BackgroundColor="{Binding Color, Mode=TwoWay}"
+                                HasShadow="False" 
                                 Padding="10">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectConsultaCommand}" />

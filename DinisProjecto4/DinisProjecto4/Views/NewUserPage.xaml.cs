@@ -55,6 +55,9 @@ namespace DinisProjecto4.Views
             else
                 perfil.IsVisible = false;
 
+            if (MainViewModel.GetInstance().newUser.IsNewRegister)
+                perfil.IsVisible = false;
+
         }
     }
 }

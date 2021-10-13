@@ -19,6 +19,8 @@ namespace DinisProjecto4.ViewModels
 
         private User selectedMedico;
 
+        public DateTime Data_atual { get; set; }
+
         public ObservableCollection<User> Medicos { get; set; }
 
         public string LastMedico { get; set; }
@@ -83,6 +85,8 @@ namespace DinisProjecto4.ViewModels
             AtualizarDisponibilidadeCommand = new Command(async () => await Update());
             DeleteDisponibilidadeCommand = new Command(async () => await Delete());
 
+            Data_atual = DateTime.Now;
+
             IsEditing = editing;
 
             if (editing)
@@ -146,7 +150,7 @@ namespace DinisProjecto4.ViewModels
                 }
 
                 var consultaService = new DisponibilidadeService();
-                Descricao = Data.ToString("dd/MMM/yyyy") + " - "+ Hora.ToString();
+                Descricao = Data.ToString("dd/MMM/yyyy") + " "+ Hora.ToString();
                 if (await consultaService.NovaDisponibilidade(Medico, Descricao, Data, Hora)) {
 
 

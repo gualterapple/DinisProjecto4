@@ -25,15 +25,16 @@
                     TitleColor="Gray">  
                 </Picker>
                 <DatePicker
-            BackgroundColor="Transparent"
-            Date="{Binding Data, Mode=TwoWay}"
-            FontSize="12"
-            VerticalOptions="CenterAndExpand"/>
+                    MinimumDate="{Binding Data_atual, Mode=TwoWay}"
+                    BackgroundColor="Transparent"
+                    Date="{Binding Data, Mode=TwoWay}"
+                    FontSize="12"
+                    VerticalOptions="CenterAndExpand"/>
                 <TimePicker
-             BackgroundColor="Transparent"
-             Time="{Binding Hora, Mode=TwoWay}"
-             FontSize="12"
-             VerticalOptions="CenterAndExpand"/>
+                     BackgroundColor="Transparent"
+                     Time="{Binding Hora, Mode=TwoWay}"
+                     FontSize="12"
+                     VerticalOptions="CenterAndExpand"/>
                 <Button
                 x:Name="btnGuardar"
                 IsEnabled="{Binding IsEnabled}"

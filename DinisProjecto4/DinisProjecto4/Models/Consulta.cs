@@ -25,6 +25,9 @@ namespace DinisProjecto4.Models
         {
             get;
         }
+        public DateTime Data { get; set; }
+
+        public string Color { get; set; }
 
         private async Task Select()
         {
