@@ -4,6 +4,7 @@
         x:Class="DinisProjecto4.MainPage"
        xmlns:pages="clr-namespace:DinisProjecto4.Views"
        BackgroundColor="#d3ffff"
+       Shell.ForegroundColor="#167ac6"
        Visual="Material">
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>

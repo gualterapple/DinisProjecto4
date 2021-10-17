@@ -42,8 +42,7 @@ namespace DinisProjecto4.Service
                     Especialidade = c.Object.Especialidade,
                     Horario = c.Object.Horario,
                     Descricao = c.Object.Descricao,
-                    Hospital = c.Object.Hospital,
-                    Data = c.Object.Data
+                    Hospital = c.Object.Hospital
                 }).Where(c => c.Paciente == paciente).ToList();
             return consultas;
         }

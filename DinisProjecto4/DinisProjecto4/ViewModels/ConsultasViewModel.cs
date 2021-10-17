@@ -101,14 +101,18 @@ namespace DinisProjecto4.ViewModels
                 Consultas = toObservablee(await this.consultasService.GetConsultas());
             }
 
+            //Consultas.OrderBy(c => c.Horario);
             ConsultasRecebe = Consultas;
 
             return Consultas;
         }
 
+     
+
         public async Task<ObservableCollection<Disponibilidade>> LoadDisponibilidades()
         {
             Disponibilidades = MainViewModel.GetInstance().disponibilidades.toObservablee(await this.disponibilidadesService.GetDisponibilidades());
+            Disponibilidades.OrderBy(d => d.Hora);
             return Disponibilidades;
         }
 
@@ -187,17 +191,15 @@ namespace DinisProjecto4.ViewModels
             foreach (var item in consultas)
             {
                 var cor = "";
-                var d1 = Convert.ToDateTime(item.Horario);
-                var d2 = Convert.ToDateTime(DateTime.Now);
+                var dConsulta = Convert.ToDateTime(item.Horario);
+                var dHoje = Convert.ToDateTime(DateTime.Now);
 
-                int result = DateTime.Compare(d1.Date, d2.Date);
-
-                if (result < 0)
-                    cor = "#61FF76";
-                else if (result == 0)
-                    cor = "#61FF76";
+                TimeSpan t =  dConsulta - dHoje;
+                double dias = t.TotalDays;
+                if(dias >= 0)
+                cor = "#61FF76";
                 else
-                    cor = "#FF5B3F";
+                cor = "#FF5B3F";
 
                 co.Add(
                     new Consulta
