@@ -41,7 +41,7 @@
                 <Label
                     TextColor="Black"
                 x:Name="dataNascimento"
-                Text="{Binding DataNascimento, Mode=TwoWay}"
+                Text="{Binding DataNascimento,StringFormat='{0:MM/dd/yyyy}'}"
                 FontSize="Medium"
                 VerticalOptions="CenterAndExpand"/>
                 <Label

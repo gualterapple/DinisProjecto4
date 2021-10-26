@@ -162,6 +162,7 @@ namespace DinisProjecto4.ViewModels
                     new User
                     {
                         FullName = item.FullName,
+                        DataNascimento = item.DataNascimento,
                         UserName = item.UserName,
                         Password = item.Password,
                         Perfil = item.Perfil,
@@ -179,6 +180,7 @@ namespace DinisProjecto4.ViewModels
                     new User
                     {
                         FullName = item.FullName,
+                        DataNascimento = item.DataNascimento,
                         UserName = item.UserName,
                         Password = item.Password,
                         Perfil = item.Perfil,

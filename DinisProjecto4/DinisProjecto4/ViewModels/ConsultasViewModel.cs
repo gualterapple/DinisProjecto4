@@ -197,9 +197,9 @@ namespace DinisProjecto4.ViewModels
                 TimeSpan t =  dConsulta - dHoje;
                 double dias = t.TotalDays;
                 if(dias >= 0)
-                cor = "#61FF76";
+                cor = "green";
                 else
-                cor = "#FF5B3F";
+                cor = "red";
 
                 co.Add(
                     new Consulta

@@ -8,7 +8,9 @@
     <ContentPage.Content>
         <StackLayout
             Margin="10">
-            <Grid ColumnDefinitions="*, 3*">
+            <Grid 
+                Margin="0,0,0,20"
+                ColumnDefinitions="*, 3*">
                 <Image 
                     Source="countdown"
                     WidthRequest="100"/>

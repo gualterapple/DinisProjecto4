@@ -8,7 +8,9 @@
     <ContentPage.Content>
         <StackLayout
             Margin="10">
-            <Grid ColumnDefinitions="*, 3*">
+            <Grid 
+                Margin="0,20"
+                ColumnDefinitions="*, 3*">
                 <Image 
                     Source="stethoscope"
                     WidthRequest="100"/>
@@ -40,7 +42,7 @@
                 Command="{Binding AddConsultaCommand}">
             </Button>
             <Frame
-                Margin="0"
+                Margin="0,0,0,10"
                 Padding="5">
                 <SearchBar
                 PlaceholderColor="White"
@@ -59,67 +61,88 @@
                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                     ItemsSource="{Binding Consultas, Mode=TwoWay}">
                     <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                        <LinearItemsLayout ItemSpacing="15" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame
-                                BackgroundColor="{Binding Color, Mode=TwoWay}"
+                                CornerRadius="25"
+                                BackgroundColor="White"
                                 HasShadow="False" 
-                                Padding="10">
+                                Padding="30,20,0,20">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectConsultaCommand}" />
                                 </Frame.GestureRecognizers>
                                 <Grid ColumnDefinitions="Auto">
                                     <Label
+                                        Padding="0"
+                                        TextColor="#55d7d7"
                                         Grid.Row="0"
                                         FontAttributes="Bold"
                                         FontSize="Large"
                                         Text="Paciente: "></Label>
                                     <Label
+                                        TextColor="#55d7d7"
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         FontAttributes="Bold"
                                         FontSize="Large"
                                         Text="{Binding Paciente, Mode=TwoWay}">
                                     </Label>
+                                    <Image
+                                        Margin="0,10,0,0"
+                                        HeightRequest="15"
+                                        Grid.Column="2"
+                                        Source="{Binding Color, Mode=TwoWay}"/>
                                     <Label
+                                        FontSize="Medium"
                                         Grid.Row="1"
                                         Grid.Column="0"
                                         Text="Hospital: ">
                                     </Label>
                                     <Label
+                                        FontSize="Medium"
                                         Grid.Row="1"
                                         Grid.Column="1"
+                                        Grid.ColumnSpan="2"
                                         Text="{Binding Hospital, Mode=TwoWay}">
                                     </Label>
                                     <Label
+                                        FontSize="Medium"
                                         Grid.Row="2"
                                         Grid.Column="0"
                                         Text="Médico: "></Label>
                                     <Label
+                                        FontSize="Medium"
                                         Grid.Row="2"
                                         Grid.Column="1"
+                                        Grid.ColumnSpan="2"
                                         Text="{Binding Medico, Mode=TwoWay}">
                                     </Label>
                                     <Label
+                                        FontSize="Medium"
                                         Grid.Row="3"
                                         Grid.Column="0"
                                         Text="Especialidade: ">
                                     </Label>
                                     <Label
+                                        FontSize="Medium"
                                         Grid.Row="3"
                                         Grid.Column="1"
+                                        Grid.ColumnSpan="2"
                                         Text="{Binding Especialidade, Mode=TwoWay}">
                                     </Label>
                                     <Label
+                                        FontSize="Medium"
                                         Grid.Column="0"
                                         Grid.Row="4"
                                         Text="Horario: ">
                                     </Label>
                                     <Label
+                                        FontSize="Medium"
                                         Grid.Column="1"
                                         Grid.Row="4"
+                                        Grid.ColumnSpan="2"
                                         Text="{Binding Horario, Mode=TwoWay}">
                                     </Label>
                                 </Grid>
