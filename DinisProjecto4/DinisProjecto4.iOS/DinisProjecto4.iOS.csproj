@@ -147,6 +147,8 @@
     <BundleResource Include="Resources\Femenino.png" />
     <BundleResource Include="Resources\Masculino.png" />
     <BundleResource Include="Resources\home.png" />
+    <BundleResource Include="Resources\green.png" />
+    <BundleResource Include="Resources\red.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\countdown.png" />
