@@ -9,110 +9,167 @@
             VerticalOptions="CenterAndExpand">
             <StackLayout
             Margin="20,20">
+
                 <Label
+                    Margin="10,0"
                     Text="Meus Dados"
-                    TextColor="Black"
-                    FontSize="Medium"
-                    HorizontalTextAlignment="Center"/>
+                    FontSize="Large"
+                    FontAttributes="Bold"
+                    TextColor="#3BBAC0"/>
+                <Image 
+                    Source="{Binding Genero}"
+                    WidthRequest="100"/>
                 <Label
+                    TextColor="#3BBAC0"
                     Text="Nome completo"
-                    FontSize="Medium"
-                    TextColor="Black">
+                    FontSize="Medium">
                 </Label>
                 <Label
-                TextColor="Black"
+                TextColor="#3C4F5C"
                 x:Name="fullName"
                 FontSize="Medium"
                 Text="{Binding FullName, Mode=TwoWay}">
                 </Label>
+                <Line X1="0"
+                    X2="350"
+                    StrokeLineCap="Round"
+                    Stroke="#3BBAC0"
+                    StrokeThickness="2" />
                 <Label
-                    TextColor="Black"
+                    TextColor="#3BBAC0"
                     FontSize="Medium"
                     Text="Utilizador"/>
                 <Label
-                    TextColor="Black"
+                    TextColor="#3C4F5C"
                     Text="{Binding UserName, Mode=TwoWay}"
                     FontSize="Medium"/>
+
+                <Line X1="0"
+                    X2="350"
+                    StrokeLineCap="Round"
+                    Stroke="#3BBAC0"
+                    StrokeThickness="2" />
                 <Label 
                      x:Name="labelNascimento"
                      Text="Data de nacimento:"
-                     TextColor="Black"
+                     TextColor="#3BBAC0"
                      FontSize="Medium"/>
                 <Label
-                    TextColor="Black"
+                    TextColor="#3C4F5C"
                 x:Name="dataNascimento"
                 Text="{Binding DataNascimento,StringFormat='{0:MM/dd/yyyy}'}"
                 FontSize="Medium"
                 VerticalOptions="CenterAndExpand"/>
+
+                <Line X1="0"
+                    X2="350"
+                    StrokeLineCap="Round"
+                    Stroke="#3BBAC0"
+                    StrokeThickness="2" />
                 <Label
                     Text="Genero"
-                    TextColor="Black"
+                    TextColor="#3BBAC0"
                     FontSize="Medium"/>
                 <Label
-                    TextColor="Black"
+                    TextColor="#3C4F5C"
                     x:Name="generoPicker"
                     Text="{Binding Genero}"
                     FontSize="Medium"/>
+
+                <Line X1="0"
+                    X2="350"
+                    StrokeLineCap="Round"
+                    Stroke="#3BBAC0"
+                    StrokeThickness="2" />
                 <Label
                     Text="Email"
-                    TextColor="Black"
+                    TextColor="#3BBAC0"
                     FontSize="Medium"/>
                 <Label
-                    TextColor="Black"
+                    TextColor="#3C4F5C"
                     x:Name="email"
                     Text="{Binding Email, Mode=TwoWay}"
                     FontSize="Medium"/>
+
+                <Line X1="0"
+                    X2="350"
+                    StrokeLineCap="Round"
+                    Stroke="#3BBAC0"
+                    StrokeThickness="2" />
                 <Label
                     Text="Endereço"
-                    TextColor="Black"
+                    TextColor="#3BBAC0"
                     FontSize="Medium"/>
                 <Label
-                    TextColor="Black"
+                    TextColor="#3C4F5C"
                 x:Name="endereco"
                 Text="{Binding Address, Mode=TwoWay}"
                 FontSize="Medium">
                 </Label>
+
+                <Line X1="0"
+                    X2="350"
+                    StrokeLineCap="Round"
+                    Stroke="#3BBAC0"
+                    StrokeThickness="2" />
                 <Label
                     Text="Telefone"
-                    TextColor="Black"
+                    TextColor="#3BBAC0"
                     FontSize="Medium"/>
                 <Label
-                    TextColor="Black"
+                    TextColor="#3C4F5C"
                 x:Name="telefone"
                 Text="{Binding Telefone, Mode=TwoWay}"
                 FontSize="Medium"/>
+
+                <Line X1="0"
+                    X2="350"
+                    StrokeLineCap="Round"
+                    Stroke="#3BBAC0"
+                    StrokeThickness="2" />
                 <Label
                     Text="Perfil"
-                    TextColor="Black"
+                    TextColor="#3BBAC0"
                     FontSize="Medium"/>
                 <Label
-                    TextColor="Black"
+                    TextColor="#3C4F5C"
                 x:Name="perfil"
                 Text="{Binding Perfil}"
                 FontSize="Medium"/>
+
+                <Line X1="0"
+                    X2="350"
+                    StrokeLineCap="Round"
+                    Stroke="#3BBAC0"
+                    StrokeThickness="2" />
                 <Label
                     x:Name="hospital_label"
                     Text="Hospital"
-                    TextColor="Black"
+                    TextColor="#3BBAC0"
                     FontSize="Medium"/>
                 <Label
-                    TextColor="Black"
+                    TextColor="#3C4F5C"
                 x:Name="hospital"
                 IsVisible="{Binding IsMedico, Mode=TwoWay}"
                 Text="{Binding Hospital}"
                 FontSize="Medium">
                 </Label>
+                <Line X1="0"
+                    X2="350"
+                    StrokeLineCap="Round"
+                    Stroke="#3BBAC0"
+                    StrokeThickness="2" />
                 <Label
                     x:Name="especialidade_label"
                     Text="Especialidade"
-                    TextColor="Black"
+                    TextColor="#3BBAC0"
                     FontSize="Medium"/>
                 <Label
-                    TextColor="Black"
                 x:Name="especialidade"
                 IsVisible="{Binding IsMedico, Mode=TwoWay}"
                 FontSize="Medium"
-                Text="{Binding Especialidade}"/>
+                Text="{Binding Especialidade}"
+                    TextColor="#3C4F5C"/>
                 <Button
                 x:Name="btnAtualizar"
                 IsEnabled="{Binding IsEnabled}"

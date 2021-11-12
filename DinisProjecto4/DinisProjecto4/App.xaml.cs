@@ -10,6 +10,7 @@ namespace DinisProjecto4
     {
         public App()
         {
+            Device.SetFlags(new string[] { "Expander_Experimental", "Shapes_Experimental", "SwipeView_Experimental" });
             Main = new MainViewModel();
             InitializeComponent();
             var page = new LoginPage();

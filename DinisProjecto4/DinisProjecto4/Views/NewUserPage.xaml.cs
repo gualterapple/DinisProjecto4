@@ -14,14 +14,14 @@ namespace DinisProjecto4.Views
             if (MainViewModel.GetInstance().newUser.IsNewRegister) 
             {
                 btnVoltar.IsVisible = true;
-                btnApagar.IsVisible = false;
+                //btnApagar.IsVisible = false;
                 btnAtualizar.IsVisible = false;
                 perfil.IsVisible = false;
             }
             else {
 
                 btnVoltar.IsVisible = false;
-                btnApagar.IsVisible = true;
+                //btnApagar.IsVisible = true;
                 btnAtualizar.IsVisible = true;
                 perfil.IsVisible = true;
 
@@ -40,13 +40,13 @@ namespace DinisProjecto4.Views
             if (!MainViewModel.GetInstance().newUser.IsEditing)
             {
                 btnGuardar.IsVisible = true;
-                btnApagar.IsVisible = false;
+                //btnApagar.IsVisible = false;
                 btnAtualizar.IsVisible = false;
             }
             else
             {
                 btnGuardar.IsVisible = false;
-                btnApagar.IsVisible = true;
+                //btnApagar.IsVisible = true;
                 btnAtualizar.IsVisible = true;
             }
 
