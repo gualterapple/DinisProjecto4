@@ -119,13 +119,13 @@
                 Text="Atualizar"
                 Command="{Binding AtualizarContaCommand}">
             </Button>
-            <Button
+            <!--Button
                 x:Name="btnApagar" 
                 BackgroundColor="red"
                 IsEnabled="{Binding IsEnabled}"
                 Text="Apagar"
                 Command="{Binding DeleteContaCommand}">
-            </Button>
+            </Button-->
             <ActivityIndicator
                 IsRunning="{Binding IsRunning, Mode=TwoWay}"
                 Color="#55d7d7"

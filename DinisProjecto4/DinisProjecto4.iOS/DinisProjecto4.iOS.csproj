@@ -151,4 +151,10 @@
   <ItemGroup>
     <BundleResource Include="Resources\countdown.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\red.png" />
+  </ItemGroup>
 </Project>
