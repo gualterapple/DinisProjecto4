@@ -11,6 +11,7 @@ namespace DinisProjecto4.Views
         {
             InitializeComponent();
             BindingContext = MainViewModel.GetInstance().newUser;
+            btnApagar.IsVisible = false;
             if (MainViewModel.GetInstance().newUser.IsNewRegister) 
             {
                 btnVoltar.IsVisible = true;
@@ -40,7 +41,6 @@ namespace DinisProjecto4.Views
             if (!MainViewModel.GetInstance().newUser.IsEditing)
             {
                 btnGuardar.IsVisible = true;
-                //btnApagar.IsVisible = false;
                 btnAtualizar.IsVisible = false;
             }
             else
@@ -50,10 +50,17 @@ namespace DinisProjecto4.Views
                 btnAtualizar.IsVisible = true;
             }
 
-            if (MainViewModel.GetInstance().Perfil == "Administrador")
+            if (MainViewModel.GetInstance().Perfil == "Administrador") 
+            {
                 perfil.IsVisible = true;
+                btnApagar.IsVisible = true;
+            }
+                
             else
+            {
                 perfil.IsVisible = false;
+                btnApagar.IsVisible = false;
+            }
 
             if (MainViewModel.GetInstance().newUser.IsNewRegister)
                 perfil.IsVisible = false;
