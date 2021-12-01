@@ -17,8 +17,8 @@ namespace DinisProjecto4.ViewModels
 
         public LoginViewModel()
         {
-            Email = "Dinis";
-            Password = "123";
+            /*Email = "Dinis";
+            Password = "123";*/
             MainViewModel.GetInstance().IsLogged = false;
             LoginCommand = new Command(async () => await Login());
             CriarContaCommand = new Command(async () => await Register());
