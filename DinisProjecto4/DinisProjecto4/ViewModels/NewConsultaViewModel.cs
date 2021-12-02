@@ -210,7 +210,7 @@ namespace DinisProjecto4.ViewModels
                 }
                     
             }
-            LoadDisponibilidade(Medico);
+            //LoadDisponibilidade(Medico);
 
         }
 
